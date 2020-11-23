@@ -2,7 +2,9 @@
   "problems": [
     {
       "id": 0,
-      "operations": [
+      "start": 0,
+      "goal": 23,
+      "functions": [
         {
           "symbol": "+",
           "value": 5,
@@ -21,12 +23,12 @@
           "stars": 1
         },
         {
-          "move_count": 8,
+          "move_count": 13,
           "move_relation": "or fewer",
           "stars": 2
         },
         {
-          "move_count": 10,
+          "move_count": 7,
           "move_count_symbol": "equal",
           "stars": 3
         }

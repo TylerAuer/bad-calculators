@@ -10,7 +10,7 @@ export default function Calculator() {
           Level 1
         </div>
         <div className="right">
-          * =3 ** <=5 ** <=8
+          {"* =3 ** <=5 ** <=8"}
         </div>
       </div>
       <div className="body">

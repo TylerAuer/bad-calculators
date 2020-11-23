@@ -1,43 +1,28 @@
 {
   "name": "bad-calculators",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.1.2",
-    "@testing-library/user-event": "^12.2.2",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.19.5",
-    "@types/react": "^16.9.56",
-    "@types/react-dom": "^16.9.9",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.0",
-    "typescript": "^4.0.5",
-    "web-vitals": "^0.2.4"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "spin:tsc-watch": "tsc -w",
+    "spin:server-start": "nodemon public/index.js",
+    "spin": "echo \"STARTING SERVER FOR DEVELOPMENT\n\" &&run-p spin:*",
+    "build:empty-public": "echo \"EMPTYING /public\n\" && rm -rf public",
+    "build:client": "echo \"BUILD CLIENT REACT APP\n\" && cd app && npm run build",
+    "build:move-client": "echo \"MOVE CLIENT FOLDERS\n\" && mkdir public && mv app/build public/app",
+    "build:server": "echo \"COMPILE SERVER\n\" && tsc",
+    "build": "run-s build:* --print-label",
+    "postinstall": "cd app && npm install"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/node": "^14.14.9",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.1.2"
   }
 }
