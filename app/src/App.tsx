@@ -1,12 +1,18 @@
 import React from 'react';
-import Header from './components/Header';
-import Calculator from './components/Calculator';
+import {HashRouter, Switch, Route} from 'react-router-dom';
+import LandingPage from './pages/root'
 
 function App() {
   return (
     <div>
-      <Header />
-      <Calculator />
+      <HashRouter>
+        <Switch>
+          <Route path='/puzzle/:id'/>
+          <Route path='/level/:id'/> 
+          <Route path='/build'/>
+          <Route path='/' component={LandingPage}/>
+        </Switch>
+      </HashRouter>
     </div>
   );
 }

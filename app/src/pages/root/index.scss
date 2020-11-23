@@ -1,0 +1,55 @@
+.background {
+  height: 100vh;
+  max-height: 160rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.title-container {
+  margin: 3rem 0;
+}
+
+.title {
+  font-size: 8rem;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+  margin: 2rem;
+}
+
+.subtitle {
+  font-size: 2.5rem;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn {
+  width: 60rem;
+  font-size: 2rem;
+  border: 1px solid black;
+  margin: 1rem 0;
+  padding: 1rem;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: white;
+    background-color: black;
+  }
+}
