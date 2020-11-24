@@ -1,8 +1,6 @@
-// USER AND ACCOUNT TYPES SHARED BETWEEN FRONT AND BACKENDS
-
-// A map of a user's progress where the key a puzzles unique id
 interface Progress {
-  [key: number]: {
+  [key: string]: {
+    // Unique puzzle id {level}_{id}
     attempts: number;
     stars: {
       [key: number]: boolean; // Key is the number of stars
@@ -18,5 +16,4 @@ interface User {
   progress?: Progress;
 }
 
-export const defaultIsSignedIn = (): boolean => false;
 export const defaultUserInfo = (): User | null => null;

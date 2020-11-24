@@ -29,11 +29,12 @@ interface Button {
 }
 
 interface Puzzle {
-  id: string;
+  id: string; // {LEVEL}_{ID} ex: A_1
   goal: number;
   start: number;
   starRequirements: Star[];
   functions: Button[];
+  creator: string;
   desc?: string;
 }
 

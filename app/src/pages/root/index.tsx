@@ -10,7 +10,7 @@ export default function LandingPage() {
       <div className="centered">
         <div className="title-container">
           <h1 className="title">Bad Calculators</h1>
-          <div className="subtitle">Puzzling and extremely unhelpful devices</div>
+          <div className="subtitle">Extremely puzzling and unhelpful devices</div>
         </div>
         <div className="login">
           <Link to="/level/0" className="btn">Sign in with Google</Link>
