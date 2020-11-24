@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import './Calculator.scss'
+import './index.scss'
 
-export default function Calculator() {
+export default function Puzzle() {
   return (
     <div id="calc">
       <div className="above">
@@ -26,8 +26,8 @@ export default function Calculator() {
         </div>
         <div className="controls">
           <button className='ctrl-btn' >Undo</button>
+          <button className='ctrl-btn' >Redo</button>
           <button className='ctrl-btn' >Reset</button>
-          <button className='ctrl-btn' >Off</button>
         </div>
       </div>
       <div className="below">
