@@ -1,9 +1,13 @@
 {
+  "level": "A",
+  "desc": "Level A questions are the simplest. They should be solvable by solvable by anyone who knows addition, subtraction, multiplication, or division.",
   "problems": [
     {
-      "id": 0,
+      "id": "A-1",
       "start": 0,
       "goal": 23,
+      "level": 0,
+      "desc": "Introductory question to demonstrate how the application works.",
       "functions": [
         {
           "symbol": "+",
@@ -32,8 +36,7 @@
           "move_count_symbol": "equal",
           "stars": 3
         }
-      ],
-      "desc": "Introductory question to demonstrate how the application works."
+      ]
     }
   ]
 }

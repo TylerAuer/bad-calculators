@@ -1,18 +1,3 @@
-/**
- * FUNCTIONS TO ADD
- *
- * To Binary
- * To Base 10
- * Floor
- * Ceiling
- * Square Root
- * Concat
- * Absolute Value
- * Reciprocal
- * Log
- * Collatzify --> (if even halve else 3n + 1)
- */
-
 const math = require('mathjs');
 
 module.exports = function genOperation(calculation) {
