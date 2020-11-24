@@ -3,38 +3,34 @@
   "desc": "Level A questions are the simplest. They should be solvable by solvable by anyone who knows addition, subtraction, multiplication, or division.",
   "problems": [
     {
-      "id": "A-1",
+      "id": "A_1",
+      "creator": "Tyler",
+      "desc": "Introductory question to demonstrate how the application works.",
       "start": 0,
       "goal": 23,
-      "level": 0,
-      "desc": "Introductory question to demonstrate how the application works.",
-      "functions": [
+      "operations": [
         {
-          "symbol": "+",
-          "value": 5,
-          "limit": null
+          "symbol": "add",
+          "value": 5
         },
         {
-          "symbol": "-",
-          "value": 1,
-          "limit": null
+          "symbol": "sub",
+          "value": 1
         }
       ],
       "stars": [
         {
-          "move_count": null,
-          "move_count_symbol": null,
-          "stars": 1
+          "value": 1
         },
         {
-          "move_count": 13,
-          "move_relation": "or fewer",
-          "stars": 2
+          "value": 2,
+          "moves": 13,
+          "goalRelation": "fewer"
         },
         {
-          "move_count": 7,
-          "move_count_symbol": "equal",
-          "stars": 3
+          "value": 3,
+          "moves": 7,
+          "goalRelation": "fewer"
         }
       ]
     }

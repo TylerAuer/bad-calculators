@@ -1,17 +1,22 @@
-import * as React from 'react';
+import {Puzzle} from '../../../../structs/puzzle'
+
+import Goals from './Goals'
 
 import './index.scss'
 
-export default function Puzzle() {
+///////////////////////////////
+// Load puzzle for development
+import json from '../../../../puzzles/level_a/data.json'
+const puz = json.problems[0] as Puzzle
+///////////////////////////////
+
+export default function PuzzlePage() {
+  const [level, id] = puz.id.split('_')
+  
   return (
     <div id="calc">
       <div className="above">
-        <div className="left">
-          Level 1
-        </div>
-        <div className="right">
-          {"* =3 ** <=5 ** <=8"}
-        </div>
+        <Goals stars={puz.stars}/>
       </div>
       <div className="body">
         <div className="screen">
@@ -32,6 +37,7 @@ export default function Puzzle() {
       </div>
       <div className="below">
         <div className="left">
+          Puzzle {level}{id} by {puz.creator}
         </div>
         <div className="right">
           Moves Made: 2

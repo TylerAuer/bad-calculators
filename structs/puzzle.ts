@@ -1,43 +1,42 @@
-interface Star {
+export interface Star {
   value: number; // How many pts it is worth
-  goalRelation: 'more' | 'fewer' | 'exactly';
-  moves: number;
+  moves?: number;
+  goalRelation?: 'more' | 'fewer' | 'exactly';
 }
 
-enum Op {
-  'add', // Addition
-  'sub', // Subtraction
-  'mult', // Multiplication
-  'div', // Division
-  'pow', // Exponentiation
-  'mod', // Modulus
-  'fact', // Factorial
-  'root', // Radical
-  'floor', // Floot
-  'ceil', // Ceiling
-  'base', // Convert to base ____
-  'collatz', // If even then halve, else * 3 + 1
-  'recip', // Switch to reciprocal
-  'abs', // Absolute value
-  'concat', // Concat with ___
-}
+export type Op =
+  | 'add'
+  | 'sub'
+  | 'mult'
+  | 'div'
+  | 'pow'
+  | 'mod'
+  | 'fact'
+  | 'root'
+  | 'floor'
+  | 'ceil'
+  | 'base'
+  | 'collatz'
+  | 'recip'
+  | 'abs'
+  | 'concat';
 
-interface Button {
+export interface Button {
   symbol: Op;
-  limit: number;
   value?: number;
+  limit?: number;
 }
 
-interface Puzzle {
+export interface Puzzle {
   id: string; // {LEVEL}_{ID} ex: A_1
-  goal: number;
-  start: number;
-  stars: Star[];
-  operations: Button[];
   creator: string;
+  desc?: string;
+  start: number;
+  goal: number;
+  operations: Button[];
+  stars: Star[];
   failCount?: number;
   successCount?: number;
-  desc?: string;
 }
 
 export const defaultPuzzle = (): Puzzle | null => null;

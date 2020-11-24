@@ -1,0 +1,35 @@
+.goal-list {
+  display: flex;
+  justify-content: right;
+}
+
+.goal {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 1rem;
+
+  &:not(:last-child) {
+    margin-right: 3rem;
+  }
+}
+
+.goal-value {
+  text-align: center;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.star-icon {
+  margin: 0 3px;
+}
+
+.star-group {
+  font-size: 4rem;
+  line-height: 1;
+  // margin: 1rem 0;
+}
+
+.star-success {
+  color: gold;
+}
