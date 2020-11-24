@@ -1,7 +1,7 @@
-import { Star } from '../../../../structs/puzzle'
+import { Star } from '../../structs/puzzle'
 import './Goals.scss'
 
-interface props {
+interface Props {
   stars: Star[]
 }
 
@@ -11,7 +11,7 @@ const goalMap = {
   more: '≥'
 }
 
-export default function Stars({stars}: props) {
+export default function Stars({stars}: Props) {
   const sucess = true;
 
   const elems = stars.map(s => {

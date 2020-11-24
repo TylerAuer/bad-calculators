@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { defaultPuzzle } from '../../../structs/puzzle';
+import { defaultPuzzle } from '../structs/puzzle';
 
 // ATOMS ///////////////////////////////////////////////////////////////////////
 
@@ -8,14 +8,19 @@ export const puzzle = atom({
   default: defaultPuzzle(),
 });
 
-export const puzzleHistory = atom({
-  key: 'puzzleHistory',
+export const moveHistory = atom({
+  key: 'moveHistory',
   default: [] as number[],
 });
 
-export const puzzleFuture = atom({
-  key: 'puzzleFuture',
+export const moveFuture = atom({
+  key: 'moveFuture',
   default: [] as number[],
+});
+
+export const screenVal = atom({
+  key: 'screenVal',
+  default: 0,
 });
 
 // SELECTORS ///////////////////////////////////////////////////////////////////

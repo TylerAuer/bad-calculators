@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { defaultUserInfo } from '../../../structs/user';
+import { defaultUserInfo } from '../structs/user';
 
 // ATOMS ///////////////////////////////////////////////////////////////////////
 

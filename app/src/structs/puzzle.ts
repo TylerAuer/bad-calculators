@@ -4,25 +4,26 @@ export interface Star {
   goalRelation?: 'more' | 'fewer' | 'exactly';
 }
 
-export type Op =
-  | 'add'
-  | 'sub'
-  | 'mult'
-  | 'div'
-  | 'pow'
-  | 'mod'
-  | 'fact'
-  | 'root'
-  | 'floor'
-  | 'ceil'
-  | 'base'
-  | 'collatz'
-  | 'recip'
-  | 'abs'
-  | 'concat';
+export enum OpType {
+  'add' = 'add',
+  'sub' = 'sub',
+  'mult' = 'mult',
+  'div' = 'div',
+  'pow' = 'pow',
+  'mod' = 'mod',
+  'fact' = 'fact',
+  'root' = 'root',
+  'floor' = 'floor',
+  'ceil' = 'ceil',
+  'base' = 'base',
+  'collatz' = 'collatz',
+  'recip' = 'recip',
+  'abs' = 'abs',
+  'concat' = 'concat',
+}
 
-export interface Button {
-  symbol: Op;
+export interface OpInfo {
+  symbol: string; // Has to be an OpType
   value?: number;
   limit?: number;
 }
@@ -33,7 +34,7 @@ export interface Puzzle {
   desc?: string;
   start: number;
   goal: number;
-  operations: Button[];
+  operations: OpInfo[];
   stars: Star[];
   failCount?: number;
   successCount?: number;
