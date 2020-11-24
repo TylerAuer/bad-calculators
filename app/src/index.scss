@@ -1,13 +1,14 @@
 // Import Roboto Mono font family
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,600;1,400&display=swap');
 
-:root {
-  // For variables
-}
+// FOR VARIABLES
+// :root {}
 
 html {
   box-sizing: border-box;
   font-size: 62.5%; // 1rem = 10px, 10px/16px = 62.5%
+  padding: 0;
+  margin: 0;
 
   // @media only screen and (max-width: $bp-large) {
   //   font-size: 50%;
@@ -17,5 +18,10 @@ html {
 body {
   font-family: 'Roboto Mono', monospace;
   line-height: 1.6;
-  min-height: 100vh;
+  margin: 0;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
 }
