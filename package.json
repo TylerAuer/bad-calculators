@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "spin:tsc-watch": "tsc -w",
-    "spin:server-start": "nodemon public/index.js",
+    "spin:server-start": "nodemon public/server.js",
     "spin": "echo \"STARTING SERVER FOR DEVELOPMENT\n\" &&run-p spin:*",
     "build:empty-public": "echo \"EMPTYING /public\n\" && rm -rf public",
     "build:client": "echo \"BUILD CLIENT REACT APP\n\" && cd app && npm run build",
