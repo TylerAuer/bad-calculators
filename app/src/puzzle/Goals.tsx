@@ -1,9 +1,9 @@
-import { Star } from '../structs/puzzle'
-import './Goals.scss'
+import {useRecoilValue} from 'recoil';
+import {puzzle} from '../state/puzzle';
+import {userInfo} from '../state/user';
+import {useParams} from 'react-router-dom';
 
-interface Props {
-  stars: Star[]
-}
+import './Goals.scss'
 
 const goalMap = {
   exactly: '=',
@@ -11,10 +11,23 @@ const goalMap = {
   more: '≥'
 }
 
-export default function Stars({stars}: Props) {
-  const sucess = true;
+interface Params {
+  puz_id: string;
+}
+
+
+export default function Stars() {
+  const {stars} = useRecoilValue(puzzle);
+  const {progress} = useRecoilValue(userInfo);
+  const {puz_id} = useParams<Params>()
+  
+  const usersCurPuzProgress = progress[puz_id]
+  const usersGoalStatus = usersCurPuzProgress.stars
 
   const elems = stars.map(s => {
+    const starVal = s.value.toString()
+    const hasMetGoal = usersGoalStatus[starVal]
+
     const stars = []
     for (let i = 0; i < s.value ; i++ ) {
       stars.push(<span key={i} className='star-icon'>★</span>)
@@ -27,7 +40,7 @@ export default function Stars({stars}: Props) {
           `${goalMap[s.goalRelation]}${s.moves}` 
           : '∞'}
       </div>
-      <div className={`star-group ${sucess ? 'star-success' : ''}`}>
+      <div className={`star-group ${hasMetGoal ? 'star-success' : ''}`}>
         {stars}
       </div>
     </div>

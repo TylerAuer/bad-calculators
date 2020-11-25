@@ -4,7 +4,7 @@ import { Puzzle } from '../structs/puzzle';
 
 // TESTING PUZZLE //////////////////////////////////////////////////////////////
 const testPuz: Puzzle = {
-  uniqueId: 0,
+  id: 0,
   label: 'A1',
   disabled: false,
   creator: 'Tyler',

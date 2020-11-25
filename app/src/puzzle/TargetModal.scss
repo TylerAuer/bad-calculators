@@ -2,6 +2,18 @@
   padding: 3rem;
 
   &__title {
-    font-size: 3rem;
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  &__body {
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  &__msg {
+    margin: 3rem 0;
   }
 }

@@ -29,7 +29,7 @@ export interface OpInfo {
 }
 
 export interface Puzzle {
-  uniqueId: number;
+  id: number;
   label: string; // ex: A1 for {level}{index + 1}
   disabled: boolean;
   creator: string;

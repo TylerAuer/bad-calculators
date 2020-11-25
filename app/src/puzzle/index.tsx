@@ -10,10 +10,11 @@ import './index.scss'
 import TargetModal from './TargetModal';
 
 export default function PuzzlePage() {
+  // Global State
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
   const [user, setUser] = useRecoilState(userInfo)
-  
+  // Component State
   const [open, setOpen] = useState(false)
   
   // Hides calculator until puzzle is loaded
@@ -31,7 +32,7 @@ export default function PuzzlePage() {
       <TargetModal open={open} setOpen={setOpen}/>
 
       <div className="calc__above">
-        <Goals stars={puz.stars}/>
+        <Goals/>
       </div>
       
       <div className="calc__body">

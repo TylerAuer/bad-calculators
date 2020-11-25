@@ -12,9 +12,8 @@ function App() {
         <Header />
         <HashRouter>
           <Switch>
-            <Route path='/puzzle/:id'/>
-            <Route path='/level/:id'/> 
-            <Route path='/test' component={Puzzle}/> 
+            <Route path='/puzzle/:puz_id' component={Puzzle}/>
+            <Route path='/level/:level_id'/> 
             <Route path='/build'/>
             <Route path='/' component={LandingPage}/>
           </Switch>
