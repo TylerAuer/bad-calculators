@@ -1,13 +1,14 @@
+// STATE & HOOKS
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
-
 import useLoadPuzzle from '../hooks/useLoadPuzzle'
-
+// COMPONENTS
 import Goals from './Goals'
 import CalcFunctions from './CalcFunctions';
 import TargetModal from './TargetModal';
+// UTILS, DATA, FILES
 
 import './index.scss'
 
@@ -19,7 +20,6 @@ export default function PuzzlePage() {
   // Component State
   const [open, setOpen] = useState(false)
   const {puz_id} = useParams<Params>()
-  
   // Global State
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
