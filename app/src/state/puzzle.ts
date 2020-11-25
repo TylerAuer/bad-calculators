@@ -4,11 +4,14 @@ import { Puzzle } from '../structs/puzzle';
 
 // TESTING PUZZLE //////////////////////////////////////////////////////////////
 const testPuz: Puzzle = {
-  id: 'A_1',
+  uniqueId: 0,
+  label: 'A1',
+  disabled: false,
   creator: 'Tyler',
-  desc: 'Introductory question to demonstrate how the application works.',
+  desc: 'Adding and subtracting with simple min and equal goal.',
   start: 0,
-  goal: 23,
+  target: 23,
+  maxMoves: null,
   operations: [
     {
       symbol: 'add',
@@ -19,19 +22,20 @@ const testPuz: Puzzle = {
       value: 1,
     },
   ],
+  blocks: [],
   stars: [
     {
       value: 1,
     },
     {
       value: 2,
-      moves: 13,
+      moves: 7,
       goalRelation: 'fewer',
     },
     {
       value: 3,
-      moves: 7,
-      goalRelation: 'fewer',
+      moves: 13,
+      goalRelation: 'exactly',
     },
   ],
 };

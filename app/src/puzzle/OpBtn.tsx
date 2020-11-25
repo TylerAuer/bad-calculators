@@ -8,6 +8,7 @@ import {
 
 import './OpBtn.scss';
 import genOpBtnTextAndOp from '../utils/genOpBtnTextAndOp';
+import CalcBtn from './CalcBtn';
 
 interface Props {
   info: OpInfo;
@@ -32,7 +33,5 @@ export default function OpBtn({ info }: Props) {
   }
 
 
-  return (
-    <button className="op-btn" onClick={handleClick}>{text}</button>
-  )
+  return <CalcBtn onClick={handleClick}>{text}</CalcBtn>
 }

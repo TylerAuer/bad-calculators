@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { defaultUserInfo } from '../structs/user';
 
 // ATOMS ///////////////////////////////////////////////////////////////////////
@@ -14,3 +14,11 @@ export const userInfo = atom({
 });
 
 // SELECTORS ///////////////////////////////////////////////////////////////////
+
+export const starCount = selector({
+  key: 'starCount',
+  get: ({ get }) => {
+    const { progress } = get(userInfo);
+    console.log(progress);
+  },
+});

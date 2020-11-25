@@ -5,10 +5,11 @@ import {
   puzzleStates,
 } from '../state/puzzle';
 
+import CalcBtn from './CalcBtn';
 import OpBtn from './OpBtn'
 
 
-export default function CalcBtns () {
+export default function CalcFunctions () {
   const puz = useRecoilValue(puzzle)
   const [puzStates, setPuzStates] = useRecoilState(puzzleStates)
   const [redo, setRedo] = useRecoilState(redoStates)
@@ -34,17 +35,17 @@ export default function CalcBtns () {
     }
   }
   
-  const listOfOpBtns = puz.operations.map((op, i) => <OpBtn  key={i} info={op}/>)
+  const listOfOpBtns = puz.operations.map((op, i) => <OpBtn key={i} info={op}/>)
 
   return (
     <>
-      <div className="functions">
+      <div className="calc__functions">
         {listOfOpBtns}
       </div>
-      <div className="controls">
-        <button className='ctrl-btn' onClick={handleUndo} >Undo</button>
-        <button className='ctrl-btn' onClick={handleRedo}>Redo</button>
-        <button className='ctrl-btn' onClick={handleReset}>Reset</button>
+      <div className="calc__controls">
+        <CalcBtn onClick={handleUndo}>Undo</CalcBtn>
+        <CalcBtn onClick={handleRedo}>Redo</CalcBtn>
+        <CalcBtn onClick={handleReset}>Reset</CalcBtn>
       </div>
     </>
     )  

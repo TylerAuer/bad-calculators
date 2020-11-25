@@ -1,0 +1,23 @@
+@import '../variables.scss';
+
+.calc-btn {
+  font-size: 4rem;
+  border-radius: 5px;
+  margin: 1rem;
+  padding: 1rem;
+  width: 15rem;
+  border: 2px solid $grey-pretty-light;
+  transition: all 0.2s;
+  cursor: pointer;
+  outline: none;
+
+  &:hover,
+  &:focus-visible {
+    border-color: transparent;
+    @include neu-shadow;
+  }
+
+  &:active {
+    @include neu-shadow-inset;
+  }
+}

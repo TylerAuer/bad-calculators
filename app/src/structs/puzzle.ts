@@ -29,15 +29,17 @@ export interface OpInfo {
 }
 
 export interface Puzzle {
-  id: string; // {LEVEL}_{ID} ex: A_1
+  uniqueId: number;
+  label: string; // ex: A1 for {level}{index + 1}
+  disabled: boolean;
   creator: string;
   desc?: string;
   start: number;
-  goal: number;
+  target: number;
+  maxMoves: number | null;
   operations: OpInfo[];
+  blocks: number[];
   stars: Star[];
-  failCount?: number;
-  successCount?: number;
 }
 
 export const defaultPuzzle = (): Puzzle | null => null;

@@ -1,0 +1,20 @@
+// COLORS
+$grey-very-light: #f0f0f0;
+$grey-pretty-light: #d7d7d7;
+$grey-light: #cdcdcd;
+$grey: #8c8c8c;
+$grey-dark: #505050;
+$grey-very-dark: #292929;
+
+// MIXINS
+@mixin neu-shadow {
+  border-radius: 5px;
+  background: $grey-very-light;
+  box-shadow: 6px 6px 15px $grey-light, -6px -6px 15px #ffffff;
+}
+
+@mixin neu-shadow-inset {
+  border-radius: 5px;
+  background: $grey-very-light;
+  box-shadow: inset 6px 6px 15px $grey-light, inset -6px -6px 15px #ffffff;
+}

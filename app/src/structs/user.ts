@@ -13,7 +13,9 @@ interface User {
   first?: string;
   last?: string;
   authId?: string;
-  progress?: Progress;
+  progress: Progress;
 }
 
-export const defaultUserInfo = (): User | null => null;
+export const defaultUserInfo = (): User => ({
+  progress: {},
+});

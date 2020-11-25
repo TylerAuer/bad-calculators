@@ -1,0 +1,45 @@
+{
+  "levels": {
+    "A": {
+      "desc": "Level A questions are the simplest. They should be solvable by anyone who knows addition, subtraction, multiplication, and division.",
+      "puzzles": [
+        {
+          "uniqueId": 0,
+          "label": "A1",
+          "disabled": false,
+          "creator": "Tyler",
+          "desc": "Adding and subtracting with simple min and equal goal.",
+          "start": 0,
+          "target": 23,
+          "maxMoves": null,
+          "operations": [
+            {
+              "symbol": "add",
+              "value": 5
+            },
+            {
+              "symbol": "sub",
+              "value": 1
+            }
+          ],
+          "blocks": [],
+          "stars": [
+            {
+              "value": 1
+            },
+            {
+              "value": 2,
+              "moves": 7,
+              "goalRelation": "fewer"
+            },
+            {
+              "value": 3,
+              "moves": 13,
+              "goalRelation": "exactly"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

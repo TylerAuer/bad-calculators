@@ -1,47 +1,53 @@
-import {Puzzle} from '../structs/puzzle'
-
+import {useState} from 'react';
 import {useRecoilValue, useRecoilState} from 'recoil';
-import {puzzle, puzzleStates, redoStates } from '../state/puzzle'
+import {puzzle, puzzleStates} from '../state/puzzle'
+import {userInfo} from '../state/user'
 
 import Goals from './Goals'
-import CalcBtns from './CalcBtns';
+import CalcFunctions from './CalcFunctions';
 
 import './index.scss'
+import TargetModal from './TargetModal';
 
 export default function PuzzlePage() {
-  // const [future, setFuture] = useRecoilState(moveFuture)
   const puz = useRecoilValue(puzzle)
-  const [puzStates, setPuzStates] = useRecoilState(puzzleStates)
-
+  const puzStates = useRecoilValue(puzzleStates)
+  const [user, setUser] = useRecoilState(userInfo)
+  
+  const [open, setOpen] = useState(false)
+  
   // Hides calculator until puzzle is loaded
   if (!puz || !puzStates.length) return null
 
   const currentState = puzStates[puzStates.length - 1]
-  
-  const [level, id] = puz.id.split('_')
+
+  // Opens modal if at target value
+  if (currentState.val === puz.target && !open) {
+    setOpen(true)
+  }
   
   return (
-    <div id="calc">
-      <div className="above">
+    <div className="calc">
+      <TargetModal open={open} setOpen={setOpen}/>
+
+      <div className="calc__above">
         <Goals stars={puz.stars}/>
       </div>
-      <div className="body">
-        <div className="screen">
-          {currentState.val}
+      
+      <div className="calc__body">
+        <div className="calc__screen">{currentState.val}</div>
+        <div className="calc__meta">
+          <div className="calc__moves">Moves: {puzStates.length - 1}</div>
+          <div className="calc__target">Target: {puz.target}</div>
         </div>
-        <div className="goal-msg">
-          Reach {puz.goal} to earn the stars above.
-        </div>
-        <CalcBtns />
+        <CalcFunctions />
       </div>
-      <div className="below">
-        <div className="left">
-          Puzzle {level}{id} by {puz.creator}
-        </div>
-        <div className="right">
-          Moves Made: {puzStates.length - 1}
-        </div>
+      
+      <div className="calc__below">
+        <div className="calc__left"></div>
+        <div className="calc__right">Puzzle {puz.label} by {puz.creator}</div>
       </div>
+
     </div>
   )
 }
