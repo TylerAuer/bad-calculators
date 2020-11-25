@@ -16,13 +16,14 @@ interface Params {
 }
 
 export default function PuzzlePage() {
+  // Component State
+  const [open, setOpen] = useState(false)
+  const {puz_id} = useParams<Params>()
+  
   // Global State
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
   
-  // Component State
-  const [open, setOpen] = useState(false)
-  const {puz_id} = useParams<Params>()
 
   // Loads puzzle, user's progress, and initial state for puzzle
   useEffect(() => {

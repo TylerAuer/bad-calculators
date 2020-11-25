@@ -1,6 +1,10 @@
 .target-modal {
   padding: 3rem;
 
+  &__container {
+    border-radius: 5px;
+  }
+
   &__title {
     font-size: 5rem;
     font-weight: bold;
