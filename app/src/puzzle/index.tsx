@@ -1,8 +1,9 @@
 // STATE & HOOKS
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useRecoilValue} from 'recoil';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
+import {isSuccessModalOpen} from '../state/ui'
 import useLoadPuzzle from '../hooks/useLoadPuzzle'
 // COMPONENTS
 import Goals from './Goals'
@@ -17,18 +18,17 @@ interface Params {
 }
 
 export default function PuzzlePage() {
-  // Component State
-  const [open, setOpen] = useState(false)
-  const {puz_id} = useParams<Params>()
-  // Global State
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
+  const setIsModalOpen = useSetRecoilState(isSuccessModalOpen)
+
+  const {puz_id} = useParams<Params>()
   
 
   // Loads puzzle, user's progress, and initial state for puzzle
   useEffect(() => {
-    setOpen(false) // Close Modal if open when new puzzle loads
-  }, [puz_id]); 
+    setIsModalOpen(false) // Close Modal if open when new puzzle loads
+  }, [puz_id, setIsModalOpen]); 
 
   useLoadPuzzle(puz_id)
 
@@ -38,13 +38,13 @@ export default function PuzzlePage() {
   const currentState = puzStates[puzStates.length - 1]
 
   // Opens modal if at target value
-  if (currentState.val === puz.target && !open) {
-    setOpen(true)
+  if (currentState.val === puz.target) {
+    setIsModalOpen(true)
   }
   
   return (
     <div className="calc">
-      <TargetModal open={open} setOpen={setOpen}/>
+      <TargetModal/>
 
       <div className="calc__above">
         <Goals/>

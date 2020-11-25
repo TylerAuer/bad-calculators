@@ -1,20 +1,16 @@
 import React from 'react';
-import {useRecoilValue} from 'recoil';
+import {useRecoilValue, useRecoilState} from 'recoil';
 import {puzzleStates} from '../state/puzzle';
+import {isSuccessModalOpen} from '../state/ui';
 import { Modal } from 'react-responsive-modal';
 import Goals from './Goals'
 
 import 'react-responsive-modal/styles.css';
 import './TargetModal.scss'
 
-interface Props {
-  open: boolean,
-  setOpen: (open: boolean) => void,
-}
-
-export default function TargetModal ({open, setOpen}: Props) {
+export default function TargetModal () {
   const puzStates = useRecoilValue(puzzleStates)
-
+  const [open, setOpen] = useRecoilState(isSuccessModalOpen)
   const moves = puzStates.length - 1
 
   return (
