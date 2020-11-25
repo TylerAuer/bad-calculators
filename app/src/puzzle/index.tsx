@@ -1,15 +1,14 @@
-// STATE & HOOKS
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
+import {userInfo} from '../state/user'
 import {isSuccessModalOpen} from '../state/ui'
 import useLoadPuzzle from '../hooks/useLoadPuzzle'
-// COMPONENTS
+
 import Goals from './Goals'
 import CalcFunctions from './CalcFunctions';
 import TargetModal from './TargetModal';
-// UTILS, DATA, FILES
 
 import './index.scss'
 
@@ -20,28 +19,77 @@ interface Params {
 export default function PuzzlePage() {
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
+  const setUser = useSetRecoilState(userInfo)
   const setIsModalOpen = useSetRecoilState(isSuccessModalOpen)
 
   const {puz_id} = useParams<Params>()
   
-
-  // Loads puzzle, user's progress, and initial state for puzzle
+  // Close modal if it is open when the component first mounts
+  // or when the puz_id changes
   useEffect(() => {
     setIsModalOpen(false) // Close Modal if open when new puzzle loads
   }, [puz_id, setIsModalOpen]); 
 
+  // Load the puzzle if it isn't yet loaded
   useLoadPuzzle(puz_id)
 
-  // Hides calculator until puzzle is loaded
+  // Hide calculator until puzzle is loaded
   if (!puz || !puzStates.length) return null
 
   const currentState = puzStates[puzStates.length - 1]
 
-  // Opens modal if at target value
-  if (currentState.val === puz.target) {
-    setIsModalOpen(true)
-  }
   
+  const handleSolvePuzzle = () => {
+    // Get array of goals
+    if (!puz) return;
+    const { stars } = puz;
+    
+    const moveCount = puzStates.length - 1;
+    
+    // List of goals just met
+    const goalsMet = [] as number[];
+    
+    stars.forEach((s) => {
+      // Handle different goal possibilities
+      if (
+        (!s.moves) || // Handle goal with no move limit
+        (s.goalRelation === 'more' && moveCount > s.moves) ||
+        (s.goalRelation === 'exactly' && moveCount === s.moves) ||
+        (s.goalRelation === 'fewer' && moveCount <= s.moves)
+        ) {
+          goalsMet.push(s.value);
+        }
+      });
+    
+    setUser((prev) => {
+      // Update the newStars
+      const newStars = {...prev.progress[puz_id].stars}
+      goalsMet.forEach(goal => {
+        newStars[goal] = true
+      })
+
+      // Return the updated UserInfo object
+      return {
+        ...prev,
+        progress: {
+          ...prev.progress,
+          [puz_id]: {
+            ...prev.progress[puz_id],
+            stars: newStars
+          }
+        }
+      }
+    })
+
+  }
+    
+    
+    // Opens modal if at target value
+    if (currentState.val === puz.target) {
+      setIsModalOpen(true)
+      handleSolvePuzzle()
+    }
+
   return (
     <div className="calc">
       <TargetModal/>

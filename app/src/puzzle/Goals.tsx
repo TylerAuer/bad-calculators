@@ -8,7 +8,7 @@ import './Goals.scss'
 const goalMap = {
   exactly: '=',
   fewer: '≤',
-  more: '≥'
+  more: '>'
 }
 
 interface Params {
