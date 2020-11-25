@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: flex-end;
   margin: 1rem;
+  width: 12rem;
 
   &:not(:last-child) {
     margin-right: 3rem;
@@ -27,7 +28,7 @@
 .star-group {
   font-size: 4rem;
   line-height: 1;
-  // margin: 1rem 0;
+  text-align: center;
 }
 
 .star-success {

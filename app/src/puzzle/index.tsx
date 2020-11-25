@@ -29,6 +29,9 @@ export default function PuzzlePage() {
         <div className="screen">
           {currentState.val}
         </div>
+        <div className="goal-msg">
+          Reach {puz.goal} to earn the stars above.
+        </div>
         <CalcBtns />
       </div>
       <div className="below">
