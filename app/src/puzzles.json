@@ -44,7 +44,7 @@
     "creator": "Tyler",
     "desc": "Quick puzzle with a negative number",
     "start": 11,
-    "target": 14,
+    "target": 15,
     "maxMoves": null,
     "operations": [
       {

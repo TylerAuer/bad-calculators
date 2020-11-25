@@ -28,7 +28,7 @@ export default function TargetModal () {
           <div className="target-modal__title">Success!</div>
           <div className='target-modal__body'>
             <div className='target-modal__msg'>You solved this puzzle in {moves} moves.</div>
-            <Goals/>
+            <div className="target-modal__goals"><Goals/></div>
           </div>
         </div>
     </Modal>
