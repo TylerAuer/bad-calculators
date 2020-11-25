@@ -17,12 +17,22 @@ interface Params {
 
 
 export default function Stars() {
-  const {stars} = useRecoilValue(puzzle);
+  const puz = useRecoilValue(puzzle);
   const {progress} = useRecoilValue(userInfo);
   const {puz_id} = useParams<Params>()
   
+  // Don't render until a puzzle is loaded
+  if (!puz) return null
+  
+  const {stars} = puz
+  
   const usersCurPuzProgress = progress[puz_id]
+  
+  // Don't render if there is no star data
+  if (!usersCurPuzProgress) return null
+  
   const usersGoalStatus = usersCurPuzProgress.stars
+  
 
   const elems = stars.map(s => {
     const starVal = s.value.toString()

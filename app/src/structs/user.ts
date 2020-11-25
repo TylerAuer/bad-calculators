@@ -1,11 +1,11 @@
-interface Progress {
-  [key: string]: {
-    // Unique puzzle id
-    attempts?: number;
-    stars: {
-      [key: string]: boolean; // Key is the number of stars
-    };
+export interface PuzProgress {
+  stars: {
+    [key: string]: boolean; // Key is the number of stars
   };
+}
+
+interface AllProgress {
+  [key: string]: PuzProgress;
 }
 
 interface User {
@@ -13,15 +13,9 @@ interface User {
   first?: string;
   last?: string;
   authId?: string;
-  progress: Progress;
+  progress: AllProgress;
 }
 
 export const defaultUserInfo = (): User => ({
-  progress: {
-    '0': {
-      stars: {
-        '1': true,
-      },
-    },
-  },
+  progress: {},
 });

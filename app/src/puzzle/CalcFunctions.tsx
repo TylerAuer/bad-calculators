@@ -14,6 +14,9 @@ export default function CalcFunctions () {
   const [puzStates, setPuzStates] = useRecoilState(puzzleStates)
   const [redo, setRedo] = useRecoilState(redoStates)
 
+  // Don't render until a puzzle is loaded
+  if (!puz) return null
+
   const handleReset = () => {
     setPuzStates((prev) => prev.slice(0, 1))
     setRedo([])
