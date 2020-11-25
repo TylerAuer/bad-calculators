@@ -19,7 +19,10 @@ export default function TargetModal () {
       onClose={() => setOpen(false)} 
       center
       closeOnOverlayClick={false}
-      classNames={{modal: 'target-modal__container'}}
+      classNames={{
+        modal: 'target-modal__container',
+        closeButton: 'target-modal__close-btn'
+      }}
     >
         <div className="target-modal">
           <div className="target-modal__title">Success!</div>

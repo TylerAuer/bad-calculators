@@ -1,8 +1,18 @@
+@import '../variables.scss';
+
 .target-modal {
   padding: 3rem;
 
   &__container {
     border-radius: 5px;
+  }
+
+  &__close-btn {
+    &:focus,
+    &:hover {
+      fill: $red;
+      outline: none;
+    }
   }
 
   &__title {
