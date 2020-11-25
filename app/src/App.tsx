@@ -1,8 +1,8 @@
 import React from 'react';
 import {HashRouter, Switch, Route} from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Puzzle from './pages/puzzle';
-import LandingPage from './pages/root'
+import Puzzle from './puzzle';
+import LandingPage from './landing'
 
 function App() {
   return (

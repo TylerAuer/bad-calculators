@@ -1,4 +1,4 @@
-import { Star } from '../../structs/puzzle'
+import { Star } from '../structs/puzzle'
 import './Goals.scss'
 
 interface Props {
