@@ -18,7 +18,7 @@ export default function () {
   });
 
   // Sync sequelize models to DB
-  db.sequelize.sync({ force: true });
+  db.sequelize.sync();
 
   // Force HTTPS - Needed for HTTPS on Heroku
   app.use(forceHttps);
