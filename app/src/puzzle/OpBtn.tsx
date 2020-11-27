@@ -6,7 +6,6 @@ import {
   puzzleStates,
 } from '../state/puzzle';
 
-import './OpBtn.scss';
 import genOpBtnTextAndOp from '../utils/genOpBtnTextAndOp';
 import CalcBtn from './CalcBtn';
 
