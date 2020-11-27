@@ -1,8 +1,13 @@
 import express from 'express';
-import staticRouter from '../routers/static';
+import path from 'path';
+import appRouter from '../routers/app';
+import authRouter from '../routers/auth';
+import levelRouter from '../routers/level';
+import logRouter from '../routers/log';
+import puzzleRouter from '../routers/puzzle';
 const forceHttps = require('express-force-https');
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
 
 export default async function (sessionStore) {
   const app = express();
@@ -28,10 +33,14 @@ export default async function (sessionStore) {
   );
 
   // Set up app as source of static files
-  app.use(express.static(__dirname + '/../app'));
+  app.use(express.static(path.resolve(__dirname + '/../../app')));
 
   // Load Routers
-  app.use('/', staticRouter);
+  app.use('/', appRouter);
+  app.use('/auth', authRouter);
+  app.use('/level', levelRouter);
+  app.use('/log', logRouter);
+  app.use('/puzzle', puzzleRouter);
 
   return app;
 }

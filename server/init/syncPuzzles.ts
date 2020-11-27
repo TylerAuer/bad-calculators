@@ -10,27 +10,24 @@ export default async function () {
   let newPuzzleCount = 0;
   let oldPuzzleCount = 0;
 
-  await updatePuzzles();
+  const puzzleFilenameList = fs.readdirSync(__dirname + '/../../puzzles');
 
-  console.log(' ');
-  console.log(`Verifying ${newPuzzleCount + oldPuzzleCount} puzzles in DB`);
-  console.log(`Loaded ${newPuzzleCount} new puzzles.`);
-  console.log(`Checked for updates in ${oldPuzzleCount} old puzzles.`);
-  console.log(' ');
+  for (let filename of puzzleFilenameList) {
+    const { puzzle } = require(__dirname + '/../../puzzles/' + filename);
 
-  async function updatePuzzles() {
-    fs.readdirSync(__dirname + '/../../puzzles').forEach(async (filename) => {
-      const { puzzle } = require(__dirname + '/../../puzzles/' + filename);
+    const foundPuzzle = await BC_Puzzle.findOne({ where: { id: puzzle.id } });
 
-      const foundPuzzle = await BC_Puzzle.findOne({ where: { id: puzzle.id } });
-
-      if (foundPuzzle) {
-        oldPuzzleCount++;
-        await BC_Puzzle.update({ ...puzzle }, { where: { id: puzzle.id } });
-      } else {
-        newPuzzleCount++;
-        await BC_Puzzle.create({ ...puzzle });
-      }
-    });
+    if (foundPuzzle) {
+      oldPuzzleCount++;
+      await BC_Puzzle.update({ ...puzzle }, { where: { id: puzzle.id } });
+    } else {
+      newPuzzleCount++;
+      await BC_Puzzle.create({ ...puzzle });
+    }
   }
+
+  console.log(' ');
+  console.log(`${newPuzzleCount + oldPuzzleCount} puzzles found in /puzzles`);
+  console.log(`${newPuzzleCount} new and ${oldPuzzleCount} old synced with DB`);
+  console.log(' ');
 }
