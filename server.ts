@@ -23,8 +23,11 @@ app.get('/', (req: Request, res: Response): void => {
 // /auth/google
 // /auth/googlecallback
 
+// GET A DATA
+// /api/puzzle/:id
+// /api/level/:id
+
 // LOG FOR USER AND PUZZLE
 
 // /api/log/attempt/:id
-// /api/log/success/:id
 // /api/log/fail/:id

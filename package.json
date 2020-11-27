@@ -12,7 +12,8 @@
     "build:move-client": "echo \"MOVE CLIENT FOLDERS\n\" && mkdir public && mv app/build public/app",
     "build:server": "echo \"COMPILE SERVER\n\" && tsc",
     "build": "run-s build:* --print-label",
-    "postinstall": "cd app && npm install"
+    "postinstall": "cd app && npm install",
+    "start": "cd app && npm start"
   },
   "author": "",
   "license": "ISC",

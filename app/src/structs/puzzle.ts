@@ -34,13 +34,14 @@ export interface Puzzle {
   label: string; // ex: A1 for {level}{index + 1}
   disabled: boolean;
   creator: string;
-  desc?: string;
   start: number;
   target: number;
   maxMoves: number | null;
   operations: OpInfo[];
   blocks: number[];
   stars: Star[];
+  attemptCount?: number;
+  successCount?: number;
 }
 
 export const defaultPuzzle = (): Puzzle | null => null;

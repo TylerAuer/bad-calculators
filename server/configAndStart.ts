@@ -3,6 +3,7 @@ const forceHttps = require('express-force-https');
 const session = require('express-session');
 const passport = require('passport');
 const db = require('./orm/models');
+import loadNewPuzzlesIntoDb from './loadNewPuzzlesIntoDb';
 
 const port = process.env.PORT || 4000;
 
@@ -17,7 +18,7 @@ export default function () {
   });
 
   // Sync sequelize models to DB
-  db.sequelize.sync();
+  db.sequelize.sync({ force: true });
 
   // Force HTTPS - Needed for HTTPS on Heroku
   app.use(forceHttps);
@@ -38,6 +39,9 @@ export default function () {
       },
     })
   );
+
+  // Load puzzles into DB
+  loadNewPuzzlesIntoDb();
 
   app.listen(port, () => {
     console.log(`Server open to connections @ http://localhost:${port}`);

@@ -12,14 +12,64 @@ module.exports = (sequelize, DataTypes) => {
   }
   BC_Puzzle.init(
     {
-      failCount: DataTypes.INTEGER,
-      successCount: DataTypes.INTEGER,
-      stars: DataTypes.JSON,
-      start: DataTypes.FLOAT,
-      goal: DataTypes.FLOAT,
-      operations: DataTypes.JSON,
-      desc: DataTypes.STRING,
-      creator: DataTypes.STRING,
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
+      level: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      label: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      disabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      creator: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'Tyler',
+      },
+      start: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      target: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      maxMoves: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
+      operations: {
+        type: DataTypes.JSON,
+        allowNull: false,
+      },
+      stars: {
+        type: DataTypes.JSON,
+        allowNull: false,
+      },
+      blocks: {
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
+      attemptCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      successCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,
