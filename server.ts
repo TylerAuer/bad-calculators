@@ -1,33 +1,22 @@
-import express, { Request, Response } from 'express';
-import configAndStart from './server/configAndStart';
+import connectToDb from './server/init/connectToDb';
+import syncPuzzles from './server/init/syncPuzzles';
+import addMiddleware from './server/init/addMiddleware';
 
-////////////////////////////////////////////////////////////////////////////////
-// INIT AND CONFIGURE EXPRESS //////////////////////////////////////////////////
+startServer();
 
-const app = configAndStart();
+async function startServer() {
+  const port = process.env.PORT || 4000;
 
-////////////////////////////////////////////////////////////////////////////////
-// SERVE CLIENT APP AND STATIC FILES ///////////////////////////////////////////
+  // Connect to DB and create a table for sessions
+  const sessionStore = await connectToDb();
 
-app.use(express.static(__dirname + '/app'));
+  // Update puzzles table in DB to match the puzzles in /puzzles
+  await syncPuzzles();
 
-app.get('/', (req: Request, res: Response): void => {
-  res.sendFile(__dirname + '/app/index.html');
-});
+  // Configure and initialize Express App
+  const app = await addMiddleware(sessionStore);
 
-////////////////////////////////////////////////////////////////////////////////
-// API /////////////////////////////////////////////////////////////////////////
-
-// AUTH ROUTES
-
-// /auth/google
-// /auth/googlecallback
-
-// GET A DATA
-// /api/puzzle/:id
-// /api/level/:id
-
-// LOG FOR USER AND PUZZLE
-
-// /api/log/attempt/:id
-// /api/log/fail/:id
+  app.listen(port, () => {
+    console.log(`Server open to connections @ http://localhost:${port}`);
+  });
+}

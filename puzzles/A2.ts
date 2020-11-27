@@ -2,9 +2,9 @@ import { Puzzle } from '../app/src/structs/puzzle';
 
 /**
 
-PUZZLE A1
+PUZZLE A2
 
-Adding and subtracting with simple min and equal goal.
+Add 3s or 5s to get the target values
 
 */
 
