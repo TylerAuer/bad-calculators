@@ -62,7 +62,7 @@ export default function PuzzlePage() {
         }
       });
       
-    setIsModalOpen(true)
+    if (!modalIsOpen) setIsModalOpen(true)
     setUser((prev) => {
       // Update the newStars
       const newStars = {...prev.progress[puz_id].stars}

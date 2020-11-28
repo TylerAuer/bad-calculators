@@ -23,7 +23,7 @@ export enum OpType {
 }
 
 export interface OpInfo {
-  symbol: string; // Has to be an OpType
+  symbol: OpType; // Has to be an OpType
   value?: number;
   limit?: number;
 }

@@ -1,4 +1,4 @@
-import { Puzzle } from '../app/src/structs/puzzle';
+import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 /**
 
@@ -19,15 +19,15 @@ export const puzzle: Puzzle = {
   maxMoves: null,
   operations: [
     {
-      symbol: 'add',
+      symbol: OpType.add,
       value: 5,
     },
     {
-      symbol: 'add',
+      symbol: OpType.add,
       value: 3,
     },
     {
-      symbol: 'sub',
+      symbol: OpType.sub,
       value: 16,
     },
   ],

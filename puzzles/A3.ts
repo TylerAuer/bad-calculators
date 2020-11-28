@@ -2,29 +2,33 @@ import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 /**
 
-PUZZLE A1
+PUZZLE A3
 
-Adding and subtracting with simple min and equal goal.
+Multiplying by zero is needed to hit the third goal
 
 */
 
 export const puzzle: Puzzle = {
-  id: 0,
+  id: 2,
   level: 'A',
-  label: 'A1',
+  label: 'A3',
   disabled: false,
   creator: 'Tyler',
-  start: 0,
-  target: 23,
+  start: 9,
+  target: 3,
   maxMoves: null,
   operations: [
     {
+      symbol: OpType.mult,
+      value: 0,
+    },
+    {
       symbol: OpType.add,
-      value: 5,
+      value: 1,
     },
     {
       symbol: OpType.sub,
-      value: 1,
+      value: 2,
     },
   ],
   blocks: [],
@@ -34,12 +38,12 @@ export const puzzle: Puzzle = {
     },
     {
       value: 2,
-      moves: 7,
-      goalRelation: 'fewer',
+      moves: 3,
+      goalRelation: 'exactly',
     },
     {
       value: 3,
-      moves: 13,
+      moves: 4,
       goalRelation: 'exactly',
     },
   ],
