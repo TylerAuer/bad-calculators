@@ -4,10 +4,6 @@ Extremely puzzling and unhelpful devices
 
 ## To Do
 
-- Finish implementing puzzle by:
-  - Tracking and displaying when puzzle is completed (updating progress)
-  - Build selector that shows progress on current puzzle
-  - Shows overall stars earned
-  - Shows total stars possible
-- Extract Calc Button to its own component with its own styles
+- Shows total stars possible
 - Implement levels page, with loading of puzzles when clicked on
+- Request puzzle data from backend

@@ -19,6 +19,17 @@ export const starCount = selector({
   key: 'starCount',
   get: ({ get }) => {
     const { progress } = get(userInfo);
-    console.log(progress);
+    let stars = 0;
+
+    Object.values(progress).forEach((puz) => {
+      Object.entries(puz.stars).forEach(([val, earned]) => {
+        if (earned) {
+          console.log(earned, val);
+          stars += parseInt(val, 10);
+        }
+      });
+    });
+
+    return stars;
   },
 });
