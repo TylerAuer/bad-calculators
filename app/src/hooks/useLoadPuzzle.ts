@@ -1,27 +1,22 @@
 import { Puzzle } from '../structs/puzzle';
 import { PuzProgress } from '../structs/user';
-import { puzzle, puzzleStates } from '../state/puzzle';
 
-import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { puzzle, puzzleStates } from '../state/puzzle';
 import { userInfo } from '../state/user';
 
-import puzzleData from '../puzzles.json';
-
-interface PuzData {
-  [key: string]: Puzzle;
-}
-
-export default function useLoadPuzzle(id: string) {
-  const setPuz = useSetRecoilState(puzzle);
+export default async function useLoadPuzzle(id: string) {
+  const [puz, setPuz] = useRecoilState(puzzle);
   const setPuzStates = useSetRecoilState(puzzleStates);
   const [user, setUser] = useRecoilState(userInfo);
 
-  // Load puzzle data and assign type
-  const puzzleList = puzzleData as PuzData;
-
-  useEffect(() => {
-    const currentPuz = puzzleList[id];
+  // If there isn't a puzzle loaded or
+  // the current puzzle's id doesn't match the url param
+  // then load the correct puzzle
+  if (!puz || puz.id !== parseInt(id)) {
+    // TODO: Add a check for a 404 error. If 404 redirect to 404 page
+    const res = await fetch(`/puzzle/${id}`);
+    const currentPuz: Puzzle = await res.json();
 
     setPuz(currentPuz); // Load puzzle into state
     setPuzStates([{ val: currentPuz.start, limits: [] }]); // Load initial state
@@ -44,5 +39,5 @@ export default function useLoadPuzzle(id: string) {
         },
       }));
     }
-  }, [id, puzzleList, setPuz, setPuzStates, setUser, user]);
+  }
 }

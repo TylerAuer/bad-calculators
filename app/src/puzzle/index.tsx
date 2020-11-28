@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {useRecoilValue, useSetRecoilState, useRecoilState} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
 import {userInfo} from '../state/user'
 import {isSuccessModalOpen} from '../state/ui'
@@ -8,7 +8,7 @@ import useLoadPuzzle from '../hooks/useLoadPuzzle'
 
 import Goals from './Goals'
 import CalcFunctions from './CalcFunctions';
-import TargetModal from './TargetModal';
+import SuccessModal from './SuccessModal';
 
 import './index.scss'
 
@@ -20,16 +20,17 @@ export default function PuzzlePage() {
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
   const setUser = useSetRecoilState(userInfo)
-  const setIsModalOpen = useSetRecoilState(isSuccessModalOpen)
+  const [modalIsOpen, setIsModalOpen] = useRecoilState(isSuccessModalOpen)
 
   const {puz_id} = useParams<Params>()
+  
   
   // Close modal if it is open when the component first mounts
   // or when the puz_id changes
   useEffect(() => {
     setIsModalOpen(false) // Close Modal if open when new puzzle loads
   }, [puz_id, setIsModalOpen]); 
-
+  
   // Load the puzzle if it isn't yet loaded
   useLoadPuzzle(puz_id)
 
@@ -60,7 +61,8 @@ export default function PuzzlePage() {
           goalsMet.push(s.value);
         }
       });
-    
+      
+    setIsModalOpen(true)
     setUser((prev) => {
       // Update the newStars
       const newStars = {...prev.progress[puz_id].stars}
@@ -84,15 +86,14 @@ export default function PuzzlePage() {
   }
     
     
-    // Opens modal if at target value
-    if (currentState.val === puz.target) {
-      setIsModalOpen(true)
-      handleSolvePuzzle()
-    }
+  // Opens modal if at target value
+  if (currentState.val === puz.target && !modalIsOpen) {
+    handleSolvePuzzle()
+  }
 
   return (
     <div className="calc">
-      <TargetModal/>
+      <SuccessModal/>
 
       <div className="calc__above">
         <Goals/>
@@ -108,7 +109,7 @@ export default function PuzzlePage() {
       </div>
       
       <div className="calc__below">
-        <div className="calc__left"></div>
+        <div className="calc__left">Attempts: {puz.attemptCount}</div>
         <div className="calc__right">Puzzle {puz.label} by {puz.creator}</div>
       </div>
 
