@@ -1,26 +1,34 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 /**
- * Very easy puzzle with addition and subtraction
+ *
  */
 
 export const puzzle: Puzzle = {
-  id: 0,
-  level: 1,
+  id: 3,
+  level: 2,
   indexInLevel: 1,
   disabled: false,
   creator: 'Tyler',
-  start: 0,
-  target: 23,
+  start: 1,
+  target: 0.903,
   maxMoves: null,
   operations: [
     {
       symbol: OpType.add,
-      value: 5,
+      value: 0.1,
     },
     {
       symbol: OpType.sub,
-      value: 1,
+      value: 0.1,
+    },
+    {
+      symbol: OpType.mult,
+      value: 10,
+    },
+    {
+      symbol: OpType.div,
+      value: 10,
     },
   ],
   blocks: [],
@@ -30,13 +38,13 @@ export const puzzle: Puzzle = {
     },
     {
       value: 2,
-      moves: 7,
+      moves: 14,
       goalRelation: 'fewer',
     },
     {
       value: 3,
-      moves: 13,
-      goalRelation: 'exactly',
+      moves: 9,
+      goalRelation: 'fewer',
     },
   ],
 };

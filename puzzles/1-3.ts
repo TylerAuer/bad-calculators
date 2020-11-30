@@ -1,12 +1,8 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 /**
-
-PUZZLE A3
-
-Multiplying by zero is needed to hit the third goal
-
-*/
+ * Very easy puzzle with multiplication, addition, and subtraction
+ */
 
 export const puzzle: Puzzle = {
   id: 2,

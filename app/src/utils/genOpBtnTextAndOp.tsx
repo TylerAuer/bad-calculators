@@ -5,9 +5,14 @@ interface Output {
   op: (prev: number) => number,
 }
 
+/**
+ * Generates unary operations which are used to update the calculators screen
+ */
 export default function genOpBtnTextAndOp({
-  symbol, 
-  value = 0, 
+  symbol,
+  // Some ops don't include another operand (like factorial)
+  // So assign default values to avoid annoying type checking in all others
+  value = 0,
   limit = Infinity
   }: OpInfo): Output {
 

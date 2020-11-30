@@ -1,7 +1,7 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 /**
- * Very easy puzzle with addition and subtraction
+ *
  */
 
 export const puzzle: Puzzle = {
@@ -18,25 +18,13 @@ export const puzzle: Puzzle = {
       symbol: OpType.add,
       value: 5,
     },
-    {
-      symbol: OpType.sub,
-      value: 1,
-    },
   ],
   blocks: [],
   stars: [
     {
       value: 1,
-    },
-    {
-      value: 2,
       moves: 7,
       goalRelation: 'fewer',
-    },
-    {
-      value: 3,
-      moves: 13,
-      goalRelation: 'exactly',
     },
   ],
 };

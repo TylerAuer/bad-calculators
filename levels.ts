@@ -4,7 +4,7 @@ export const levels: { [key: string]: Level } = {
   '1': {
     id: 1,
     levelBelow: null,
-    levelAbove: null,
+    levelAbove: 2,
     puzIndexes: [],
     desc:
       'Quick puzzles using arithmetic operations that introduce the structure of the puzzles.',

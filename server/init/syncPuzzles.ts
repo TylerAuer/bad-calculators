@@ -6,6 +6,8 @@ const { BC_Puzzle } = require('../orm/models');
  * if they aren't yet there.
  */
 
+const filesToSkip = ['template.js', 'buildNewPuzzle.js', 'stats.js'];
+
 export default async function () {
   let newPuzzleCount = 0;
   let oldPuzzleCount = 0;
@@ -13,6 +15,8 @@ export default async function () {
   const puzzleFilenameList = fs.readdirSync(__dirname + '/../../puzzles');
 
   for (let filename of puzzleFilenameList) {
+    if (filesToSkip.includes(filename)) continue;
+
     const { puzzle } = require(__dirname + '/../../puzzles/' + filename);
 
     const foundPuzzle = await BC_Puzzle.findOne({ where: { id: puzzle.id } });

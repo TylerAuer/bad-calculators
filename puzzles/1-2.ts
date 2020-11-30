@@ -1,12 +1,8 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 /**
-
-PUZZLE A2
-
-Add 3s or 5s to get the target values
-
-*/
+ * Very easy puzzle with addition and subtraction
+ */
 
 export const puzzle: Puzzle = {
   id: 1,
