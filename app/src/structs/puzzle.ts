@@ -5,21 +5,22 @@ export interface Star {
 }
 
 export enum OpType {
-  'add' = 'add',
-  'sub' = 'sub',
-  'mult' = 'mult',
-  'div' = 'div',
-  'pow' = 'pow',
-  'mod' = 'mod',
-  'fact' = 'fact',
+  'add' = 'addition',
+  'sub' = 'subtraction',
+  'mult' = 'multiplication',
+  'div' = 'division',
+  'pow' = 'power',
+  'mod' = 'modulo',
+  'fact' = 'factorial',
   'root' = 'root',
   'floor' = 'floor',
-  'ceil' = 'ceil',
-  'base' = 'base',
+  'ceil' = 'ceiling',
+  'base2' = 'base2',
   'collatz' = 'collatz',
-  'recip' = 'recip',
-  'abs' = 'abs',
-  'concat' = 'concat',
+  'recip' = 'reciprocal',
+  'abs' = 'absolute value',
+  'concat' = 'concatenate',
+  'reverse' = 'reverse_digits',
 }
 
 export interface OpInfo {
