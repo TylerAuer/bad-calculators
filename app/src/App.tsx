@@ -2,8 +2,9 @@ import React from 'react';
 import {HashRouter, Switch, Route} from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import Header from './components/Header'
-import Puzzle from './puzzle';
+import PuzzlePage from './puzzle';
 import LandingPage from './landing'
+import LevelPage from './levels';
 
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
         <Header />
         <HashRouter>
           <Switch>
-            <Route path='/puzzle/:puz_id' component={Puzzle}/>
-            <Route path='/level/:level_id'/> 
+            <Route path='/puzzle/:puz_id' component={PuzzlePage}/>
+            <Route path='/level/:level_id' component={LevelPage}/> 
             <Route path='/build'/>
             <Route path='/' component={LandingPage}/>
           </Switch>

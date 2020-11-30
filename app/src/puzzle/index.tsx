@@ -35,7 +35,7 @@ export default function PuzzlePage() {
   useLoadPuzzle(puz_id)
 
   // Hide calculator until puzzle is loaded
-  if (!puz || !puzStates.length) return null
+  if (!puz || !puzStates.length || puz_id !== puz.id.toString()) return null
 
   const currentState = puzStates[puzStates.length - 1]
 

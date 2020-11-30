@@ -13,8 +13,8 @@ export default function LandingPage() {
           <div className="subtitle">Extremely puzzling and unhelpful devices</div>
         </div>
         <div className="login">
-          <Link to="/level/0" className="btn">Sign in with Google</Link>
-          <Link to="/level/0" className="btn">Try without saving your progress</Link>
+          <Link to="/level/1" className="btn">Sign in with Google</Link>
+          <Link to="/level/1" className="btn">Try without saving your progress</Link>
         </div>
       </div>
     </div>

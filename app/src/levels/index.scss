@@ -1,0 +1,100 @@
+@import '../variables.scss';
+
+.lvl-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80rem;
+  margin: 0 auto;
+
+  &__header {
+    margin: 3rem 0;
+  }
+
+  &__title {
+    font-size: 5rem;
+    font-weight: 600;
+  }
+
+  &__desc {
+    font-size: 2rem;
+  }
+
+  &__list-of-puzzles {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &__puzzle-btn {
+    height: 5rem;
+    width: 5rem;
+    margin: 1rem;
+    color: $grey-very-dark;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    outline: none;
+    border: 2px solid $grey-light;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      border-color: transparent;
+      @include neu-shadow;
+    }
+
+    &:active {
+      border-color: transparent;
+      @include neu-shadow-inset;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 5rem 0;
+  }
+
+  &__left {
+  }
+
+  &__mid {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__right {
+  }
+
+  &__level-btn {
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: 2px solid $grey-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    outline: none;
+    color: $grey-very-dark;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      border-color: transparent;
+      @include neu-shadow;
+    }
+
+    &:active {
+      border-color: transparent;
+      @include neu-shadow-inset;
+    }
+  }
+}

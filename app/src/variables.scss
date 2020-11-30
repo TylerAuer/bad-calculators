@@ -10,13 +10,11 @@ $red: #eb4f4f;
 
 // MIXINS
 @mixin neu-shadow {
-  border-radius: 5px;
   background: $grey-very-light;
   box-shadow: 6px 6px 15px $grey-light, -6px -6px 15px #ffffff;
 }
 
 @mixin neu-shadow-inset {
-  border-radius: 5px;
   background: $grey-very-light;
-  box-shadow: inset 6px 6px 15px $grey-light, inset -6px -6px 15px #ffffff;
+  box-shadow: inset 4px 4px 8px $grey-light, inset -4px -4px 8px #ffffff;
 }

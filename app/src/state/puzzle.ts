@@ -1,6 +1,5 @@
 import { atom } from 'recoil';
 import { Puzzle } from '../structs/puzzle';
-// import { defaultPuzzle } from '../structs/puzzle';
 
 // SHAPES //////////////////////////////////////////////////////////////////////
 
