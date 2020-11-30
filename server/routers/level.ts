@@ -1,6 +1,8 @@
 import express from 'express';
+import getLevel from '../endpoints/getLevel';
+
 const router = express.Router();
 
-// /api/level/:id
+router.get('/:id', getLevel);
 
 export default router;
