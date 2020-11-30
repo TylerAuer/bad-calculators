@@ -5,26 +5,46 @@ interface Output {
   op: (prev: number) => number,
 }
 
-export default function genOpBtnTextAndOp(info: OpInfo): Output {
+export default function genOpBtnTextAndOp({
+  symbol, 
+  value = 0, 
+  limit = Infinity
+  }: OpInfo): Output {
+
   // Used to determine when to wrap in parentheses for readability
-  const isValNegative = info.value && info.value < 0
+  const isValNegative = value && value < 0
   
-  if (info.symbol === OpType.add) {
-    // Addition
-    const add = (prev: number) => prev + (info.value as number);
-    const text = isValNegative ? `+ (${info.value})` : `+ ${info.value}`
-    return ({ text, op: add});
-  } else if (info.symbol === OpType.sub) {
-    // Subtraction
-    const sub = (prev: number) => prev - (info.value as number);
-    const text = isValNegative ? `- (${info.value})` : `- ${info.value}`
-    return ({ text, op: sub});
-  } else if (info.symbol === OpType.mult) {
-    // Multiplication
-    const mult = (prev: number) => prev * (info.value as number);
-    const text = isValNegative ? `× (${info.value})` : `× ${info.value}`
-    return ({ text, op: mult});
-  }
-   
-  throw new Error('Invalid symbol passed in info.symbol')
+  switch (symbol) {
+    case OpType.add: {
+      const op = (prev: number) => handleFloats(prev + value);
+      const text = isValNegative ? `+ (${value})` : `+ ${value}`
+      return ({ text, op});
+    }
+    
+    case OpType.sub: {
+      const op = (prev: number) => handleFloats(prev - value);
+      const text = isValNegative ? `- (${value})` : `- ${value}`
+      return ({ text, op});
+    }
+    
+    case OpType.mult: {
+      const op = (prev: number) => handleFloats(prev * value);
+      const text = isValNegative ? `× (${value})` : `× ${value}`
+      return ({ text, op});
+    }
+    
+    case OpType.div: {
+      const op = (prev: number) => handleFloats(prev / value);
+      const text = isValNegative ? `÷ (${value})` : `÷ ${value}`
+      return ({ text, op});
+    }
+    
+    default: 
+      throw new Error('Invalid symbol passed in info.symbol')
+  } 
+}
+
+// Rounds numbers for the purposes of 
+function handleFloats(n: number) {
+  return parseFloat(n.toPrecision(8))
 }
