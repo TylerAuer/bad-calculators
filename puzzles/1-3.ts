@@ -11,7 +11,7 @@ Multiplying by zero is needed to hit the third goal
 export const puzzle: Puzzle = {
   id: 2,
   level: 1,
-  label: '1-3',
+  indexInLevel: 3,
   disabled: false,
   creator: 'Tyler',
   start: 9,

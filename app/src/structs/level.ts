@@ -1,7 +1,9 @@
 export interface Level {
   id: number;
-  puzzles: number[];
   desc: string;
+  puzIndexes: {
+    id: number;
+  }[];
   levelBelow: number | null;
   levelAbove: number | null;
 }

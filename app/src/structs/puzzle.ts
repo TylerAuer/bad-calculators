@@ -32,7 +32,7 @@ export interface OpInfo {
 export interface Puzzle {
   id: number;
   level: number;
-  label: string; // ex: A1 for {level}{index + 1}
+  indexInLevel: number;
   disabled: boolean;
   creator: string;
   start: number;

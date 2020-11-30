@@ -11,7 +11,7 @@ Add 3s or 5s to get the target values
 export const puzzle: Puzzle = {
   id: 1,
   level: 1,
-  label: '1-2',
+  indexInLevel: 2,
   disabled: false,
   creator: 'Tyler',
   start: 20,

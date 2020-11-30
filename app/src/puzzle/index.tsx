@@ -110,7 +110,7 @@ export default function PuzzlePage() {
       
       <div className="calc__below">
         <div className="calc__left">Attempts: {puz.attemptCount}</div>
-        <div className="calc__right">Puzzle {puz.label} by {puz.creator}</div>
+        <div className="calc__right">Puzzle {puz.level}-{puz.indexInLevel} by {puz.creator}</div>
       </div>
 
     </div>

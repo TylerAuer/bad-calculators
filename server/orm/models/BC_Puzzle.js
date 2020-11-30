@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      label: {
-        type: DataTypes.STRING,
+      indexInLevel: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       disabled: {

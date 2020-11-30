@@ -35,8 +35,8 @@ export default function LevelPage() {
         <div className="lvl-page__desc">{lvl.desc}</div>
       </div>
       <div className="lvl-page__list-of-puzzles">
-        {lvl.puzzles.map((puzId, i) => (
-          <button key={i} className='lvl-page__puzzle-btn' onClick={() => onPuzClick(puzId)}>{i+1}</button>
+        {lvl.puzIndexes.map(({id}, i) => (
+          <button key={i} className='lvl-page__puzzle-btn' onClick={() => onPuzClick(id)}>{i+1}</button>
         ))}
       </div>
       <div className="lvl-page__nav">
