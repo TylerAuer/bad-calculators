@@ -34,4 +34,22 @@
   &__goals {
     justify-content: center;
   }
+
+  &__btn {
+    font-family: inherit;
+    font-size: 2rem;
+    padding: 1.5rem 2rem;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 3rem;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: white;
+      background-color: black;
+    }
+  }
 }

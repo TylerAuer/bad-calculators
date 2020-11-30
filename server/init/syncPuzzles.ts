@@ -16,7 +16,6 @@ export default async function () {
     const { puzzle } = require(__dirname + '/../../puzzles/' + filename);
 
     const foundPuzzle = await BC_Puzzle.findOne({ where: { id: puzzle.id } });
-    console.log(foundPuzzle);
 
     if (foundPuzzle) {
       oldPuzzleCount++;
