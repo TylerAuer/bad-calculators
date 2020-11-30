@@ -10,8 +10,8 @@ Adding and subtracting with simple min and equal goal.
 
 export const puzzle: Puzzle = {
   id: 0,
-  level: 'A',
-  label: 'A1',
+  level: 1,
+  label: '1-1',
   disabled: false,
   creator: 'Tyler',
   start: 0,

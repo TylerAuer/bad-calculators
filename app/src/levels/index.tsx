@@ -1,4 +1,4 @@
-import {Link, useParams, useHistory} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 import {level} from '../state/level';
 import useLoadLevel from '../hooks/useLoadLevel'
@@ -14,7 +14,6 @@ export default function LevelPage() {
   const {level_id} = useParams<Params>() 
   const history = useHistory()
 
-  console.log(lvl);
   // Load level if needed
   useLoadLevel(level_id)
 

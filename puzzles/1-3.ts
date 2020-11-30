@@ -10,8 +10,8 @@ Multiplying by zero is needed to hit the third goal
 
 export const puzzle: Puzzle = {
   id: 2,
-  level: 'A',
-  label: 'A3',
+  level: 1,
+  label: '1-3',
   disabled: false,
   creator: 'Tyler',
   start: 9,
