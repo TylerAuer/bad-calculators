@@ -29,7 +29,7 @@ export default function PuzzlePage() {
   // or when the puz_id changes
   useEffect(() => {
     setIsModalOpen(false) // Close Modal if open when new puzzle loads
-  }, [puz_id, setIsModalOpen]); 
+  }, [puz_id, setIsModalOpen]);
   
   // Load the puzzle if it isn't yet loaded
   useLoadPuzzle(puz_id)

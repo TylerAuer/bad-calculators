@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { levels } from '../../levels';
+import { levels } from '../../puzzles/levels';
 import db from '../orm/models';
 
 /**
@@ -12,6 +12,10 @@ export default async function (
 ) {
   const { id } = req.params;
   const levelData = levels[id];
+
+  if (!levelData) {
+    throw new Error('Need to add level info to /puzzles/levels.ts');
+  }
 
   const puzList = await db.BC_Puzzle.findAll({
     where: {

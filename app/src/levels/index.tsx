@@ -9,11 +9,12 @@ interface Params {
   level_id: string;
 }
 
+
 export default function LevelPage() {
   const lvl = useRecoilValue(level)
   const {level_id} = useParams<Params>() 
   const history = useHistory()
-
+  
   // Load level if needed
   useLoadLevel(level_id)
 
