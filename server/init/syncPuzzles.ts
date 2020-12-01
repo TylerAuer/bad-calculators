@@ -4,15 +4,8 @@ const { BC_Puzzle } = require('../orm/models');
 
 /**
  * Looks at every file in the puzzle folder. And adds the puzzles to the DB
- * if they aren't yet there.
+ * if they aren't yet there. Ignores any files not named #-#.js
  */
-
-const filesToSkip = [
-  'template.js',
-  'stats.js',
-  'levels.js',
-  'findSolutions.js',
-];
 
 export let totalStarCount = 0;
 
@@ -23,7 +16,11 @@ export default async function () {
   const puzzleFilenameList = fs.readdirSync(__dirname + '/../../puzzles');
 
   for (let filename of puzzleFilenameList) {
-    if (filesToSkip.includes(filename)) continue;
+    // Skip any files not named as ##-##.js
+    if (!filename.match(/\d*-\d.js/)) {
+      console.log('Skipping', filename);
+      continue;
+    }
 
     const file = require(__dirname + '/../../puzzles/' + filename);
     const puzzle: Puzzle = file.puzzle;
