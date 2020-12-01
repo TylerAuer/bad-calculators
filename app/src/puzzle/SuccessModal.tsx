@@ -54,6 +54,11 @@ export default function SuccessModal () {
               className='success-modal__btn'>
                 Level {puz.level} Puzzles
             </button>
+            <button 
+              onClick={onClose} 
+              className='success-modal__btn'>
+                Try Again
+            </button>
           </div>
         </div>
     </Modal>
