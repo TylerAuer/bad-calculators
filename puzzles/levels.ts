@@ -11,23 +11,24 @@ export const levels: { [key: string]: Level } = {
   '2': {
     id: 2,
     levelBelow: 1,
-    levelAbove: null,
+    levelAbove: 3,
     puzIndexes: [],
-    desc: 'Trickier puzzles with decimals and the arithmetic operations.',
+    desc: 'Level 2 puzzles are trickier and include decimals.',
   },
   '3': {
     id: 3,
     levelBelow: 2,
-    levelAbove: null,
+    levelAbove: 4,
     puzIndexes: [],
     desc:
-      'Level 3 puzzle introduce blocks -- numbers you must avoid as you find your way to the target',
+      'Level 3 puzzles introduce negative numbers and a few new operations.',
   },
   '4': {
     id: 4,
     levelBelow: 3,
     levelAbove: null,
     puzIndexes: [],
-    desc: 'Level 4 puzzles add new operations.',
+    desc:
+      'Level 4 puzzle introduce blocks -- numbers you must avoid as you find your way to the target.',
   },
 };
