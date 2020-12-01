@@ -3,7 +3,7 @@
 .goal-list {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .goal {
@@ -25,6 +25,7 @@
   font-size: 4rem;
   line-height: 1;
   text-align: center;
+  color: $grey-light;
 }
 
 .star-success {

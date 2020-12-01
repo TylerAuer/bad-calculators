@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { Puzzle } from '../../app/src/structs/puzzle';
 const { BC_Puzzle } = require('../orm/models');
 
 /**
@@ -13,6 +14,8 @@ const filesToSkip = [
   'findSolutions.js',
 ];
 
+export let totalStarCount = 0;
+
 export default async function () {
   let newPuzzleCount = 0;
   let oldPuzzleCount = 0;
@@ -22,7 +25,10 @@ export default async function () {
   for (let filename of puzzleFilenameList) {
     if (filesToSkip.includes(filename)) continue;
 
-    const { puzzle } = require(__dirname + '/../../puzzles/' + filename);
+    const file = require(__dirname + '/../../puzzles/' + filename);
+    const puzzle: Puzzle = file.puzzle;
+
+    totalStarCount += puzzle.stars.length;
 
     const foundPuzzle = await BC_Puzzle.findOne({ where: { id: puzzle.id } });
 

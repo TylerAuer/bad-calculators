@@ -1,12 +1,15 @@
+@import '../variables.scss';
+
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   font-size: 2rem;
   margin: 1rem auto;
   max-width: 120rem;
 
   &__star {
-    color: yellow;
+    font-size: 3rem;
+    color: $star-color-active;
   }
 }

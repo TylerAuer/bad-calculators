@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { Puzzle } from '../structs/puzzle';
 
 // SHAPES //////////////////////////////////////////////////////////////////////
@@ -27,3 +27,15 @@ export const redoStates = atom({
 });
 
 // SELECTORS ///////////////////////////////////////////////////////////////////
+
+export const totalStarsInAllPuzzles = selector({
+  key: 'totalStarsInAllPuzzles',
+  get: async () => {
+    const response = await fetch('/stats');
+
+    if (response.status >= 400) return null;
+
+    const starCount = response.json();
+    return starCount;
+  },
+});
