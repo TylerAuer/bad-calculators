@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import {useRecoilValue, useSetRecoilState, useRecoilState} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
 import {userInfo} from '../state/user'
@@ -40,7 +40,7 @@ export default function PuzzlePage() {
   const currentState = puzStates[puzStates.length - 1]
 
   
-  const handleSolvePuzzle = () => {
+  const onReachPuzTarget = () => {
     // Get array of goals
     if (!puz) return;
     const { stars } = puz;
@@ -88,7 +88,7 @@ export default function PuzzlePage() {
     
   // Opens modal if at target value
   if (currentState.val === puz.target && !modalIsOpen) {
-    handleSolvePuzzle()
+    onReachPuzTarget()
   }
 
   return (
@@ -109,7 +109,9 @@ export default function PuzzlePage() {
       </div>
       
       <div className="calc__below">
-        <div className="calc__left">Attempts: {puz.attemptCount}</div>
+        <div className="calc__left">
+          <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
+        </div>
         <div className="calc__right">Puzzle {puz.level}-{puz.indexInLevel} by {puz.creator}</div>
       </div>
 
