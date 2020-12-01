@@ -22,7 +22,7 @@ export default async function (
       level: id,
     },
     order: [['indexInLevel', 'ASC']],
-    attributes: ['id'],
+    attributes: ['id', 'stars'],
   });
 
   levelData.puzIndexes = puzList;

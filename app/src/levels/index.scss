@@ -28,10 +28,13 @@
     width: 100%;
   }
 
+  &__puz-and-star-wrapper {
+    margin: 1.5rem;
+  }
+
   &__puzzle-btn {
     height: 5rem;
     width: 5rem;
-    margin: 1rem;
     color: $grey-very-dark;
     border-radius: 50%;
     display: flex;
@@ -41,6 +44,7 @@
     outline: none;
     border: 2px solid $grey-light;
     cursor: pointer;
+    transition: all 0.3s;
 
     &:hover,
     &:focus {
@@ -51,6 +55,20 @@
     &:active {
       border-color: transparent;
       @include neu-shadow-inset;
+    }
+  }
+
+  &__stars {
+    font-size: 2.5rem;
+    text-align: center;
+    line-height: 1;
+  }
+
+  &__star {
+    color: $grey;
+
+    &--earned {
+      color: $star-color-active;
     }
   }
 

@@ -34,17 +34,14 @@ export const puzzle: Puzzle = {
   blocks: [],
   stars: [
     {
-      value: 1,
       moves: 14,
       goalRelation: 'fewer',
     },
     {
-      value: 2,
       moves: 9,
       goalRelation: 'fewer',
     },
     {
-      value: 3,
       moves: 8,
       goalRelation: 'fewer',
     },

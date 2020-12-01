@@ -1,6 +1,7 @@
 import {useParams, useHistory} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 import {level} from '../state/level';
+import {userInfo} from '../state/user';
 import useLoadLevel from '../hooks/useLoadLevel'
 
 import './index.scss'
@@ -12,6 +13,7 @@ interface Params {
 
 export default function LevelPage() {
   const lvl = useRecoilValue(level)
+  const {progress} = useRecoilValue(userInfo)
   const {level_id} = useParams<Params>() 
   const history = useHistory()
   
@@ -29,6 +31,35 @@ export default function LevelPage() {
     history.push(`/level/${id}`)
   }
 
+  // Make stars that site below puzzle buttons
+  const puzList = lvl.puzIndexes.map(({id, stars}, i) => {
+    const starsEarnedByUser = progress[id]?.filter(i => i).length || 0;
+    const starsForPuz = stars.length;
+
+    const starList: JSX.Element[] = []
+
+    // Generate list of stars with classes based on whether the stars have 
+    // been earned or not
+    for (let i = 0; i < starsForPuz; i++) {
+      if (i < starsEarnedByUser) {
+        starList.push(<span key={i} className='lvl-page__star lvl-page__star--earned'>★</span>)
+      } else {
+        starList.push(<span key={i} className='lvl-page__star'>★</span>)
+      }
+    }
+
+    return (
+      <div key={i} className='lvl-page__puz-and-star-wrapper'>
+        <button 
+          className='lvl-page__puzzle-btn' 
+          onClick={() => onPuzClick(id)}>
+            {i+1}
+        </button>
+        <div className='lvl-page__stars'>{starList}</div>
+      </div>
+    )
+  });
+
   return (
     <div className="lvl-page">
       <div className="lvl-page__header">
@@ -36,9 +67,7 @@ export default function LevelPage() {
         <div className="lvl-page__desc">{lvl.desc}</div>
       </div>
       <div className="lvl-page__list-of-puzzles">
-        {lvl.puzIndexes.map(({id}, i) => (
-          <button key={i} className='lvl-page__puzzle-btn' onClick={() => onPuzClick(id)}>{i+1}</button>
-        ))}
+        {puzList}
       </div>
       <div className="lvl-page__nav">
         <div className="lvl-page__left">

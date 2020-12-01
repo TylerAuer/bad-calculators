@@ -22,7 +22,6 @@ export const puzzle: Puzzle = {
   blocks: [],
   stars: [
     {
-      value: 1,
       moves: 7,
       goalRelation: 'fewer',
     },
