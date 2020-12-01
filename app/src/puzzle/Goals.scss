@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 .goal-list {
   display: flex;
   width: 100%;
@@ -12,7 +14,7 @@
   width: 10rem;
 }
 
-.goal-value {
+.goal-desc {
   text-align: center;
   font-size: 4rem;
   line-height: 1;
@@ -20,14 +22,11 @@
 
 .star-icon {
   margin: 0 3px;
-}
-
-.star-group {
   font-size: 4rem;
   line-height: 1;
   text-align: center;
 }
 
 .star-success {
-  color: gold;
+  color: $star-color-active;
 }

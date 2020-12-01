@@ -1,6 +1,5 @@
 export interface Star {
-  value: number; // How many pts it is worth
-  moves?: number;
+  moves: number;
   goalRelation?: 'more' | 'fewer' | 'exactly';
 }
 

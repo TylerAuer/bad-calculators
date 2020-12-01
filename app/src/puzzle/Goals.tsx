@@ -31,29 +31,26 @@ export default function Stars() {
   // Don't render if there is no star data
   if (!usersCurPuzProgress) return null
   
-  const usersGoalStatus = usersCurPuzProgress.stars
-  
 
-  const elems = stars.map(s => {
-    const starVal = s.value.toString()
-    const hasMetGoal = usersGoalStatus[starVal]
-
-    const stars = []
-    for (let i = 0; i < s.value ; i++ ) {
-      stars.push(<span key={i} className='star-icon'>★</span>)
-    }
+  const elems = stars.map((s, i) => {
+    const hasMetGoal = !!usersCurPuzProgress[i];
     
-    return (<div key={s.value} className="goal">
-      <div className='goal-value'>
-        {
-          s.moves && s.goalRelation ? 
-          `${goalMap[s.goalRelation]}${s.moves}` 
-          : '∞'}
+    return (
+      <div key={i} className="goal">
+        <div className='goal-desc'>
+          {
+            s.moves && s.goalRelation ? 
+            `${goalMap[s.goalRelation]}${s.moves}` 
+            : '∞'
+          }
+        </div>
+      
+        <div 
+          key={i} 
+          className={`star-icon ${hasMetGoal ? 'star-success' : ''}`}>
+            ★
+        </div>
       </div>
-      <div className={`star-group ${hasMetGoal ? 'star-success' : ''}`}>
-        {stars}
-      </div>
-    </div>
   )})
 
   return (

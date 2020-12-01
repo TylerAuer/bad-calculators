@@ -21,12 +21,9 @@ export const starCount = selector({
     const { progress } = get(userInfo);
     let stars = 0;
 
-    Object.values(progress).forEach((puz) => {
-      Object.entries(puz.stars).forEach(([val, earned]) => {
-        if (earned) {
-          stars += parseInt(val, 10);
-        }
-      });
+    Object.values(progress).forEach((progressArray) => {
+      // count TRUEs in each puzzles progress arr
+      stars += progressArray.filter((i) => !!i).length;
     });
 
     return stars;

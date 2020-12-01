@@ -28,12 +28,9 @@ export default async function useLoadPuzzle(id: string) {
     // Check if the user has the details in the progress
     if (!user.progress[id]) {
       // Generate star progress for this user
-      let initProgressCurrPuz = {
-        stars: {},
-      } as PuzProgress;
-      currentPuz.stars.forEach((s) => {
-        initProgressCurrPuz.stars[s.value.toString()] = false;
-      });
+      let initProgressCurrPuz: PuzProgress = Array<boolean>(
+        currentPuz.stars.length
+      ).fill(false);
 
       setUser((prev) => ({
         ...prev,

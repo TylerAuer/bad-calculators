@@ -47,9 +47,9 @@ export default function PuzzlePage() {
     const moveCount = puzStates.length - 1;
     
     // List of goals just met
-    const goalsMet = [] as number[];
+    const goalsMet: number[] = [];
     
-    stars.forEach((s) => {
+    stars.forEach((s, i) => {
       // Handle different goal possibilities
       if (
         (!s.moves) || // Handle goal with no move limit
@@ -57,16 +57,16 @@ export default function PuzzlePage() {
         (s.goalRelation === 'exactly' && moveCount === s.moves) ||
         (s.goalRelation === 'fewer' && moveCount <= s.moves)
         ) {
-          goalsMet.push(s.value);
+          goalsMet.push(i);
         }
       });
       
     if (!modalIsOpen) setIsModalOpen(true)
     setUser((prev) => {
       // Update the newStars
-      const newStars = {...prev.progress[puz_id].stars}
+      const nextProgressArray = [...prev.progress[puz_id]]
       goalsMet.forEach(goal => {
-        newStars[goal] = true
+        nextProgressArray[goal] = true
       })
 
       // Return the updated UserInfo object
@@ -74,10 +74,7 @@ export default function PuzzlePage() {
         ...prev,
         progress: {
           ...prev.progress,
-          [puz_id]: {
-            ...prev.progress[puz_id],
-            stars: newStars
-          }
+          [puz_id]: nextProgressArray
         }
       }
     })

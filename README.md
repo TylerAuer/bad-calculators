@@ -4,10 +4,9 @@ Extremely puzzling and unhelpful devices
 
 ## To Do
 
-1. Add floating point support for current operations
-2. Add script that templates new levels
+1. Fix margin on level header and subheader
+2. Add star progress to level page
 3. Shows total stars possible
 4. Log attempts
 5. Add user auth with Google
-
-## Puzzle Ideas
+6. 404 Page and redirects
