@@ -4,10 +4,6 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { puzzle, puzzleStates } from '../state/puzzle';
 import { userInfo } from '../state/user';
 
-interface Array<T> {
-  fill(value: T): Array<T>;
-}
-
 export default async function useLoadPuzzle(id: string) {
   const [puz, setPuz] = useRecoilState(puzzle);
   const setPuzStates = useSetRecoilState(puzzleStates);
