@@ -29,7 +29,12 @@
   }
 
   &__puz-and-star-wrapper {
-    margin: 1.5rem;
+    width: 10rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   &__puzzle-btn {
@@ -59,7 +64,7 @@
   }
 
   &__stars {
-    font-size: 2.5rem;
+    font-size: 3rem;
     text-align: center;
     line-height: 1;
   }
