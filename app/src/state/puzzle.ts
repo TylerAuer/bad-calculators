@@ -5,7 +5,7 @@ import { Puzzle } from '../structs/puzzle';
 
 interface State {
   val: number;
-  limits: number[];
+  counts: number[];
 }
 
 // ATOMS ///////////////////////////////////////////////////////////////////////

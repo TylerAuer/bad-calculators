@@ -1,6 +1,7 @@
 .goal-list {
   display: flex;
-  justify-content: center;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .goal {
@@ -8,11 +9,7 @@
   flex-direction: column;
   justify-content: flex-end;
   margin: 1rem;
-  width: 12rem;
-
-  &:not(:last-child) {
-    margin-right: 3rem;
-  }
+  width: 10rem;
 }
 
 .goal-value {

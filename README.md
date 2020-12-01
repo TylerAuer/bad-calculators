@@ -11,6 +11,3 @@ Extremely puzzling and unhelpful devices
 5. Add user auth with Google
 
 ## Puzzle Ideas
-
-- +0.1 and x10 where you need to use the x10 to edit the correct place value
-- -0.1 and x10

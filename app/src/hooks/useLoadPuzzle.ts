@@ -1,9 +1,12 @@
 import { Puzzle } from '../structs/puzzle';
 import { PuzProgress } from '../structs/user';
-
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { puzzle, puzzleStates } from '../state/puzzle';
 import { userInfo } from '../state/user';
+
+interface Array<T> {
+  fill(value: T): Array<T>;
+}
 
 export default async function useLoadPuzzle(id: string) {
   const [puz, setPuz] = useRecoilState(puzzle);
@@ -19,7 +22,12 @@ export default async function useLoadPuzzle(id: string) {
     const currentPuz: Puzzle = await res.json();
 
     setPuz(currentPuz); // Load puzzle into state
-    setPuzStates([{ val: currentPuz.start, limits: [] }]); // Load initial state
+    setPuzStates([
+      {
+        val: currentPuz.start,
+        counts: Array<number>(currentPuz.operations.length).fill(0),
+      },
+    ]); // Load initial state
 
     // Check if the user has the details in the progress
     if (!user.progress[id]) {

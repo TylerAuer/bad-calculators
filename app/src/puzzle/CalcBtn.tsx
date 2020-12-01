@@ -1,26 +1,28 @@
 import './CalcBtn.scss';
 
 interface Props {
-  children: string,
+  text: string,
+  usesLeft?: number,
   onClick: () => void,
   className?: string,
-  disabled?: boolean,
 }
 
 export default function CalcBtn({
   className = '', 
-  disabled = false,
   onClick,
-  children
+  text,
+  usesLeft,
   }: Props) {
 
+  const infinityCss = usesLeft === Infinity ? 'calc-btn__uses-left--infinity' : '' 
+
   return (
-    <button 
-      className={`calc-btn ${className} ${disabled ? 'calc-btn--disabled' : ''}`} 
-      onClick={onClick}
-      disabled={disabled}
+    <div 
+      className={`calc-btn ${className} ${!usesLeft ? 'calc-btn--disabled' : ''}`} 
+      onClick={usesLeft ? onClick : () => null}
     >
-      {children}
-    </button>
+      <div className='calc-btn__text'>{text}</div>
+      <div className={`calc-btn__uses-left ${infinityCss}`}>{usesLeft}</div>
+    </div>
   )
 }

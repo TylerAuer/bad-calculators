@@ -21,9 +21,8 @@ export default function PuzzlePage() {
   const puzStates = useRecoilValue(puzzleStates)
   const setUser = useSetRecoilState(userInfo)
   const [modalIsOpen, setIsModalOpen] = useRecoilState(isSuccessModalOpen)
-
-  const {puz_id} = useParams<Params>()
   
+  const {puz_id} = useParams<Params>()
   
   // Close modal if it is open when the component first mounts
   // or when the puz_id changes

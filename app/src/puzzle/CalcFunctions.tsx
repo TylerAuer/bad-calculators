@@ -38,7 +38,7 @@ export default function CalcFunctions () {
     }
   }
   
-  const listOfOpBtns = puz.operations.map((op, i) => <OpBtn key={i} info={op}/>)
+  const listOfOpBtns = puz.operations.map((op, i) => <OpBtn key={i} index={i} info={op}/>)
 
   return (
     <>
@@ -46,9 +46,9 @@ export default function CalcFunctions () {
         {listOfOpBtns}
       </div>
       <div className="calc__controls">
-        <CalcBtn onClick={handleUndo}>Undo</CalcBtn>
-        <CalcBtn onClick={handleRedo}>Redo</CalcBtn>
-        <CalcBtn onClick={handleReset}>Reset</CalcBtn>
+        <CalcBtn onClick={handleUndo} text='Undo'/>
+        <CalcBtn onClick={handleRedo} text='Redo'/>
+        <CalcBtn onClick={handleReset} text='Reset'/>
       </div>
     </>
     )  

@@ -3,6 +3,7 @@ import { OpType, OpInfo } from '../structs/puzzle';
 interface Output {
   text: string,
   op: (prev: number) => number,
+  limit: number,
 }
 
 /**
@@ -19,29 +20,32 @@ export default function genOpBtnTextAndOp({
   // Used to determine when to wrap in parentheses for readability
   const isValNegative = value && value < 0
   
+  // TODO: Add overflow error for when numbers have > 8 digits. Or something
+  // like that.
+
   switch (symbol) {
     case OpType.add: {
       const op = (prev: number) => handleFloats(prev + value);
       const text = isValNegative ? `+ (${value})` : `+ ${value}`
-      return ({ text, op});
+      return ({ text, op, limit});
     }
     
     case OpType.sub: {
       const op = (prev: number) => handleFloats(prev - value);
       const text = isValNegative ? `- (${value})` : `- ${value}`
-      return ({ text, op});
+      return ({ text, op, limit});
     }
     
     case OpType.mult: {
       const op = (prev: number) => handleFloats(prev * value);
       const text = isValNegative ? `× (${value})` : `× ${value}`
-      return ({ text, op});
+      return ({ text, op, limit});
     }
     
     case OpType.div: {
       const op = (prev: number) => handleFloats(prev / value);
       const text = isValNegative ? `÷ (${value})` : `÷ ${value}`
-      return ({ text, op});
+      return ({ text, op, limit});
     }
     
     default: 
