@@ -35,15 +35,17 @@ export const puzzle: Puzzle = {
   stars: [
     {
       value: 1,
-    },
-    {
-      value: 2,
       moves: 14,
       goalRelation: 'fewer',
     },
     {
-      value: 3,
+      value: 2,
       moves: 9,
+      goalRelation: 'fewer',
+    },
+    {
+      value: 3,
+      moves: 8,
       goalRelation: 'fewer',
     },
   ],
