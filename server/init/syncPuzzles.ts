@@ -6,7 +6,12 @@ const { BC_Puzzle } = require('../orm/models');
  * if they aren't yet there.
  */
 
-const filesToSkip = ['template.js', 'stats.js', 'levels.js'];
+const filesToSkip = [
+  'template.js',
+  'stats.js',
+  'levels.js',
+  'findSolutions.js',
+];
 
 export default async function () {
   let newPuzzleCount = 0;
