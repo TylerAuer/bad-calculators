@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { puzzle } from './3-2';
+import { puzzle } from './3-3';
 import genOpBtnTextAndOp from '../app/src/utils/genOpBtnTextAndOp';
 
 interface Solution {
