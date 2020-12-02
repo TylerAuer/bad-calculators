@@ -20,23 +20,21 @@ export const levels: { [key: string]: Level } = {
     levelBelow: 2,
     levelAbove: 4,
     puzIndexes: [],
-    desc:
-      'Level 3 puzzles introduce negative numbers and a few new operations.',
+    desc: 'Level 3 puzzles introduce negative numbers.',
   },
   '4': {
     id: 4,
     levelBelow: 3,
     levelAbove: 5,
     puzIndexes: [],
-    desc:
-      'Level 4 puzzles introduce blocks -- numbers you must avoid as you find your way to the target.',
+    desc: 'Level 4 puzzles introduce new operations to explore.',
   },
   '5': {
     id: 5,
-    levelBelow: 3,
-    levelAbove: 5,
+    levelBelow: 4,
+    levelAbove: null,
     puzIndexes: [],
     desc:
-      'Level 5 puzzles introduce button limits. Some buttons can only be used a limited number of times.',
+      'Level 5 puzzles introduce blocks -- numbers you must avoid as you find your way to the target and button limits -- buttons that become unusable after a certain number of presses.',
   },
 };

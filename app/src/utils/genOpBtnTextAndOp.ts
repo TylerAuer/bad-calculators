@@ -1,9 +1,9 @@
 import { OpType, OpInfo } from '../structs/puzzle';
 
 interface Output {
-  text: string,
-  op: (prev: number) => number,
-  limit: number,
+  text: string;
+  op: (prev: number) => number;
+  limit: number;
 }
 
 /**
@@ -14,46 +14,59 @@ export default function genOpBtnTextAndOp({
   // Some ops don't include another operand (like factorial)
   // So assign default values to avoid annoying type checking in all others
   value = 0,
-  limit = Infinity
-  }: OpInfo): Output {
-
+  limit = Infinity,
+}: OpInfo): Output {
   // Used to determine when to wrap in parentheses for readability
-  const isValNegative = value && value < 0
-  
+  const isValNegative = value && value < 0;
+
   // TODO: Add overflow error for when numbers have > 8 digits. Or something
   // like that.
 
   switch (symbol) {
     case OpType.add: {
       const op = (prev: number) => handleFloats(prev + value);
-      const text = isValNegative ? `+ (${value})` : `+ ${value}`
-      return ({ text, op, limit});
+      const text = isValNegative ? `+ (${value})` : `+ ${value}`;
+      return { text, op, limit };
     }
-    
+
     case OpType.sub: {
       const op = (prev: number) => handleFloats(prev - value);
-      const text = isValNegative ? `- (${value})` : `- ${value}`
-      return ({ text, op, limit});
+      const text = isValNegative ? `- (${value})` : `- ${value}`;
+      return { text, op, limit };
     }
-    
+
     case OpType.mult: {
       const op = (prev: number) => handleFloats(prev * value);
-      const text = isValNegative ? `× (${value})` : `× ${value}`
-      return ({ text, op, limit});
+      const text = isValNegative ? `× (${value})` : `× ${value}`;
+      return { text, op, limit };
     }
-    
+
     case OpType.div: {
       const op = (prev: number) => handleFloats(prev / value);
-      const text = isValNegative ? `÷ (${value})` : `÷ ${value}`
-      return ({ text, op, limit});
+      const text = isValNegative ? `÷ (${value})` : `÷ ${value}`;
+      return { text, op, limit };
     }
-    
-    default: 
-      throw new Error('Invalid symbol passed in info.symbol')
-  } 
+
+    case OpType.mod: {
+      /** 
+      n % 0 is undefined because it's essentially dividing by 0 so throw an 
+      error if a puzzle is accidentally built to use mod 0.
+      */
+      if (value === 0) {
+        throw new Error('Tried to use 0 as mod in puzzle definition');
+      }
+
+      const op = (prev: number) => handleFloats(prev % value);
+      const text = `mod ${value}`;
+      return { text, op, limit };
+    }
+
+    default:
+      throw new Error('Invalid symbol passed in info.symbol');
+  }
 }
 
-// Rounds numbers for the purposes of 
+// Rounds numbers for the purposes of
 function handleFloats(n: number) {
-  return parseFloat(n.toPrecision(8))
+  return parseFloat(n.toPrecision(8));
 }
