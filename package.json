@@ -4,16 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "pre-spin": "echo \"DELETING OLD PUBLIC FILES\n\" && rm -rf public && tsc",
     "spin:tsc-watch": "tsc -w",
     "spin:server-start": "nodemon public/server.js",
-    "spin": "echo \"STARTING SERVER FOR DEVELOPMENT\n\" &&run-p spin:*",
+    "spin": "echo \"STARTING SERVER FOR DEVELOPMENT\n\" npm run pre-spin && run-p spin:*",
     "build:empty-public": "echo \"EMPTYING /public\n\" && rm -rf public",
     "build:client": "echo \"BUILD CLIENT REACT APP\n\" && cd app && npm run build",
     "build:move-client": "echo \"MOVE CLIENT FOLDERS\n\" && mkdir public && mv app/build public/app",
     "build:server": "echo \"COMPILE SERVER\n\" && tsc",
     "build": "run-s build:* --print-label",
     "postinstall": "cd app && npm install",
-    "start": "cd app && npm start"
+    "start": "cd app && npm start",
+    "stats": "node public/puzzles/stats.js"
   },
   "author": "",
   "license": "ISC",

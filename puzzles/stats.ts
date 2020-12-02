@@ -8,37 +8,62 @@ import { Puzzle } from '../app/src/structs/puzzle';
  * Computes some statistics and logs them to the console.
  */
 
-const filesToSkip = ['template.js', 'buildNewPuzzle.js', 'stats.js'];
-
 interface PuzFile {
   puzzle: Puzzle;
 }
 
+console.clear();
+
 const logStats = () => {
-  let levels = {};
+  let puzCount = 0; // Counts total puzzles
+  const levels = {}; // Counts puzzles per level
+  const opCount = {}; // Counts number of each operation
 
   const puzzleFilenameList = fs.readdirSync(__dirname + '/');
 
   for (let filename of puzzleFilenameList) {
-    if (filesToSkip.includes(filename)) continue;
+    if (!filename.match(/\d*-\d.js/)) {
+      continue;
+    }
 
     const puzFile: PuzFile = require(__dirname + '/' + filename);
     const { puzzle } = puzFile;
 
+    // INCREMENT COUNTERS //////////////////////////////////////////////////////
+
+    // Total puzzles
+    puzCount++;
+
+    // Puzzles by level
     if (!levels[puzzle.level]) levels[puzzle.level] = 0;
     levels[puzzle.level] += 1;
+
+    // Operations
+    puzzle.operations.forEach((op) => {
+      if (!opCount[op.symbol]) opCount[op.symbol] = 0;
+      opCount[op.symbol]++;
+    });
   }
 
-  /**
-   * PUZZLES PER LEVEL
-   */
-  console.log(' ');
-  console.log(chalk.blue('PUZZLES PER LEVEL'));
+  // TOTAL PUZZLES /////////////////////////////////////////////////////////////
+  console.log(puzCount, chalk.red('PUZZLES'));
+
+  // PUZZLES / LEVEL ///////////////////////////////////////////////////////////
   console.log(' ');
   console.log(`LVL | Count`);
   console.log(`----|-------`);
   Object.entries(levels).forEach(([lvl, count]) => {
     console.log(`${lvl}${lvl.length > 1 ? '' : ' '}  | ${count}`);
+  });
+
+  // OP COUNT //////////////////////////////////////////////////////////////////
+  console.log(' ');
+  console.log(`Operation       | Count`);
+  console.log(`----------------|------------`);
+  Object.entries(opCount).forEach(([op, count]) => {
+    const spaces = 15 - op.length;
+
+    console.log(`${op}${' '.repeat(spaces)} | ${count}`);
   });
 
   console.log(' ');
