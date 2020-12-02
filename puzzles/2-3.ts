@@ -1,9 +1,5 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
-/**
- *
- */
-
 export const puzzle: Puzzle = {
   id: 9,
   level: 2,

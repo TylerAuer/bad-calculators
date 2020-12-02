@@ -1,9 +1,5 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
-/**
- * Very easy puzzle with multiplication, addition, and subtraction
- */
-
 export const puzzle: Puzzle = {
   id: 10,
   level: 1,

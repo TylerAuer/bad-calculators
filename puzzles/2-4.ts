@@ -1,22 +1,22 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 export const puzzle: Puzzle = {
-  id: 0,
-  level: 1,
-  indexInLevel: 1,
+  id: 12,
+  level: 2,
+  indexInLevel: 4,
   disabled: false,
   creator: 'Tyler',
-  start: 0,
-  target: 23,
+  start: 1,
+  target: 0.275,
   maxMoves: null,
   operations: [
     {
       symbol: OpType.add,
-      value: 5,
+      value: 0.1,
     },
     {
-      symbol: OpType.sub,
-      value: 1,
+      symbol: OpType.div,
+      value: 2,
     },
   ],
   blocks: [],
@@ -25,11 +25,11 @@ export const puzzle: Puzzle = {
       moves: Infinity,
     },
     {
-      moves: 7,
-      goalRelation: 'fewer',
+      moves: 5,
+      goalRelation: 'exactly',
     },
     {
-      moves: 13,
+      moves: 3,
       goalRelation: 'exactly',
     },
   ],

@@ -1,15 +1,11 @@
 import chalk from 'chalk';
-import { puzzle } from './1-4';
+import { puzzle } from './1-5';
 import genOpBtnTextAndOp from '../app/src/utils/genOpBtnTextAndOp';
 
 interface Solution {
   values: number[];
   actions: string[];
   opCounts: number[];
-}
-
-interface ValuesSeen {
-  [key: number]: boolean;
 }
 
 const MAX_DEPTH = 8;
@@ -23,8 +19,6 @@ const max = Math.min(maxMoves || Infinity, MAX_DEPTH);
 
 // Storage for found solutions
 let solutionCount = 0;
-
-const valuesSeen: ValuesSeen = {};
 
 // Generate functions for performing operations
 const ops = operations.map((f) => genOpBtnTextAndOp(f));
@@ -88,10 +82,11 @@ function findSolutions(): void {
     // Log new depth if needed
     if (cur!.actions.length > maxDepthSeen) {
       maxDepthSeen = cur!.actions.length;
-      logMagenta(`
-// Finished searching paths ${
-        maxDepthSeen - 1
-      } actions long /////////////////`);
+      logMagenta(
+        `// Finished searching paths ${
+          maxDepthSeen - 1
+        } actions long /////////////////`
+      );
     }
 
     // Arrived at target
@@ -144,9 +139,7 @@ function logSolution(solution: Solution): void {
   const path = solution.actions.join(' ');
 
   // Log out the solutions in a pretty way
-  console.log('');
-  logCyan(`#${++solutionCount} [${steps} steps]`);
-  console.log(path);
+  console.log(chalk.cyan(`#${++solutionCount} [${steps} steps]`), path);
 }
 
 function logMagenta(text: string): void {
