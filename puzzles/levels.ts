@@ -26,9 +26,17 @@ export const levels: { [key: string]: Level } = {
   '4': {
     id: 4,
     levelBelow: 3,
-    levelAbove: null,
+    levelAbove: 5,
     puzIndexes: [],
     desc:
-      'Level 4 puzzle introduce blocks -- numbers you must avoid as you find your way to the target.',
+      'Level 4 puzzles introduce blocks -- numbers you must avoid as you find your way to the target.',
+  },
+  '5': {
+    id: 5,
+    levelBelow: 3,
+    levelAbove: 5,
+    puzIndexes: [],
+    desc:
+      'Level 5 puzzles introduce button limits. Some buttons can only be used a limited number of times.',
   },
 };
