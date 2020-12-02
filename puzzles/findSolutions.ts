@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { puzzle } from './1-5';
+import { puzzle } from './2-5';
 import genOpBtnTextAndOp from '../app/src/utils/genOpBtnTextAndOp';
 
 interface Solution {
@@ -8,7 +8,7 @@ interface Solution {
   opCounts: number[];
 }
 
-const MAX_DEPTH = 8;
+const MAX_DEPTH = 15;
 const TRIM_INEFFICIENT_PATHS = false;
 
 // Destructure values from puzzle
