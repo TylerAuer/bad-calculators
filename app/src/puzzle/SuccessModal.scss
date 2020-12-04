@@ -47,7 +47,7 @@
     cursor: pointer;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: white;
       background-color: black;
     }

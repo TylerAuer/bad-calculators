@@ -50,14 +50,14 @@ export default function SuccessModal () {
               <Goals/>
             </div>
             <button 
-              onClick={onBackToLvlClick} 
-              className='success-modal__btn'>
-                Level {puz.level} Puzzles
-            </button>
-            <button 
               onClick={onClose} 
               className='success-modal__btn'>
                 Try Again
+            </button>
+            <button 
+              onClick={onBackToLvlClick} 
+              className='success-modal__btn'>
+                Level {puz.level} Puzzles
             </button>
           </div>
         </div>
