@@ -33,6 +33,10 @@ export default async function (sessionStore) {
     })
   );
 
+  // Initialize Passport JS to handle Auth
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   // Set up app as source of static files
   app.use(express.static(path.resolve(__dirname + '/../../app')));
 

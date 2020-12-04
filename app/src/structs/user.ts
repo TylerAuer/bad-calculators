@@ -5,11 +5,12 @@ interface AllProgress {
   [key: string]: PuzProgress;
 }
 
-interface User {
-  pic?: string;
+export interface User {
   first?: string;
   last?: string;
+  pic?: string;
   authId?: string;
+  email?: string;
   progress: AllProgress;
 }
 

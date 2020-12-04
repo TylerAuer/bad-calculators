@@ -13,8 +13,8 @@ export default function LandingPage() {
           <div className="subtitle">Extremely puzzling and unhelpful devices</div>
         </div>
         <div className="login">
-          {/* <Link to="/level/1" className="btn">Sign in with Google</Link> */}
-          <Link to="/level/1" className="btn">Get Puzzling!</Link>
+          <a href="/auth/google" className="btn">Sign in with Google to save progress</a>
+          <Link to="/level/1" className="btn">Puzzle without saving</Link>
         </div>
       </div>
     </div>
