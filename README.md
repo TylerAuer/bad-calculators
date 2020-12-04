@@ -4,12 +4,10 @@ Extremely puzzling and unhelpful devices
 
 ## To Do
 
-- Add user auth with Google
+- Track requests in progress to prevent multiple requests
 - Turn calc buttons back into buttons
 - Add NaN return for invalid inputes (ex: 4.2!)
 - Add loading spinner
-- Implement Google Sign In
-- Shows total stars possible
 - Log attempts
 - 404 Page and redirects
 - Customize stars and SuccessModal message based on result

@@ -5,6 +5,7 @@ import {puzzle, puzzleStates} from '../state/puzzle'
 import {userInfo} from '../state/user'
 import {isSuccessModalOpen} from '../state/ui'
 import useLoadPuzzle from '../hooks/useLoadPuzzle'
+import saveUserProgress from '../utils/saveUserProgress';
 
 import Goals from './Goals'
 import CalcFunctions from './CalcFunctions';
@@ -21,7 +22,7 @@ export default function PuzzlePage() {
   const puzStates = useRecoilValue(puzzleStates)
   const setUser = useSetRecoilState(userInfo)
   const [modalIsOpen, setIsModalOpen] = useRecoilState(isSuccessModalOpen)
-  
+    
   const {puz_id} = useParams<Params>()
   
   // Close modal if it is open when the component first mounts
@@ -62,6 +63,7 @@ export default function PuzzlePage() {
       });
       
     if (!modalIsOpen) setIsModalOpen(true)
+    
     setUser((prev) => {
       // Update the newStars
       const nextProgressArray = [...prev.progress[puz_id]]
@@ -70,13 +72,16 @@ export default function PuzzlePage() {
       })
 
       // Return the updated UserInfo object
-      return {
+      const next = {
         ...prev,
         progress: {
           ...prev.progress,
           [puz_id]: nextProgressArray
         }
       }
+
+      saveUserProgress(next.progress)
+      return next
     })
 
   }
