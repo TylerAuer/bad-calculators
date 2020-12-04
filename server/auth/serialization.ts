@@ -1,13 +1,30 @@
 import db from '../orm/models';
-import { User } from '../../app/src/structs/user';
 import passport from 'passport';
+import { User } from '../../app/src/structs/user';
 
-passport.serializeUser(function (user: User, cb) {
-  cb(null, user.authId);
+interface OAuth2 {
+  id: string;
+  displayName: string;
+  name: {
+    familyName: string;
+    givenName: string;
+  };
+  emails: {
+    value: string;
+    verified: boolean;
+  }[];
+  provider: string;
+  photos: {
+    value: string;
+  }[];
+}
+
+passport.serializeUser(function (user: OAuth2, cb) {
+  cb(null, user.id);
 });
 
 passport.deserializeUser(async (id, cb) => {
-  const user = await db.GroupUsUser.findOne({
+  const user: User = await db.BC_User.findOne({
     where: {
       authId: id,
     },

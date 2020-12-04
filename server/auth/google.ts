@@ -1,6 +1,6 @@
 require('dotenv').config();
-
 import passport from 'passport';
+import handleSignIn from './handleSignIn';
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 passport.use(
@@ -11,8 +11,7 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
     function (accessToken, refreshToken, profile, done) {
-      // handleSignIn(profile);
-      console.log('Call handleSignIn');
+      handleSignIn(profile);
       return done(null, profile);
     }
   )
