@@ -19,9 +19,12 @@ export default function CalcBtn({
   return (
     <div 
       className={`calc-btn ${className} ${!usesLeft ? 'calc-btn--disabled' : ''}`} 
-      onClick={usesLeft !== 0 ? onClick : () => null}
     >
-      <div className='calc-btn__text'>{text}</div>
+      <button 
+        onClick={usesLeft !== 0 ? onClick : () => null} 
+        className='calc-btn__btn'>
+          {text}
+        </button>
       <div className={`calc-btn__uses-left ${infinityCss}`}>{usesLeft}</div>
     </div>
   )

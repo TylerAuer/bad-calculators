@@ -46,9 +46,9 @@ export default function CalcFunctions () {
         {listOfOpBtns}
       </div>
       <div className="calc__controls">
-        <CalcBtn onClick={handleUndo} text='Undo'/>
-        <CalcBtn onClick={handleRedo} text='Redo'/>
-        <CalcBtn onClick={handleReset} text='Reset'/>
+        <CalcBtn className={'calc-btn--ctrl'} onClick={handleUndo} text='Undo'/>
+        <CalcBtn className={'calc-btn--ctrl'} onClick={handleRedo} text='Redo'/>
+        <CalcBtn className={'calc-btn--ctrl calc-btn--reset'} onClick={handleReset} text='Reset'/>
       </div>
     </>
     )  
