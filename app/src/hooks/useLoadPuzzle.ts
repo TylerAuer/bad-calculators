@@ -1,6 +1,8 @@
 import { Puzzle } from '../structs/puzzle';
-import { PuzProgress } from '../structs/user';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { PuzProgress } from '../structs/user';
+import { puzzleIsLoading } from '../state/ui';
 import { puzzle, puzzleStates } from '../state/puzzle';
 import { userInfo } from '../state/user';
 
@@ -8,13 +10,25 @@ export default async function useLoadPuzzle(id: string) {
   const [puz, setPuz] = useRecoilState(puzzle);
   const setPuzStates = useSetRecoilState(puzzleStates);
   const [user, setUser] = useRecoilState(userInfo);
+  const [puzIsLoading, setPuzIsLoading] = useRecoilState(puzzleIsLoading);
+  const history = useHistory();
+
+  if (puzIsLoading) {
+    return;
+  }
 
   // If there isn't a puzzle loaded or
   // the current puzzle's id doesn't match the url param
   // then load the correct puzzle
   if (!puz || puz.id !== parseInt(id)) {
-    // TODO: Add a check for a 404 error. If 404 redirect to 404 page
+    setPuzIsLoading(true);
     const res = await fetch(`/puzzle/${id}`);
+
+    if (res.status >= 400) {
+      setPuzIsLoading(false);
+      history.push('/puzzle/0');
+    }
+
     const currentPuz: Puzzle = await res.json();
 
     setPuz(currentPuz); // Load puzzle into state
@@ -40,5 +54,7 @@ export default async function useLoadPuzzle(id: string) {
         },
       }));
     }
+
+    setPuzIsLoading(false);
   }
 }

@@ -31,7 +31,7 @@ export default function PuzzlePage() {
     setIsModalOpen(false) // Close Modal if open when new puzzle loads
   }, [puz_id, setIsModalOpen]);
   
-  // Load the puzzle if it isn't yet loaded
+  // Load the puzzle if it isn't yet loaded or loading
   useLoadPuzzle(puz_id)
 
   // Hide calculator until puzzle is loaded
