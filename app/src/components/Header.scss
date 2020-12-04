@@ -9,7 +9,8 @@
   max-width: 120rem;
 
   &__star {
-    font-size: 3rem;
     color: $star-color-active;
+    font-size: 2.5rem;
+    font-family: sans-serif;
   }
 }
