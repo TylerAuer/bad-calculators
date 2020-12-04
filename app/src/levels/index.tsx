@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState} from 'recoil';
 import {levelData, levelId} from '../state/level';
 import {userInfo} from '../state/user';
 
@@ -12,20 +11,29 @@ interface Params {
 
 
 export default function LevelPage() {
-  return (
-    <Suspense fallback={' '}>
-      <LevelDisplay/>
-    </Suspense>
-  )
+  const lvlLoadable = useRecoilValueLoadable(levelData)
+  const setLvlId = useSetRecoilState(levelId)
+  const history = useHistory()
+  
+  switch (lvlLoadable.state) {
+    case 'hasValue':
+      return <Level/>
+    case 'loading':
+      return <div>Loading...</div>
+      case 'hasError':
+        setLvlId(1) // Reset to valid level ID
+        history.push('/level/1'); // Redirect user level 1
+        return <div>Error. Redirecting.</div> // Must return JSX but never shown
+  }
 }
 
-function LevelDisplay() {
+function Level() {
   const [lvlId, setLvlId] = useRecoilState(levelId)
   const lvl = useRecoilValue(levelData)
   const {progress} = useRecoilValue(userInfo)
   const {level_id} = useParams<Params>() 
   const history = useHistory()
-  
+
   if (lvlId !== parseInt(level_id)) {
     setLvlId(parseInt(level_id))
   }

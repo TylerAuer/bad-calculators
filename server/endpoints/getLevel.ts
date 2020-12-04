@@ -14,6 +14,7 @@ export default async function (
   const levelData = levels[id];
 
   if (!levelData) {
+    res.redirect(404, '/');
     throw new Error('Need to add level info to /puzzles/levels.ts');
   }
 
