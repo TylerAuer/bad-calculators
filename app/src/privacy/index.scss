@@ -1,0 +1,13 @@
+.privacy {
+  max-width: 80rem;
+  margin: 5rem auto;
+  font-size: 2rem;
+
+  & > p {
+    line-height: 2;
+
+    &:not(:last-of-type) {
+      margin-bottom: 4rem;
+    }
+  }
+}

@@ -5,6 +5,7 @@ import Header from './components/Header'
 import PuzzlePage from './puzzle';
 import LandingPage from './landing'
 import LevelPage from './levels';
+import PrivacyPage from './privacy';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Switch>
             <Route path='/puzzle/:puz_id' component={PuzzlePage}/>
             <Route path='/level/:level_id' component={LevelPage}/> 
+            <Route path='/privacy' component={PrivacyPage}/>
             <Route path='/build'/>
             <Route path='/' component={LandingPage}/>
           </Switch>
