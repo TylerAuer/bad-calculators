@@ -15,14 +15,12 @@ export default async function (
     return;
   }
 
-  // TODO: fix the typing issues here. Something about the Express / PassportJS
-  // user isn't registering correctly.
-  // The ! modifier doesn't seem to work either
+  const user = req.user as User;
 
   const userData = {
-    first: req.user.first,
-    pic: req.user.pic,
-    progress: req.user.progress,
+    first: user.first,
+    pic: user.pic,
+    progress: user.progress,
   };
 
   res.send(userData);

@@ -15,10 +15,12 @@ export default async function (
     return;
   }
 
-  const key = req.user.id;
+  const user = req.user as User;
+
+  const key = user.id;
   const progress = req.body;
 
   db.BC_User.update({ progress: progress }, { where: { id: key } });
 
-  res.send('BLAH');
+  res.send('Updated user progres in database');
 }
