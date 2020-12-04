@@ -61,6 +61,53 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
+    /**
+     * Reverses the digits. Negatives maintain negative signs. Place values do
+     * not change. Examples help:
+     *
+     * 1234 --> 4321
+     * 1.234 --> 4.321
+     * -12 --> -21
+     */
+    // TODO: Resolve how to handle 0.005341
+    case OpType.reverse: {
+      const op = (prev: number) => {
+        if (prev === 0) return 0;
+
+        const isNegative = prev < 0;
+        if (isNegative) {
+          prev *= -1;
+        }
+
+        const split = prev.toString().split('.');
+        const isFloat = split.length > 1;
+
+        if (!isFloat) {
+          const rev = parseInt(split[0].split('').reverse().join(''));
+          // TEST
+          // console.log(prev, '-->', isNegative ? -1 * rev : rev);
+          return isNegative ? -1 * rev : rev;
+        } else {
+          const rev = split.join('').split('').reverse(); // reverse w/o decimal
+          const decimalIndex = split[0].length; // find decimal idx
+          const revWithDecimal = [
+            ...rev.slice(0, decimalIndex),
+            '.',
+            ...rev.slice(decimalIndex),
+          ]; // splice decimal point back in
+
+          // convert to float
+          const revFloat = parseFloat(revWithDecimal.join(''));
+
+          // TEST
+          // console.log(prev, '-->', isNegative ? -1 * revFloat : revFloat);
+          return isNegative ? -1 * revFloat : revFloat;
+        }
+      };
+      const text = `reverse`;
+      return { text, op, limit };
+    }
+
     default:
       throw new Error('Invalid symbol passed in info.symbol');
   }

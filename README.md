@@ -4,13 +4,15 @@ Extremely puzzling and unhelpful devices
 
 ## To Do
 
-1. Turn calc buttons back into buttons
-2. Add loading spinner
-3. Implement Google Sign In
-4. Shows total stars possible
-5. Log attempts
-6. Add user auth with Google
-7. 404 Page and redirects
+- Add user auth with Google
+- Turn calc buttons back into buttons
+- Add NaN return for invalid inputes (ex: 4.2!)
+- Add loading spinner
+- Implement Google Sign In
+- Shows total stars possible
+- Log attempts
+- 404 Page and redirects
+- Customize stars and SuccessModal message based on result
 
 ## Ideas
 
