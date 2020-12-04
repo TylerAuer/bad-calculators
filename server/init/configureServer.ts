@@ -6,6 +6,7 @@ import levelRouter from '../routers/level';
 import logRouter from '../routers/log';
 import puzzleRouter from '../routers/puzzle';
 import statsRouter from '../routers/stats';
+import userRouter from '../routers/user';
 const forceHttps = require('express-force-https');
 const session = require('express-session');
 const passport = require('passport');
@@ -47,6 +48,7 @@ export default async function (sessionStore) {
   app.use('/log', logRouter);
   app.use('/puzzle', puzzleRouter);
   app.use('/stats', statsRouter);
+  app.use('/user', userRouter);
 
   return app;
 }

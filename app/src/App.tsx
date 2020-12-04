@@ -11,8 +11,8 @@ function App() {
   return (
     <div>
       <RecoilRoot>
-        <Header />
         <HashRouter>
+          <Header />
           <Switch>
             <Route path='/puzzle/:puz_id' component={PuzzlePage}/>
             <Route path='/level/:level_id' component={LevelPage}/> 

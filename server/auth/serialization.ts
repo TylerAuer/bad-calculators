@@ -24,7 +24,7 @@ passport.serializeUser(function (user: OAuth2, cb) {
 });
 
 passport.deserializeUser(async (id, cb) => {
-  const user: User = await db.BC_User.findOne({
+  const user = await db.BC_User.findOne({
     where: {
       authId: id,
     },
