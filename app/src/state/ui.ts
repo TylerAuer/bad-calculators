@@ -1,7 +1,7 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
 
-export const isSuccessModalOpen = atom({
-  key: 'isSuccessModalOpen',
+export const isModalOpen = atomFamily({
+  key: 'isModalOpen',
   default: false,
 });
 

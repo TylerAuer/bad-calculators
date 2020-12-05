@@ -8,7 +8,7 @@ export default function UserAccount() {
   const user = useRecoilValue(userInfo)
 
   if (!signedIn) return null
-
+  
   return (
     <button className='user-account'>
       <img className='user-account__img'alt={`${user.first}'s profile pic`} src={user.pic}/>

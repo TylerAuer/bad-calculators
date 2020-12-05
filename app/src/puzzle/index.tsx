@@ -3,16 +3,16 @@ import {useParams, Link} from 'react-router-dom';
 import {useRecoilValue, useSetRecoilState, useRecoilState} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
 import {userInfo} from '../state/user'
-import {isSuccessModalOpen} from '../state/ui'
+import {isModalOpen} from '../state/ui'
 import useLoadPuzzle from '../hooks/useLoadPuzzle'
 import saveUserProgress from '../utils/saveUserProgress';
 
 import Goals from './Goals'
 import CalcFunctions from './CalcFunctions';
-import SuccessModal from './SuccessModal';
+import SolvedModal from './SolvedModal';
 
 import './index.scss'
-import Header from '../components/Header';
+import Header from '../header/Header';
 
 interface Params {
   puz_id: string;
@@ -22,7 +22,7 @@ export default function PuzzlePage() {
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
   const setUser = useSetRecoilState(userInfo)
-  const [modalIsOpen, setIsModalOpen] = useRecoilState(isSuccessModalOpen)
+  const [modalIsOpen, setIsModalOpen] = useRecoilState(isModalOpen('Solved'))
     
   const {puz_id} = useParams<Params>()
   
@@ -97,7 +97,7 @@ export default function PuzzlePage() {
     <>
       <Header/>
       <div className="calc">
-        <SuccessModal/>
+        <SolvedModal/>
 
         <div className="calc__above">
           <Goals/>

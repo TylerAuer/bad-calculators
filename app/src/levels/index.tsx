@@ -1,6 +1,6 @@
 import {useParams, useHistory} from 'react-router-dom';
 import {useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState} from 'recoil';
-import Header from '../components/Header';
+import Header from '../header/Header';
 import {levelData, levelId} from '../state/level';
 import {userInfo} from '../state/user';
 

@@ -7,7 +7,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease-out;
 
   &__img {
     height: 5rem;

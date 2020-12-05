@@ -2,18 +2,18 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle';
-import {isSuccessModalOpen} from '../state/ui';
+import {isModalOpen} from '../state/ui';
 import { Modal } from 'react-responsive-modal';
 import Goals from './Goals'
 
 import 'react-responsive-modal/styles.css';
-import './SuccessModal.scss'
+import './SolvedModal.scss'
 
-export default function SuccessModal () {
+export default function SolvedModal () {
   const history = useHistory();
   const puz = useRecoilValue(puzzle);
   const [puzStates, setPuzStates] = useRecoilState(puzzleStates);
-  const [open, setOpen] = useRecoilState(isSuccessModalOpen);
+  const [open, setOpen] = useRecoilState(isModalOpen('Solved'));
   const moves = puzStates.length - 1;
   
   // Don't display if no puzzle is loaded
