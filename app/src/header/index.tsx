@@ -20,7 +20,8 @@ export default function Header() {
   // The server returns the user's info and progress if authenticated 
   useEffect(() => {
     checkForUser();
-  }, [checkForUser])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <header className='header'>

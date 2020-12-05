@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
-import {useRecoilValue, useSetRecoilState, useRecoilState} from 'recoil';
+import {useRecoilValue, useRecoilState} from 'recoil';
 import {puzzle, puzzleStates} from '../state/puzzle'
-import {userInfo} from '../state/user'
+import {isSignedIn, userInfo} from '../state/user'
 import {isModalOpen} from '../state/ui'
 import useLoadPuzzle from '../hooks/useLoadPuzzle'
 import saveUserProgress from '../utils/saveUserProgress';
@@ -20,7 +20,8 @@ interface Params {
 export default function PuzzlePage() {
   const puz = useRecoilValue(puzzle)
   const puzStates = useRecoilValue(puzzleStates)
-  const setUser = useSetRecoilState(userInfo)
+  const signedIn = useRecoilValue(isSignedIn)
+  const [user, setUser] = useRecoilState(userInfo)
   const [modalIsOpen, setIsModalOpen] = useRecoilState(isModalOpen('Solved'))
     
   const {puz_id} = useParams<Params>()
@@ -40,7 +41,7 @@ export default function PuzzlePage() {
   const currentState = puzStates[puzStates.length - 1]
 
   
-  const onReachPuzTarget = () => {
+  const onReachPuzTarget = async () => {
     // Get array of goals
     if (!puz) return;
     const { stars } = puz;
@@ -64,25 +65,30 @@ export default function PuzzlePage() {
       
     if (!modalIsOpen) setIsModalOpen(true)
     
-    setUser((prev) => {
-      // Update the newStars
-      const nextProgressArray = [...prev.progress[puz_id]]
-      goalsMet.forEach(goal => {
-        nextProgressArray[goal] = true
+    // Update this puzzles progress with any stars
+    const thisPuzzlesUpdatedProgressArr = [...user.progress[puz_id]]
+    goalsMet.forEach(goal => {
+        thisPuzzlesUpdatedProgressArr[goal] = true
+    })
+    
+    if (signedIn) {
+      const progressSyncedWithBackend = await saveUserProgress({
+        [puz_id]: thisPuzzlesUpdatedProgressArr
       })
-
-      // Return the updated UserInfo object
-      const next = {
+  
+      setUser((prev) => ({
+        ...prev,
+        progress: progressSyncedWithBackend,
+      }))
+    } else {
+      setUser((prev) => ({
         ...prev,
         progress: {
           ...prev.progress,
-          [puz_id]: nextProgressArray
+          [puz_id]: thisPuzzlesUpdatedProgressArr,
         }
-      }
-
-      saveUserProgress(next.progress)
-      return next
-    })
+      }))
+    }
 
   }
     

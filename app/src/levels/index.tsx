@@ -20,10 +20,10 @@ export default function LevelPage() {
       return <Level/>
     case 'loading':
       return <div>Loading...</div>
-      case 'hasError':
-        setLvlId(1) // Reset to valid level ID
-        history.push('/level/1'); // Redirect user level 1
-        return <div>Error. Redirecting.</div> // Must return JSX but never shown
+    case 'hasError':
+      setLvlId(1) // Reset to valid level ID
+      history.push('/level/1'); // Redirect user level 1
+      return <div>Error. Redirecting.</div> // Must return JSX but never shown
   }
 }
 

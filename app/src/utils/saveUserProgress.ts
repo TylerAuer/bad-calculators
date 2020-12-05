@@ -12,4 +12,6 @@ export default async function saveUserProgress(progress: AllProgress) {
   if (res.status >= 400) {
     console.error('Error saving user progress');
   }
+
+  return await res.json();
 }
