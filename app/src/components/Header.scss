@@ -3,14 +3,24 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   font-size: 2rem;
   margin: 1rem auto;
   max-width: 120rem;
 
+  &__right {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__total-stars {
+    margin-left: 1rem;
+  }
+
   &__star {
-    color: $star-color-active;
+    color: $accent-3;
     font-size: 2.5rem;
     font-family: sans-serif;
+    margin: 1rem;
   }
 }

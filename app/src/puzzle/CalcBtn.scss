@@ -30,7 +30,7 @@
     background-color: transparent;
 
     &:focus-visible {
-      color: $red;
+      color: $accent-1;
     }
   }
 
@@ -38,8 +38,8 @@
   }
 
   &--reset {
-    color: $red;
-    border-color: $red;
+    color: $accent-1;
+    border-color: $accent-1;
   }
 
   &__uses-left {
@@ -48,9 +48,8 @@
     bottom: 0;
     line-height: 0;
     font-size: $font-sm;
-    color: $red;
+    color: $accent-1;
     transform: translate(-50%, 50%);
-    background-color: red;
 
     &--infinity {
       display: none;
