@@ -27,7 +27,7 @@ Extremely puzzling and unhelpful devices
 
 Once a puzzle is added to the DB its ID should **NEVER** change. But, the architecture allows for the changing of levels or ordering as I learn more about each puzzle's difficulty.
 
-Ideally this script is run automatically by adding it to `git/hooks/pre-commit`. That will need to call the script like this: `node public/utils/pre-commit.js`
+Ideally this script is run automatically by adding it to `git/hooks/pre-commit`. That will need to call the script like so: `node public/utils/pre-commit.js`
 
 ### Utilities
 
