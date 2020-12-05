@@ -12,7 +12,6 @@ import CalcFunctions from './CalcFunctions';
 import SolvedModal from './SolvedModal';
 
 import './index.scss'
-import Header from '../header/Header';
 
 interface Params {
   puz_id: string;
@@ -94,32 +93,29 @@ export default function PuzzlePage() {
   }
 
   return (
-    <>
-      <Header/>
-      <div className="calc">
-        <SolvedModal/>
+    <div className="calc">
+      <SolvedModal/>
 
-        <div className="calc__above">
-          <Goals/>
-        </div>
-        
-        <div className="calc__body">
-          <div className="calc__screen">{currentState.val}</div>
-          <div className="calc__meta">
-            <div className="calc__moves">Moves: {puzStates.length - 1}</div>
-            <div className="calc__target">Target: {puz.target}</div>
-          </div>
-          <CalcFunctions />
-        </div>
-        
-        <div className="calc__below">
-          <div className="calc__left">
-            <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
-          </div>
-          <div className="calc__right">Puzzle {puz.level}-{puz.indexInLevel} by {puz.creator}</div>
-        </div>
-
+      <div className="calc__above">
+        <Goals/>
       </div>
-    </>
+      
+      <div className="calc__body">
+        <div className="calc__screen">{currentState.val}</div>
+        <div className="calc__meta">
+          <div className="calc__moves">Moves: {puzStates.length - 1}</div>
+          <div className="calc__target">Target: {puz.target}</div>
+        </div>
+        <CalcFunctions />
+      </div>
+      
+      <div className="calc__below">
+        <div className="calc__left">
+          <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
+        </div>
+        <div className="calc__right">Puzzle {puz.level}-{puz.indexInLevel} by {puz.creator}</div>
+      </div>
+    
+    </div>
   )
 }

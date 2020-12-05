@@ -1,6 +1,7 @@
 import React from 'react';
-import {HashRouter, Switch, Route} from 'react-router-dom';
+import {HashRouter, Switch, Route, Redirect} from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import Header from './header';
 import PuzzlePage from './puzzle';
 import LandingPage from './landing'
 import LevelPage from './levels';
@@ -12,11 +13,28 @@ function App() {
       <RecoilRoot>
         <HashRouter>
           <Switch>
-            <Route path='/puzzle/:puz_id' component={PuzzlePage}/>
-            <Route path='/level/:level_id' component={LevelPage}/> 
-            <Route path='/privacy' component={PrivacyPage}/>
-            <Route path='/build'/>
+            <Route path='/puzzle/:puz_id'>
+              <Header />
+              <PuzzlePage/>
+            </Route>
+            
+            <Route path='/level/:level_id'>
+              <Header/>
+              <LevelPage/>
+            </Route> 
+            
+            <Route path='/build'>
+              <Header/>
+            </Route>
+            
+            <Route path='/privacy'>
+              <Header />
+              <PrivacyPage/>
+            </Route>
+            
             <Route path='/' component={LandingPage}/>
+            
+            <Redirect to='/'/>
           </Switch>
         </HashRouter>
       </RecoilRoot>

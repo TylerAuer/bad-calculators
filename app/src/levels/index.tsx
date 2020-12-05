@@ -1,6 +1,5 @@
 import {useParams, useHistory} from 'react-router-dom';
 import {useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState} from 'recoil';
-import Header from '../header/Header';
 import {levelData, levelId} from '../state/level';
 import {userInfo} from '../state/user';
 
@@ -77,34 +76,31 @@ function Level() {
   });
 
   return (
-    <>
-      <Header/>
-      <div className="lvl-page">
-        <div className="lvl-page__header">
-          <div className="lvl-page__title">Level {lvl.id}</div>
-          <div className="lvl-page__desc">{lvl.desc}</div>
-        </div>
-        <div className="lvl-page__list-of-puzzles">
-          {puzList}
-        </div>
-          <div className="lvl-page__nav">
-            <div className="lvl-page__left">
-              {lvl.levelBelow && (
-              <button className='lvl-page__level-btn' onClick={() => onLvlClick(lvl.levelBelow as number)}>
-                Level {lvl.levelBelow}
+    <div className="lvl-page">
+      <div className="lvl-page__header">
+        <div className="lvl-page__title">Level {lvl.id}</div>
+        <div className="lvl-page__desc">{lvl.desc}</div>
+      </div>
+      <div className="lvl-page__list-of-puzzles">
+        {puzList}
+      </div>
+        <div className="lvl-page__nav">
+          <div className="lvl-page__left">
+            {lvl.levelBelow && (
+            <button className='lvl-page__level-btn' onClick={() => onLvlClick(lvl.levelBelow as number)}>
+              Level {lvl.levelBelow}
+              </button>
+            )}
+          </div>
+          <div className="lvl-page__mid"></div>
+          <div className="lvl-page__right">
+              {lvl.levelAbove && (
+                <button className='lvl-page__level-btn' onClick={() => onLvlClick(lvl.levelAbove as number)}>
+                  Level {lvl.levelAbove}
                 </button>
               )}
-            </div>
-            <div className="lvl-page__mid"></div>
-            <div className="lvl-page__right">
-                {lvl.levelAbove && (
-                  <button className='lvl-page__level-btn' onClick={() => onLvlClick(lvl.levelAbove as number)}>
-                    Level {lvl.levelAbove}
-                  </button>
-                )}
-            </div>
           </div>
-      </div>  
-    </>
+        </div>
+    </div>  
   )
 }
