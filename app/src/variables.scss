@@ -11,13 +11,18 @@ $star-color-active: gold;
 $red: #eb4f4f;
 $accent: #4f8deb;
 
+// Fonts
+$font-xl: 3rem;
+$font-lg: 2.4rem;
+$font-md: 2rem;
+$font-sm: 1.8rem;
+$font-xs: 1.6rem;
+
 // MIXINS
 @mixin neu-shadow {
-  background: $grey-very-light;
   box-shadow: 6px 6px 15px $grey-light, -6px -6px 15px #ffffff;
 }
 
 @mixin neu-shadow-inset {
-  background: $grey-very-light;
   box-shadow: inset 4px 4px 8px $grey-light, inset -4px -4px 8px #ffffff;
 }

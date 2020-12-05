@@ -51,6 +51,7 @@
     border: 2px solid $grey-light;
     cursor: pointer;
     transition: all 0.3s;
+    background-color: transparent;
 
     &:hover,
     &:focus {
@@ -68,6 +69,7 @@
     font-size: 2rem;
     text-align: center;
     font-family: sans-serif;
+    margin-top: 0.5rem;
   }
 
   &__star {
@@ -108,6 +110,7 @@
     font-size: 2rem;
     outline: none;
     color: $grey-very-dark;
+    background-color: transparent;
     cursor: pointer;
 
     &:hover,
@@ -119,6 +122,10 @@
     &:active {
       border-color: transparent;
       @include neu-shadow-inset;
+    }
+
+    @media only screen and (max-width: 800px) {
+      border-width: 1px;
     }
   }
 }

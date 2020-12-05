@@ -2,7 +2,7 @@
 
 .calc-btn {
   position: relative;
-  margin: 1rem;
+  margin: 0.75rem;
   border: 2px solid $grey-pretty-light;
   border-radius: 5px;
   width: 15rem;
@@ -22,11 +22,12 @@
   &__btn {
     cursor: pointer;
     width: 100%;
-    padding: 1.5rem;
+    padding: 1.2rem;
     border: none;
     outline: none;
-    font-size: 2.8rem;
+    font-size: $font-lg;
     font-family: inherit;
+    background-color: transparent;
 
     &:focus-visible {
       color: $red;
@@ -46,7 +47,7 @@
     left: 50%;
     bottom: 0;
     line-height: 0;
-    font-size: 1.8rem;
+    font-size: $font-sm;
     color: $red;
     transform: translate(-50%, 50%);
     background-color: red;
