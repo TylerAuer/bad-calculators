@@ -2,6 +2,7 @@ import {useParams, useHistory} from 'react-router-dom';
 import {useRecoilState, useRecoilValue, useRecoilValueLoadable, useSetRecoilState} from 'recoil';
 import {levelData, levelId} from '../state/level';
 import {userInfo} from '../state/user';
+import Spinner from '../spinner';
 
 import './index.scss'
 
@@ -19,7 +20,7 @@ export default function LevelPage() {
     case 'hasValue':
       return <Level/>
     case 'loading':
-      return <div>Loading...</div>
+      return <Spinner/>
     case 'hasError':
       setLvlId(1) // Reset to valid level ID
       history.push('/level/1'); // Redirect user level 1

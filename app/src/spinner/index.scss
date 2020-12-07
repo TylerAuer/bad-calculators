@@ -1,0 +1,13 @@
+@import '../variables.scss';
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+
+  & svg {
+    fill: $grey;
+    stroke: $grey;
+  }
+}

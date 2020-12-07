@@ -34,7 +34,9 @@ function App() {
             
             <Route path='/' component={LandingPage}/>
             
+            {/* Redirect any malformed links to the landing page */}
             <Redirect to='/'/>
+
           </Switch>
         </HashRouter>
       </RecoilRoot>
