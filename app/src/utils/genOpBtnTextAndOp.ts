@@ -42,7 +42,9 @@ export default function genOpBtnTextAndOp({
     }
 
     case OpType.div: {
-      if (value === 0) throw new Error('Tried to divide by 0');
+      if (value === 0) {
+        throw new Error('Tried to divide by 0 in puzzle definition');
+      }
 
       const op = (prev: number) => handleFloats(prev / value);
       const text = isValNegative ? `÷ (${value})` : `÷ ${value}`;
@@ -50,12 +52,8 @@ export default function genOpBtnTextAndOp({
     }
 
     case OpType.mod: {
-      /** 
-      n % 0 is undefined because it's essentially dividing by 0 so throw an 
-      error if a puzzle is accidentally built to use mod 0.
-      */
-      if (value === 0) {
-        throw new Error('Tried to use 0 as mod in puzzle definition');
+      if (value <= 0 || value % 1 !== 0) {
+        throw new Error(`Mod values must be whole numbers. You tried ${value}`);
       }
 
       const op = (prev: number) => handleFloats(prev % value);
@@ -111,7 +109,9 @@ export default function genOpBtnTextAndOp({
     }
 
     default:
-      throw new Error('Invalid symbol passed in info.symbol');
+      throw new Error(
+        'Invalid symbol passed in info.symbol of puzzle definition'
+      );
   }
 }
 
