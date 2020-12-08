@@ -42,6 +42,8 @@ export default function genOpBtnTextAndOp({
     }
 
     case OpType.div: {
+      if (value === 0) throw new Error('Tried to divide by 0');
+
       const op = (prev: number) => handleFloats(prev / value);
       const text = isValNegative ? `÷ (${value})` : `÷ ${value}`;
       return { text, op, limit };
@@ -68,8 +70,8 @@ export default function genOpBtnTextAndOp({
      * 1234 --> 4321
      * 1.234 --> 4.321
      * -12 --> -21
+     * 0.001234 --> 0.004321
      */
-    // TODO: Resolve how to handle 0.005341
     case OpType.reverse: {
       const op = (prev: number) => {
         if (prev === 0) return 0;
