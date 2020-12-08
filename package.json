@@ -15,7 +15,8 @@
     "build": "run-s build:* --print-label",
     "postinstall": "cd app && npm install",
     "start": "cd app && npm start",
-    "stats": "node public/puzzles/stats.js"
+    "stats": "node public/puzzles/stats.js",
+    "test": "cd app && npm test"
   },
   "author": "",
   "license": "ISC",
