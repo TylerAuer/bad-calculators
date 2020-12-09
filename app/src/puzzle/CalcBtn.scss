@@ -6,16 +6,15 @@
   border: 2px solid $grey-pretty-light;
   border-radius: 5px;
   width: 15rem;
-  cursor: pointer;
   transition: all 0.3s;
   padding: 1px;
 
-  &:hover {
+  &:hover:not(.calc-btn--disabled) {
     border-color: transparent;
     @include neu-shadow;
   }
 
-  &:active {
+  &:active:not(.calc-btn--disabled) {
     @include neu-shadow-inset;
   }
 
@@ -31,6 +30,10 @@
 
     &:focus-visible {
       color: $accent-1;
+    }
+
+    &--disabled {
+      color: $grey-light;
     }
   }
 

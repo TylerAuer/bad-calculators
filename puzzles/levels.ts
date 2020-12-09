@@ -27,7 +27,8 @@ export const levels: { [key: string]: Level } = {
     levelBelow: 3,
     levelAbove: 5,
     puzIndexes: [],
-    desc: 'Level 4 puzzles introduce new operations to explore.',
+    desc:
+      'Level 4 puzzles introduce new operations to explore and button limits -- buttons that become unusable after a certain number of uses.',
   },
   '5': {
     id: 5,
@@ -35,6 +36,6 @@ export const levels: { [key: string]: Level } = {
     levelAbove: null,
     puzIndexes: [],
     desc:
-      'Level 5 puzzles introduce blocks -- numbers you must avoid as you find your way to the target and button limits -- buttons that become unusable after a certain number of presses.',
+      'Level 5 puzzles introduce blocks -- numbers you must avoid as you find your way to the target.',
   },
 };
