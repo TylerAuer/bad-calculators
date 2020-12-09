@@ -10,4 +10,4 @@ jobs:
     - name: Convert ts --> js
       run: tsc
     - name: Check puzzles
-      run: node public/utils/pre-commit
+      run: node public/utils/pre-commit.js
