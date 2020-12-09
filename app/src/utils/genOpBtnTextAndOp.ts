@@ -61,16 +61,6 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
-    /**
-     * Reverses the digits. Negatives maintain negative signs. Place values do
-     * not change. Examples help:
-     *
-     * 50 --> 5
-     * 1234 --> 4321
-     * 1.234 --> 4.321
-     * -12 --> -21
-     * 0.001234 --> 0.4321
-     */
     case OpType.reverse: {
       const op = (prev: number) => {
         if (prev === 0) return 0;
@@ -113,7 +103,24 @@ export default function genOpBtnTextAndOp({
         return isNegative ? rev * -1 : rev;
       };
 
-      const text = `reverse`;
+      const text = 'reverse';
+      return { text, op, limit };
+    }
+
+    case OpType.fact: {
+      const op = (prev: number) => {
+        // Only accept whole numbers and 0
+        if (prev < 0 || prev % 1 !== 0) return NaN;
+
+        let output = 1;
+        while (prev > 0) {
+          output *= prev--;
+        }
+
+        return output;
+      };
+
+      const text = 'n!';
       return { text, op, limit };
     }
 
