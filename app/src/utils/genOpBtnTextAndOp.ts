@@ -1,4 +1,3 @@
-import { parse } from 'path';
 import { OpType, OpInfo } from '../structs/puzzle';
 
 interface Output {

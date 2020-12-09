@@ -59,6 +59,10 @@ describe('positive inputs', () => {
   test('0.001234 -> 0.004321', () => {
     expect(rev.op(0.001234)).toBe(0.004321);
   });
+
+  test('0.001 -> 0.001', () => {
+    expect(rev.op(0.001)).toBe(0.001);
+  });
 });
 
 describe('negative inputs', () => {
