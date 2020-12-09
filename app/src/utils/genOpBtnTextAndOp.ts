@@ -1,3 +1,4 @@
+import { parse } from 'path';
 import { OpType, OpInfo } from '../structs/puzzle';
 
 interface Output {
@@ -74,36 +75,52 @@ export default function genOpBtnTextAndOp({
       const op = (prev: number) => {
         if (prev === 0) return 0;
 
+        // Determine if negative and then remove negative for easier parsing
         const isNegative = prev < 0;
         if (isNegative) {
           prev *= -1;
         }
 
+        // Get index of decimal point and then remove the decimal point
         const split = prev.toString().split('.');
         const isFloat = split.length > 1;
+        let decimalPtIdx: number | null = null;
+        if (isFloat) decimalPtIdx = split[0].length;
 
-        if (!isFloat) {
-          const rev = parseInt(split[0].split('').reverse().join(''));
-          // TEST
-          // console.log(prev, '-->', isNegative ? -1 * rev : rev);
-          return isNegative ? -1 * rev : rev;
-        } else {
-          const rev = split.join('').split('').reverse(); // reverse w/o decimal
-          const decimalIndex = split[0].length; // find decimal idx
-          const revWithDecimal = [
-            ...rev.slice(0, decimalIndex),
-            '.',
-            ...rev.slice(decimalIndex),
-          ]; // splice decimal point back in
+        // Digits is the original number without a negative sign or decimal
+        const digits = split.join('');
 
-          // convert to float
-          const revFloat = parseFloat(revWithDecimal.join(''));
+        // Get indexes of the first and last non-zero digits so the digits
+        // between can be reversed
+        const firstNonZeroIdx = digits.search(/[1-9]/);
+        const lastNonZeroIdx =
+          digits.length -
+          1 -
+          digits.split('').reverse().join('').search(/[1-9]/);
 
-          // TEST
-          // console.log(prev, '-->', isNegative ? -1 * revFloat : revFloat);
-          return isNegative ? -1 * revFloat : revFloat;
+        // Reverse digits between first + lastNonZeros and combine with
+        // any 0s before or after
+        const before = digits.slice(0, firstNonZeroIdx);
+        const reversedDigits = digits
+          .slice(firstNonZeroIdx, lastNonZeroIdx + 1)
+          .split('')
+          .reverse()
+          .join('');
+        const after = digits.slice(lastNonZeroIdx + 1);
+        let rev = before + reversedDigits + after;
+
+        // If the original number had a decimal, put it back into the number
+        if (isFloat && decimalPtIdx) {
+          rev = rev.slice(0, decimalPtIdx) + '.' + rev.slice(decimalPtIdx);
         }
+        let revFloat = parseFloat(rev);
+
+        // If the original number was negative, make negative
+        if (isNegative) revFloat *= -1;
+
+        return revFloat;
       };
+
       const text = `reverse`;
       return { text, op, limit };
     }
