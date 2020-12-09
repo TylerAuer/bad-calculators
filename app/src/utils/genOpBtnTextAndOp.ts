@@ -65,10 +65,11 @@ export default function genOpBtnTextAndOp({
      * Reverses the digits. Negatives maintain negative signs. Place values do
      * not change. Examples help:
      *
+     * 50 --> 5
      * 1234 --> 4321
      * 1.234 --> 4.321
      * -12 --> -21
-     * 0.001234 --> 0.004321
+     * 0.001234 --> 0.4321
      */
     case OpType.reverse: {
       const op = (prev: number) => {
@@ -80,44 +81,36 @@ export default function genOpBtnTextAndOp({
           prev *= -1;
         }
 
-        // Get index of decimal point and then remove the decimal point
-        const split = prev.toString().split('.');
-        const isFloat = split.length > 1;
-        let decimalPtIdx: number | null = null;
-        if (isFloat) decimalPtIdx = split[0].length;
+        // Number is an integer
+        if (prev % 1 === 0) {
+          const rev = parseInt(prev.toString().split('').reverse().join(''));
+          return isNegative ? rev * -1 : rev;
+        }
 
-        // Digits is the original number without a negative sign or decimal
-        const digits = split.join('');
+        // Number has no whole part
+        if (prev > 0 && prev < 1) {
+          const rev = parseFloat(
+            '.' + prev.toString().split('.')[1].split('').reverse().join('')
+          );
+          return isNegative ? rev * -1 : rev;
+        }
 
-        // Get indexes of the first and last non-zero digits so the digits
-        // between can be reversed
-        const firstNonZeroIdx = digits.search(/[1-9]/);
-        const lastNonZeroIdx =
-          digits.length -
-          1 -
-          digits.split('').reverse().join('').search(/[1-9]/);
-
-        // Reverse digits between first + lastNonZeros and combine with
-        // any 0s before or after
-        const before = digits.slice(0, firstNonZeroIdx);
-        const reversedDigits = digits
-          .slice(firstNonZeroIdx, lastNonZeroIdx + 1)
+        // Number has a whole and a decimal part
+        const numAsStr = prev.toString();
+        const decimalIdx = numAsStr.indexOf('.');
+        const revWithoutDecimal = numAsStr
+          .split('.')
+          .join('')
           .split('')
           .reverse()
           .join('');
-        const after = digits.slice(lastNonZeroIdx + 1);
-        let rev = before + reversedDigits + after;
+        const rev = parseFloat(
+          revWithoutDecimal.slice(0, decimalIdx) +
+            '.' +
+            revWithoutDecimal.slice(decimalIdx)
+        );
 
-        // If the original number had a decimal, put it back into the number
-        if (isFloat && decimalPtIdx) {
-          rev = rev.slice(0, decimalPtIdx) + '.' + rev.slice(decimalPtIdx);
-        }
-        let revFloat = parseFloat(rev);
-
-        // If the original number was negative, make negative
-        if (isNegative) revFloat *= -1;
-
-        return revFloat;
+        return isNegative ? rev * -1 : rev;
       };
 
       const text = `reverse`;
