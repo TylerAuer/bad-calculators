@@ -28,8 +28,8 @@ describe('positive inputs', () => {
     expect(rev.op(0)).toBe(0);
   });
 
-  test('50 -> 50', () => {
-    expect(rev.op(50)).toBe(50);
+  test('50 -> 5', () => {
+    expect(rev.op(50)).toBe(5);
   });
 
   test('102 -> 201', () => {
@@ -40,8 +40,8 @@ describe('positive inputs', () => {
     expect(rev.op(1234)).toBe(4321);
   });
 
-  test('1234000 -> 4321000', () => {
-    expect(rev.op(1234000)).toBe(4321000);
+  test('1234000 -> 4321', () => {
+    expect(rev.op(1234000)).toBe(4321);
   });
 
   test('12.34 -> 43.21', () => {
@@ -56,12 +56,16 @@ describe('positive inputs', () => {
     expect(rev.op(1200.34)).toBe(4300.21);
   });
 
-  test('0.001234 -> 0.004321', () => {
-    expect(rev.op(0.001234)).toBe(0.004321);
+  test('0.001234 -> 0.4321', () => {
+    expect(rev.op(0.001234)).toBe(0.4321);
   });
 
-  test('0.001 -> 0.001', () => {
-    expect(rev.op(0.001)).toBe(0.001);
+  test('0.001 -> 0.1', () => {
+    expect(rev.op(0.001)).toBe(0.1);
+  });
+
+  test('23400.0789 -> 98700.0432', () => {
+    expect(rev.op(23400.0789)).toBe(98700.0432);
   });
 });
 
@@ -70,7 +74,7 @@ describe('negative inputs', () => {
     expect(rev.op(-12)).toBe(-21);
   });
 
-  test('-0.001234 -> -0.004321', () => {
-    expect(rev.op(-0.001234)).toBe(-0.004321);
+  test('-0.001234 -> -0.4321', () => {
+    expect(rev.op(-0.001234)).toBe(-0.4321);
   });
 });
