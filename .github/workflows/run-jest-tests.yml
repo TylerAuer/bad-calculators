@@ -1,12 +1,5 @@
 name: Run jest tests
-on: 
-  pull_request:
-    branches:
-      - master
-  push:
-    branches: 
-      - master
-      - dev
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
