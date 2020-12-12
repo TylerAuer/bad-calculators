@@ -1,7 +1,9 @@
 import express from 'express';
-import trackPuzzleAction from '../endpoints/trackPuzzleAction';
+import trackSuccess from '../endpoints/trackSuccess';
+import trackAttempt from '../endpoints/trackAttempt';
 const router = express.Router();
 
-router.put('/', trackPuzzleAction);
+router.put('/success', trackSuccess);
+router.put('/attempt', trackAttempt);
 
 export default router;

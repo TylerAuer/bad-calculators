@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
+      goal0EarnedCount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
       goal1EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
@@ -47,10 +51,6 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 0,
       },
       goal7EarnedCount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      goal8EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },

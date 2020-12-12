@@ -1,6 +1,8 @@
-export interface Track {
+export interface TrackSuccess {
   puzzleId: number;
-  attempt?: boolean;
-  success?: boolean;
-  goals?: boolean[];
+  goals: number[];
+}
+
+export interface TrackAttempt {
+  puzzleId: number;
 }
