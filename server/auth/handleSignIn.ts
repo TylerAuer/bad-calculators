@@ -1,8 +1,6 @@
 import db from '../orm/models';
 
 export default async function handleSignIn(profile) {
-  console.log('Profile:', profile);
-
   await db.BC_User.upsert({
     authId: profile.id,
     first: profile.name.givenName,
