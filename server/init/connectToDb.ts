@@ -10,7 +10,7 @@ export default async function () {
   });
 
   // Sync sequelize models to DB
-  await db.sequelize.sync({ force: true });
+  await db.sequelize.sync();
 
   return sessionStore;
 }
