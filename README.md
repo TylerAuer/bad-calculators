@@ -8,10 +8,11 @@ Extremely puzzling and unhelpful devices
 
 ## To Do
 
+- Better auth flow when arriving on page other than root
+  - Whatever page they land on, if they aren't logged in, send them to `/` so they can opt-in/-out of having an account
 - Track requests in progress to prevent multiple requests
 - Turn calc buttons back into buttons
 - Add NaN return for invalid inputes (ex: 4.2!)
-- Add loading spinner
 - Log attempts
 - 404 Page and redirects
 - Customize stars and SuccessModal message based on result

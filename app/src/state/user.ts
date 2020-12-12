@@ -1,11 +1,11 @@
 import { atom, selector } from 'recoil';
-import { defaultUserInfo } from '../structs/user';
+import { defaultUserInfo, SignInStatus } from '../structs/user';
 
 // ATOMS ///////////////////////////////////////////////////////////////////////
 
-export const isSignedIn = atom({
-  key: 'isSignedIn',
-  default: false,
+export const signInState = atom({
+  key: 'signInState',
+  default: SignInStatus.HAS_NOT_CHOSEN,
 });
 
 export const userInfo = atom({

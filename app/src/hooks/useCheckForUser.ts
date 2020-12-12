@@ -1,25 +1,25 @@
+import { SignInStatus } from '../structs/user';
 import { useSetRecoilState, useRecoilState } from 'recoil';
-import { isSignedIn, userInfo } from '../state/user';
+import { signInState, userInfo } from '../state/user';
 
 export default function useCheckForUser() {
-  const [signedIn, setSignedIn] = useRecoilState(isSignedIn);
+  const [signedIn, setSignedIn] = useRecoilState(signInState);
   const setUser = useSetRecoilState(userInfo);
 
   const checkForUser = async () => {
     // If user is already signed in, don't make a network request
-    if (signedIn) return;
+    if (signedIn === SignInStatus.SIGNED_IN) return;
+
+    // If the user has opted out, don't make a network request
+    if (signedIn === SignInStatus.OPTED_OUT) return;
 
     const res = await fetch('/user/data');
 
-    if (res.status >= 400) {
-      // User is not signed in, the default progress data is good
-      setSignedIn(false);
-      return;
-    } else {
+    if (res.status < 400) {
       const user = await res.json();
 
       setUser(user);
-      setSignedIn(true);
+      setSignedIn(SignInStatus.SIGNED_IN);
     }
   };
 
