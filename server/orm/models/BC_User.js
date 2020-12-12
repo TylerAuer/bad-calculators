@@ -15,9 +15,15 @@ module.exports = (sequelize, DataTypes) => {
       first: DataTypes.STRING,
       last: DataTypes.STRING,
       pic: DataTypes.STRING,
-      authId: DataTypes.STRING,
+      authId: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       email: DataTypes.STRING,
-      progress: DataTypes.JSON,
+      progress: {
+        type: DataTypes.JSON,
+        defaultValue: {},
+      },
     },
     {
       sequelize,
