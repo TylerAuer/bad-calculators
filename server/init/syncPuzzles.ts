@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { Puzzle } from '../../app/src/structs/puzzle';
 const { BC_Puzzle } = require('../orm/models');
+const { BC_Tracking } = require('../orm/models');
 
 /**
  * Looks at every file in the puzzle folder. And adds the puzzles to the DB
@@ -10,9 +11,6 @@ const { BC_Puzzle } = require('../orm/models');
 export let totalStarCount = 0;
 
 export default async function () {
-  let newPuzzleCount = 0;
-  let oldPuzzleCount = 0;
-
   const puzzleFilenameList = fs.readdirSync(__dirname + '/../../puzzles');
 
   for (let filename of puzzleFilenameList) {
@@ -30,16 +28,11 @@ export default async function () {
     const foundPuzzle = await BC_Puzzle.findOne({ where: { id: puzzle.id } });
 
     if (foundPuzzle) {
-      oldPuzzleCount++;
       await BC_Puzzle.update({ ...puzzle }, { where: { id: puzzle.id } });
     } else {
-      newPuzzleCount++;
       await BC_Puzzle.create({ ...puzzle });
     }
-  }
 
-  console.log(' ');
-  console.log(`${newPuzzleCount + oldPuzzleCount} puzzles found in /puzzles`);
-  console.log(`${newPuzzleCount} new and ${oldPuzzleCount} old synced with DB`);
-  console.log(' ');
+    await BC_Tracking.findOrCreate({ where: { BCPuzzleId: puzzle.id } });
+  }
 }

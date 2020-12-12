@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class BC_Puzzle_Progress extends Model {
+  class BC_Tracking extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,53 +12,53 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.BC_Puzzle);
     }
   }
-  BC_Puzzle_Progress.init(
+  BC_Tracking.init(
     {
-      total_attempts: {
+      totalAttempts: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      total_successes: {
+      totalSuccesses: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_1_reached_count: {
+      goal1EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_2_reached_count: {
+      goal2EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_3_reached_count: {
+      goal3EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_4_reached_count: {
+      goal4EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_5_reached_count: {
+      goal5EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_6_reached_count: {
+      goal6EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_7_reached_count: {
+      goal7EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      goal_8_reached_count: {
+      goal8EarnedCount: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
     },
     {
       sequelize,
-      modelName: 'BC_Puzzle_Progress',
+      modelName: 'BC_Tracking',
     }
   );
-  return BC_Puzzle_Progress;
+  return BC_Tracking;
 };

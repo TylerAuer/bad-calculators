@@ -3,7 +3,7 @@ import path from 'path';
 import appRouter from '../routers/app';
 import authRouter from '../routers/auth';
 import levelRouter from '../routers/level';
-import logRouter from '../routers/log';
+import trackRouter from '../routers/track';
 import puzzleRouter from '../routers/puzzle';
 import statsRouter from '../routers/stats';
 import userRouter from '../routers/user';
@@ -45,7 +45,7 @@ export default async function (sessionStore) {
   app.use('/', appRouter);
   app.use('/auth', authRouter);
   app.use('/level', levelRouter);
-  app.use('/log', logRouter);
+  app.use('/track', trackRouter);
   app.use('/puzzle', puzzleRouter);
   app.use('/stats', statsRouter);
   app.use('/user', userRouter);
