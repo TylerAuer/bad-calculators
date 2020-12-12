@@ -1,3 +1,8 @@
+![Run unit tests](https://github.com/TylerAuer/bad-calculators/workflows/Run%20jest%20tests/badge.svg)
+![Check puz IDs and indexes](https://github.com/TylerAuer/bad-calculators/workflows/Check%20puzzle%20IDs%20and%20Level%20Indexes/badge.svg)
+
+
+
 # Bad Calculators
 
 Extremely puzzling and unhelpful devices
