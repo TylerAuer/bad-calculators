@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import UserSignInMonitor from './UserSignInMonitor';
 import Header from './header';
 import PuzzlePage from './puzzle';
 import LandingPage from './landing';
@@ -12,6 +13,7 @@ function App() {
     <div>
       <RecoilRoot>
         <HashRouter>
+          <UserSignInMonitor />
           <Switch>
             <Route path="/puzzle/:puz_id">
               <Header />

@@ -26,7 +26,7 @@ export default function LandingPage() {
           <a href="/auth/google" className="btn">
             Sign in with Google to save progress
           </a>
-          <Link to={handleOptOut} className="btn">
+          <Link to={() => handleOptOut()} className="btn">
             Don't save my progress!
           </Link>
         </div>
