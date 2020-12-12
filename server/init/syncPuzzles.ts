@@ -17,7 +17,7 @@ export default async function () {
 
   for (let filename of puzzleFilenameList) {
     // Skip any files not named as ##-##.js
-    if (!filename.match(/\d*-\d.js/)) {
+    if (!filename.match(/\d*-\d+.js/)) {
       console.log('Skipping', filename);
       continue;
     }
