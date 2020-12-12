@@ -16,7 +16,7 @@ export default function UserSignInMonitor() {
   // Redirect based on sign in status
   useEffect(() => {
     // User hasn't opted whether to sign in so redirect to '/'
-    if (signIn === SignInStatus.HAS_NOT_CHOSEN && location.pathname !== '/') {
+    if (signIn === SignInStatus.HAS_NOT_CHOSEN) {
       history.push('/');
     }
 
