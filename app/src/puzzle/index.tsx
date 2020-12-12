@@ -1,8 +1,9 @@
+import { SignInStatus } from '../structs/user';
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { puzzle, puzzleStates } from '../state/puzzle';
-import { isSignedIn, userInfo } from '../state/user';
+import { signInState, userInfo } from '../state/user';
 import { isModalOpen } from '../state/ui';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
 import saveUserProgress from '../utils/saveUserProgress';
@@ -21,7 +22,7 @@ interface Params {
 export default function PuzzlePage() {
   const puz = useRecoilValue(puzzle);
   const puzStates = useRecoilValue(puzzleStates);
-  const signedIn = useRecoilValue(isSignedIn);
+  const signedIn = useRecoilValue(signInState);
   const [user, setUser] = useRecoilState(userInfo);
   const [modalIsOpen, setIsModalOpen] = useRecoilState(isModalOpen('Solved'));
 
@@ -72,7 +73,7 @@ export default function PuzzlePage() {
       thisPuzzlesUpdatedProgressArr[goal] = true;
     });
 
-    if (signedIn) {
+    if (signedIn === SignInStatus.SIGNED_IN) {
       const progressSyncedWithBackend = await saveUserProgress({
         [puz_id]: thisPuzzlesUpdatedProgressArr,
       });
