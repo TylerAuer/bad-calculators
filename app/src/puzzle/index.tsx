@@ -9,13 +9,15 @@ import { attemptStatus } from '../state/track';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
 import saveUserProgress from '../requests/saveUserProgress';
 import trackAttempt from '../requests/trackAttempt';
+import Screen from './Screen';
+import Meta from './Meta';
 import Goals from './Goals';
 import CalcFunctions from './CalcFunctions';
 import SolvedModal from './SolvedModal';
-import './index.scss';
 import Spinner from '../spinner';
 import { TrackAttemptStatus } from '../structs/track';
 import trackSuccess from '../requests/trackSuccess';
+import './index.scss';
 
 interface Params {
   puz_id: string;
@@ -123,11 +125,8 @@ export default function PuzzlePage() {
       </div>
 
       <div className="calc__body">
-        <div className="calc__screen">{currentState.val}</div>
-        <div className="calc__meta">
-          <div className="calc__moves">Moves: {puzStates.length - 1}</div>
-          <div className="calc__target">Target: {puz.target}</div>
-        </div>
+        <Screen />
+        <Meta />
         <CalcFunctions />
       </div>
 

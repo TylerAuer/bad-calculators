@@ -13,6 +13,7 @@
 
   &__above {
     justify-content: center;
+    flex-direction: column;
     font-size: $font-md;
   }
 
@@ -33,14 +34,6 @@
       margin: 0;
       padding: 1rem;
     }
-  }
-
-  &__screen {
-    padding: 1rem;
-    border: 1px solid black;
-    background-color: lightgray;
-    font-size: 6rem;
-    text-align: right;
   }
 
   &__meta {

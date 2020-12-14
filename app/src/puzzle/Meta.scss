@@ -1,0 +1,14 @@
+@import '../variables.scss';
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  font-size: 3rem;
+
+  &__block {
+    color: $accent-1;
+  }
+}

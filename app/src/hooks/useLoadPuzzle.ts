@@ -36,6 +36,8 @@ export default async function useLoadPuzzle(id: string) {
       {
         val: currentPuz.start,
         counts: Array<number>(currentPuz.operations.length).fill(0),
+        // historyString: currentPuz.start.toString(),
+        historyString: '',
       },
     ]); // Load initial state
 

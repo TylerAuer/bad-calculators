@@ -6,6 +6,7 @@ import { Puzzle } from '../structs/puzzle';
 interface State {
   val: number;
   counts: number[];
+  historyString: string;
 }
 
 // ATOMS ///////////////////////////////////////////////////////////////////////
