@@ -15,6 +15,7 @@ import SolvedModal from './SolvedModal';
 import './index.scss';
 import Spinner from '../spinner';
 import { TrackAttemptStatus } from '../structs/track';
+import trackSuccess from '../requests/trackSuccess';
 
 interface Params {
   puz_id: string;
@@ -79,6 +80,8 @@ export default function PuzzlePage() {
         goalsMet.push(i);
       }
     });
+
+    trackSuccess(puz.id, goalsMet);
 
     if (!modalIsOpen) setIsModalOpen(true);
 

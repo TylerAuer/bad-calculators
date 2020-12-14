@@ -7,9 +7,9 @@ export default async function (
   res: Response,
   next: NextFunction
 ) {
-  const { puzzleId, goals } = req.body as TrackSuccess;
+  const { puzzleId, goalsMet } = req.body as TrackSuccess;
 
-  if (!goals || !goals.length) {
+  if (!goalsMet || !goalsMet.length) {
     res
       .status(400)
       .send(
@@ -20,7 +20,7 @@ export default async function (
   }
 
   const colsToIncrement: string[] = [];
-  for (let goalIndex of goals) {
+  for (let goalIndex of goalsMet) {
     if (goalIndex > 7) {
       res.status(400).send('Maximum goal index is 7.');
       return;

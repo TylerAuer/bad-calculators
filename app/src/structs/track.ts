@@ -1,6 +1,6 @@
 export interface TrackSuccess {
   puzzleId: number;
-  goals: number[];
+  goalsMet: number[];
 }
 
 export interface TrackAttempt {

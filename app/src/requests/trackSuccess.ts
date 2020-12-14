@@ -1,11 +1,16 @@
-import { TrackAttempt } from '../structs/track';
+import { TrackSuccess } from '../structs/track';
 
-export default async function trackAttempt(puzzleId: number) {
-  const data: TrackAttempt = {
+export default async function trackSuccess(
+  puzzleId: number,
+  goalsMet: number[]
+) {
+  console.log('Track success');
+  const data: TrackSuccess = {
     puzzleId,
+    goalsMet,
   };
 
-  const res = await fetch('/track/attempt', {
+  const res = await fetch('/track/success', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/JSON',

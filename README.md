@@ -8,6 +8,7 @@ Extremely puzzling and unhelpful devices
 
 ## Road Map
 
+- Split Puzzle component into separate features and hooks to simplify code
 - Customize stars and SuccessModal message based on result
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles
