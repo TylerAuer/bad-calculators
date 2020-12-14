@@ -1,50 +1,31 @@
-import { RequestStatus } from '../structs/request';
 import { SignInStatus } from '../structs/user';
-import { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { signInState, userInfo } from '../state/user';
-import { requestStatus } from '../state/ui';
+import { useRecoilValue } from 'recoil';
+import { signInState } from '../state/user';
 import { useLocation, useHistory } from 'react-router-dom';
+import useCheckForUser from '../hooks/useCheckForUser';
 
 export default function UserSignInMonitor() {
-  const [signIn, setSignIn] = useRecoilState(signInState);
-  const [reqStatus, setReqStatus] = useRecoilState(requestStatus('user/data'));
-  const setUser = useSetRecoilState(userInfo);
+  const signIn = useRecoilValue(signInState);
   const location = useLocation();
   const history = useHistory();
 
-  // Redirect based on sign in status
-  useEffect(() => {
-    // User hasn't opted whether to sign in so redirect to '/'
-    if (signIn === SignInStatus.HAS_NOT_CHOSEN) {
+  // When site loads for the first time, check to see if the user has an active
+  // account + session
+  useCheckForUser();
+
+  // Once the initial check is complete, redirect if needed
+  if (signIn !== SignInStatus.CHECKING_FOR_SESSION) {
+    // User hasn't selected whether to log in or not, so redirect to '/' so
+    // that they can choose
+    if (signIn === SignInStatus.HAS_NOT_CHOSEN && location.pathname !== '/') {
       history.push('/');
     }
 
-    // User is signed in so, move to level page
+    // User is already signed in, so no need to show them '/'
     if (signIn === SignInStatus.SIGNED_IN && location.pathname === '/') {
       history.push('/level/1');
     }
-  });
-
-  useEffect(() => {
-    if (reqStatus === RequestStatus.IN_PROGRESS) return;
-    if (signIn !== SignInStatus.HAS_NOT_CHOSEN) return;
-
-    checkForUser();
-
-    async function checkForUser() {
-      setReqStatus(RequestStatus.IN_PROGRESS);
-
-      const res = await fetch('/user/data');
-
-      if (res.status >= 400) setReqStatus(RequestStatus.FAILED);
-
-      const user = await res.json();
-      setUser(user);
-      setReqStatus(RequestStatus.INACTIVE);
-      setSignIn(SignInStatus.SIGNED_IN);
-    }
-  }, [signIn, setSignIn, setUser, reqStatus, setReqStatus]);
+  }
 
   return null;
 }
