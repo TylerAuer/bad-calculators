@@ -6,3 +6,8 @@ export interface TrackSuccess {
 export interface TrackAttempt {
   puzzleId: number;
 }
+
+export enum TrackAttemptStatus {
+  'INACTIVE',
+  'IN_PROGRESS',
+}

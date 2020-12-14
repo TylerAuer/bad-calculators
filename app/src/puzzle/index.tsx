@@ -5,8 +5,10 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { puzzle, puzzleStates } from '../state/puzzle';
 import { signInState, userInfo } from '../state/user';
 import { isModalOpen } from '../state/ui';
+import { attemptStatus } from '../state/track';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
-import saveUserProgress from '../utils/saveUserProgress';
+import saveUserProgress from '../requests/saveUserProgress';
+import trackAttempt from '../requests/trackAttempt';
 
 import Goals from './Goals';
 import CalcFunctions from './CalcFunctions';
@@ -14,6 +16,7 @@ import SolvedModal from './SolvedModal';
 
 import './index.scss';
 import Spinner from '../spinner';
+import { TrackAttemptStatus } from '../structs/track';
 
 interface Params {
   puz_id: string;
@@ -24,6 +27,7 @@ export default function PuzzlePage() {
   const puzStates = useRecoilValue(puzzleStates);
   const signedIn = useRecoilValue(signInState);
   const [user, setUser] = useRecoilState(userInfo);
+  const [attempt, setAttempt] = useRecoilState(attemptStatus);
   const [modalIsOpen, setIsModalOpen] = useRecoilState(isModalOpen('Solved'));
 
   const { puz_id } = useParams<Params>();
@@ -42,6 +46,12 @@ export default function PuzzlePage() {
     return <Spinner />;
 
   const currentState = puzStates[puzStates.length - 1];
+
+  // Checks if an attempt should be logged
+  if (attempt === TrackAttemptStatus.INACTIVE && puzStates.length === 3) {
+    setAttempt(TrackAttemptStatus.IN_PROGRESS);
+    trackAttempt(puz.id);
+  }
 
   const onReachPuzTarget = async () => {
     // Get array of goals
