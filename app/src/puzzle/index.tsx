@@ -31,8 +31,6 @@ export default function PuzzlePage() {
 
   const { puz_id } = useParams<Params>();
 
-  console.log('Attempt:', attempt);
-
   // Close modal if it is open when the component first mounts
   // or when the puz_id changes
   useEffect(() => {

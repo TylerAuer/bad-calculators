@@ -2,9 +2,10 @@
 export type PuzProgress = boolean[];
 
 export enum SignInStatus {
-  'OPTED_OUT',
+  'OPTED_OUT', // User opted to not save progress
   'SIGNED_IN',
-  'HAS_NOT_CHOSEN',
+  'HAS_NOT_CHOSEN', // If a user is not found when checking
+  'CHECKING_FOR_SESSION', // When the app initially loads
 }
 
 export interface AllProgress {

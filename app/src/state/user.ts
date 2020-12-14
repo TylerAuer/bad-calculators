@@ -5,7 +5,7 @@ import { defaultUserInfo, SignInStatus } from '../structs/user';
 
 export const signInState = atom({
   key: 'signInState',
-  default: SignInStatus.HAS_NOT_CHOSEN,
+  default: SignInStatus.CHECKING_FOR_SESSION,
 });
 
 export const userInfo = atom({
