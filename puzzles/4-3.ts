@@ -8,7 +8,7 @@ export const puzzle: Puzzle = {
   creator: 'Tyler',
   start: 11,
   target: 2,
-  maxMoves: 7,
+  maxMoves: null,
   operations: [
     {
       symbol: OpType.add,

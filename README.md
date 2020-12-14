@@ -11,11 +11,16 @@ Extremely puzzling and unhelpful devices
 
 [Bad Calculators](https://www.badcalculators.com/#/) is a collection of puzzles. Each puzzle has a start and target number which you must reach by pushing buttons on a calculator. But, these aren't normal calculators, they only have a few buttons.
 
-## To Do
+## Road Map
 
+- Split Puzzle component into separate features and hooks to simplify code
 - Customize stars and SuccessModal message based on result
-- Log attempts
-- Add NaN return for invalid inputes (ex: 4.2!)
+- Animate stars for success modal
+- Stats page with overall difficulty of puzzles
+- Handle NaN returns from functions
+- Restyle target, moves, etc. to be clearer
+- Add puzzle builder
+- Log attempts and sucesses
 
 ## Ideas
 
