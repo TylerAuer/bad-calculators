@@ -4,7 +4,6 @@ export default async function trackSuccess(
   puzzleId: number,
   goalsMet: number[]
 ) {
-  console.log('Track success');
   const data: TrackSuccess = {
     puzzleId,
     goalsMet,
@@ -19,10 +18,10 @@ export default async function trackSuccess(
   });
 
   if (res.status >= 400) {
-    const msg = await res.json();
+    const msg = await res.text();
     console.error('RESPONSE:', msg);
     return;
   }
 
-  return await res.json();
+  return await res.text();
 }
