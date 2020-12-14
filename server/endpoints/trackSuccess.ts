@@ -19,7 +19,8 @@ export default async function (
     return;
   }
 
-  const colsToIncrement: string[] = [];
+  const colsToIncrement = ['totalSuccesses']; // Always logs 1 success
+
   for (let goalIndex of goalsMet) {
     if (goalIndex > 7) {
       res.status(400).send('Maximum goal index is 7.');
