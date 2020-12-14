@@ -8,8 +8,6 @@ Extremely puzzling and unhelpful devices
 
 ## Road Map
 
-### Features
-
 - Customize stars and SuccessModal message based on result
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles

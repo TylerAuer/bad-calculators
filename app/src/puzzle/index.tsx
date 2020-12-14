@@ -9,11 +9,9 @@ import { attemptStatus } from '../state/track';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
 import saveUserProgress from '../requests/saveUserProgress';
 import trackAttempt from '../requests/trackAttempt';
-
 import Goals from './Goals';
 import CalcFunctions from './CalcFunctions';
 import SolvedModal from './SolvedModal';
-
 import './index.scss';
 import Spinner from '../spinner';
 import { TrackAttemptStatus } from '../structs/track';
@@ -32,11 +30,13 @@ export default function PuzzlePage() {
 
   const { puz_id } = useParams<Params>();
 
+  console.log('Attempt:', attempt);
+
   // Close modal if it is open when the component first mounts
   // or when the puz_id changes
   useEffect(() => {
     setIsModalOpen(false); // Close Modal if open when new puzzle loads
-  }, [puz_id, setIsModalOpen]);
+  }, [puz_id, setIsModalOpen, setAttempt]);
 
   // Load the puzzle if it isn't yet loaded or loading
   useLoadPuzzle(puz_id);
@@ -51,6 +51,11 @@ export default function PuzzlePage() {
   if (attempt === TrackAttemptStatus.INACTIVE && puzStates.length === 3) {
     setAttempt(TrackAttemptStatus.IN_PROGRESS);
     trackAttempt(puz.id);
+  }
+
+  // Checks if attempt has concluded and Attempt Status should reset to inactive
+  if (attempt === TrackAttemptStatus.IN_PROGRESS && puzStates.length === 1) {
+    setAttempt(TrackAttemptStatus.INACTIVE);
   }
 
   const onReachPuzTarget = async () => {
