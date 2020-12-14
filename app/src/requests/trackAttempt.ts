@@ -14,10 +14,10 @@ export default async function trackAttempt(puzzleId: number) {
   });
 
   if (res.status >= 400) {
-    const msg = await res.json();
+    const msg = await res.text();
     console.error('RESPONSE:', msg);
     return;
   }
 
-  return await res.json();
+  return await res.text();
 }
