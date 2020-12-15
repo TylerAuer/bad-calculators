@@ -6,7 +6,7 @@ import { puzzle, puzzleStates } from '../state/puzzle';
 import { isModalOpen } from '../state/ui';
 import { attemptStatus } from '../state/track';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
-import MonitorPuzzleProgress from './MonitorPuzzleProgress';
+import ResolveModal from './ResolveModal';
 import trackAttempt from '../requests/trackAttempt';
 import Screen from './Screen';
 import Meta from './Meta';
@@ -55,7 +55,7 @@ export default function PuzzlePage() {
 
   return (
     <div className="calc">
-      <MonitorPuzzleProgress />
+      <ResolveModal />
       <div className="calc__above">
         <Goals />
       </div>

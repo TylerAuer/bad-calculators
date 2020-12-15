@@ -1,8 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { puzzle, puzzleStates } from '../state/puzzle';
-import { isModalOpen } from '../state/ui';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { puzzle, puzzleStates, monitorPuzzle } from '../state/puzzle';
 import { Modal } from 'react-responsive-modal';
 import Goals from './Goals';
 
@@ -12,67 +11,35 @@ import './ResolveModal.scss';
 export default function ResolveModal() {
   const history = useHistory();
   const [puz, setPuz] = useRecoilState(puzzle);
-  const [puzStates, setPuzStates] = useRecoilState(puzzleStates);
-  const [open, setOpen] = useRecoilState(isModalOpen('ResolvePuzzle'));
-
-  // Don't display if no puzzle is loaded
-  if (!puz) return null;
-
-  const currState = puzStates[puzStates.length - 1];
-  const hasReachedTarget = puz.target === currState.val;
-  const moves = puzStates.length - 1;
-
-  // List of goals just met
-  const goalsMet: number[] = [];
-  puz.stars.forEach((s, i) => {
-    // Handle different goal possibilities
-    if (
-      !s.moves || // Handle goal with no move limit
-      (s.goalRelation === 'more' && moves > s.moves) ||
-      (s.goalRelation === 'exactly' && moves === s.moves) ||
-      (s.goalRelation === 'fewer' && moves <= s.moves)
-    ) {
-      goalsMet.push(i);
-    }
-  });
+  const setPuzStates = useSetRecoilState(puzzleStates);
+  const monitor = useRecoilValue(monitorPuzzle);
 
   const onClose = () => {
-    setOpen(false); // Close the modal
     setPuzStates((prev) => prev.slice(0, 1));
   };
 
   const onBackToLvlClick = () => {
-    history.push(`/level/${puz.level}`);
-    setOpen(false); // Close the modal
+    history.push(`/level/${puz!.level}`);
     setPuz(null); // Reset to initial puzzle condition
   };
 
   return (
     <Modal
-      open={open}
+      open={monitor.open}
       onClose={onClose}
       center
       closeOnOverlayClick={false}
-      animationDuration={0}
       classNames={{
         modal: 'success-modal__container',
         closeButton: 'success-modal__close-btn',
       }}
     >
       <div className="success-modal">
-        <div className="success-modal__title">
-          {hasReachedTarget
-            ? 'Target Reached!'
-            : `Blocked by ${currState.val}!`}
-        </div>
+        <div className="success-modal__title">{monitor.title}</div>
         <div className="success-modal__body">
           <div className="success-modal__msg">
-            <div>
-              {hasReachedTarget
-                ? `You solved this puzzle in ${moves} moves.`
-                : `You must reach to the target number while avoiding the blocks shown above the calculator screen.`}
-            </div>
-            <div className="success-modal__hist">{currState.historyString}</div>
+            <div>{monitor.message}</div>
+            <div className="success-modal__hist">{monitor.history}</div>
           </div>
           <div className="success-modal__goals">
             <Goals />
@@ -81,7 +48,7 @@ export default function ResolveModal() {
             Try Again
           </button>
           <button onClick={onBackToLvlClick} className="success-modal__btn">
-            Level {puz.level} Puzzles
+            Level {puz!.level} Puzzles
           </button>
         </div>
       </div>
