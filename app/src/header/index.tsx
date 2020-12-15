@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { starCount } from '../state/user';
 import { totalStarsInAllPuzzles } from '../state/puzzle';
 
-import './Header.scss';
+import './index.scss';
 import UserAccount from './UserAccount';
 
 function TotalStars() {

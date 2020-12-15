@@ -19,11 +19,8 @@ export default function Meta() {
 
   return (
     <div className="meta">
-      <div className="meta__start-target">
-        {puz.start} {hasBlocks && blocks}
-        &rarr; {puz.target} &#9873;
-      </div>
-      <div className="meta__moves">{puzStates.length - 1}</div>
+      {puz.start} {hasBlocks && blocks}
+      &rarr; {puz.target} &#9873;
     </div>
   );
 }

@@ -18,6 +18,7 @@ import Spinner from '../spinner';
 import { TrackAttemptStatus } from '../structs/track';
 import trackSuccess from '../requests/trackSuccess';
 import './index.scss';
+import MoveCount from './MoveCount';
 
 interface Params {
   puz_id: string;
@@ -119,22 +120,18 @@ export default function PuzzlePage() {
   return (
     <div className="calc">
       <SolvedModal />
-
       <div className="calc__above">
         <Goals />
       </div>
-
       <div className="calc__body">
-        <Screen />
         <Meta />
+        <Screen />
+        <MoveCount />
         <CalcFunctions />
       </div>
-
       <div className="calc__below">
-        <div className="calc__left">
-          <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
-        </div>
-        <div className="calc__right">
+        <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
+        <div>
           Puzzle {puz.level}-{puz.indexInLevel} by {puz.creator}
         </div>
       </div>
