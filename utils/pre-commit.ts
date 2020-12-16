@@ -7,7 +7,6 @@ import fs from 'fs';
 import chalk from 'chalk';
 import { Puzzle } from '../app/src/structs/puzzle';
 import { exit } from 'process';
-import { fileURLToPath } from 'url';
 
 /**
  * Looks at every file in the puzzle folder.
@@ -28,46 +27,64 @@ interface LvlIndexTracker {
   [key: number]: Tracker; // level: {indexInLevel: filename}
 }
 
-console.clear();
-console.log(
-  chalk.cyan.bold(
-    `Checking puzzle IDs and level indexes for uniqueness and sequentiality
-    `
-  )
-);
+const redBoldLog = (msg: string) => console.log(chalk.red.bold(msg));
+const blueBoldLog = (msg: string) => console.log(chalk.cyan.bold(msg));
+const spaceLog = () => console.log(' ');
 
-const checkPuzzles = () => {
+blueBoldLog(`Checking files in /puzzles for correct sequencing of IDs`);
+spaceLog();
+
+const puzzles = loadPuzzles();
+
+spaceLog();
+checkPuzzles(puzzles);
+
+function loadPuzzles() {
+  const puzzles: Puzzle[] = [];
+  const puzzleFilenameList = fs.readdirSync(__dirname + '/../puzzles');
+  let puzzleCount = 0;
+
+  for (let filename of puzzleFilenameList) {
+    // Skip any files that aren't puzzles
+    if (!filename.match(/\d+-\d+.js/)) {
+      console.log(`Ignoring: ${filename}`);
+      continue;
+    } else {
+      puzzleCount++;
+    }
+
+    // Load puzzle
+    const puzFile: PuzFile = require(__dirname + '/../puzzles/' + filename);
+    const { puzzle } = puzFile;
+
+    puzzles.push(puzzle);
+  }
+
+  spaceLog();
+  console.log(`Successfully loaded ${puzzleCount} puzzles from files.`);
+  return puzzles;
+}
+
+function checkPuzzles(puzzles: Puzzle[]) {
   // Holds all ids to be sure they are unique and sequential
   const puzIds: Tracker = {};
 
   // Holds level indexes to be sure they are unique and sequential
   const levelIndexes: LvlIndexTracker = {};
 
-  const puzzleFilenameList = fs.readdirSync(__dirname + '/../puzzles');
-
-  for (let filename of puzzleFilenameList) {
-    // Skip any files that aren't puzzles
-    if (!filename.match(/\d+-\d+.js/)) {
-      console.log(`SKIPPING: ${filename}`);
-      continue;
-    }
-
-    console.log(`CHECKING: ${filename}`);
-
-    // Load puzzle
-    const puzFile: PuzFile = require(__dirname + '/../puzzles/' + filename);
-    const { puzzle } = puzFile;
+  for (let puzzle of puzzles) {
+    const name = `${puzzle.level}-${puzzle.indexInLevel}`;
 
     /**
      * Check that no IDs are repeated between puzzles
      */
     if (puzIds[puzzle.id]) {
-      console.log(
-        chalk.red.bold(`${filename} and ${puzIds[puzzle.id]} have the same ID`)
+      redBoldLog(
+        `${name} and ${puzIds[puzzle.id]} have the same ID of ${puzzle.id}`
       );
       exit(5);
     } else {
-      puzIds[puzzle.id] = filename;
+      puzIds[puzzle.id] = name;
     }
 
     /**
@@ -77,17 +94,12 @@ const checkPuzzles = () => {
       levelIndexes[puzzle.level] &&
       levelIndexes[puzzle.level][puzzle.indexInLevel]
     ) {
-      console.log(
-        chalk.red.bold(
-          `${filename} and ${
-            levelIndexes[puzzle.level][puzzle.indexInLevel]
-          } are both in level ${puzzle.level} and share the same index`
-        )
-      );
+      redBoldLog(`Two files share the same level index: ${name}`);
+
       exit(5);
     } else {
       if (!levelIndexes[puzzle.level]) levelIndexes[puzzle.level] = {};
-      levelIndexes[puzzle.level][puzzle.indexInLevel] = filename;
+      levelIndexes[puzzle.level][puzzle.indexInLevel] = name;
     }
   }
 
@@ -104,7 +116,7 @@ const checkPuzzles = () => {
 
   // Log and exit if found any missing IDs
   if (missingIds.length) {
-    console.log(chalk.red.bold(`Missing ID(s): ${missingIds.join(',')}`));
+    redBoldLog(`Missing ID(s): ${missingIds.join(',')}`);
     exit(5);
   }
 
@@ -122,17 +134,13 @@ const checkPuzzles = () => {
     }
 
     if (missingIdxs.length) {
-      console.log(
-        chalk.red.bold(
-          `Level ${level} is missing index(es): ${missingIdxs.join(',')}`
-        )
+      redBoldLog(
+        `Level ${level} is missing index(es): ${missingIdxs.join(',')}`
       );
       exit(5);
     }
   }
-};
+}
 
-checkPuzzles();
-
-console.log(chalk.cyan('All good! Puzzle IDs and level indexes are valid.'));
+blueBoldLog('Puzzle IDs and level indexes are valid. Completing commit.');
 exit(0);
