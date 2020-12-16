@@ -16,7 +16,8 @@
     "postinstall": "cd app && npm install",
     "start": "cd app && npm start",
     "stats": "node public/puzzles/stats.js",
-    "test": "cd app && npm test"
+    "test": "cd app && npm test",
+    "solve": "node public/puzzles/findSolutions.js"
   },
   "author": "",
   "license": "ISC",

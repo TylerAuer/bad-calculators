@@ -17,7 +17,7 @@ export default function UserSignInMonitor() {
   if (signIn !== SignInStatus.CHECKING_FOR_SESSION) {
     // User hasn't selected whether to log in or not, so redirect to '/' so
     // that they can choose
-    if (signIn === SignInStatus.HAS_NOT_CHOSEN && location.pathname !== '/') {
+    if (signIn === SignInStatus.SIGNED_OUT && location.pathname !== '/') {
       history.push('/');
     }
 

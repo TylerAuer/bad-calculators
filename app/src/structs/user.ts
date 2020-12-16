@@ -1,10 +1,9 @@
 // Index 0 refers to the first goal, index 1 to the second goal...etc.
-export type PuzProgress = boolean[];
+export type PuzProgress = (boolean | null)[];
 
 export enum SignInStatus {
-  'OPTED_OUT', // User opted to not save progress
   'SIGNED_IN',
-  'HAS_NOT_CHOSEN', // If a user is not found when checking
+  'SIGNED_OUT',
   'CHECKING_FOR_SESSION', // When the app initially loads
 }
 
@@ -19,9 +18,18 @@ export interface User {
   pic?: string;
   authId?: string;
   email?: string;
-  progress: AllProgress;
+  progress?: AllProgress;
 }
 
-export const defaultUserInfo = (): User => ({
-  progress: {},
-});
+export interface ProgressUpdate {
+  id: number;
+  goalsMet: number[];
+}
+
+export interface ProgressMonitor {
+  progress: AllProgress;
+  open: boolean;
+  title: string;
+  message: string;
+  history: string;
+}

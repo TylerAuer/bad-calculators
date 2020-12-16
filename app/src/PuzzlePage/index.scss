@@ -13,6 +13,7 @@
 
   &__above {
     justify-content: center;
+    flex-direction: column;
     font-size: $font-md;
   }
 
@@ -22,8 +23,8 @@
   }
 
   &__body {
-    padding: 3rem;
-    margin: 1rem 0;
+    padding: 1rem 3rem 3rem;
+    margin: 5px 0;
     // border: 2px solid black;
     // border-radius: 10px;
     @include neu-shadow;
@@ -33,14 +34,6 @@
       margin: 0;
       padding: 1rem;
     }
-  }
-
-  &__screen {
-    padding: 1rem;
-    border: 1px solid black;
-    background-color: lightgray;
-    font-size: 6rem;
-    text-align: right;
   }
 
   &__meta {

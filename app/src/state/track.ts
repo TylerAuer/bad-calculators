@@ -5,3 +5,8 @@ export const attemptStatus = atom({
   key: 'attemptsStatus',
   default: TrackAttemptStatus.INACTIVE,
 });
+
+export const hasLoggedSuccessAndSaved = atom({
+  key: 'hasLoggedSuccessAndSaved',
+  default: false,
+});

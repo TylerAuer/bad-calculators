@@ -13,13 +13,14 @@ Extremely puzzling and unhelpful devices
 
 ## Road Map
 
+- Restyle target, moves, etc. to be clearer
+- Show history of moves on screen
 - Refactor `npm run spin` script to wait until server is built before starting watch modes
 - Split Puzzle component into separate features and hooks to simplify code
 - Customize stars and SuccessModal message based on result
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles
 - Handle NaN returns from functions
-- Restyle target, moves, etc. to be clearer
 - Add puzzle builder
 - Log attempts and sucesses
 
