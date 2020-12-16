@@ -1,8 +1,3 @@
-![Run unit tests](https://github.com/TylerAuer/bad-calculators/workflows/Run%20jest%20tests/badge.svg)
-![Check puz IDs and indexes](https://github.com/TylerAuer/bad-calculators/workflows/Check%20puzzle%20IDs%20and%20Level%20Indexes/badge.svg)
-
-
-
 # Bad Calculators
 
 Extremely puzzling and unhelpful devices
@@ -13,16 +8,11 @@ Extremely puzzling and unhelpful devices
 
 ## Road Map
 
-- Restyle target, moves, etc. to be clearer
-- Show history of moves on screen
 - Refactor `npm run spin` script to wait until server is built before starting watch modes
-- Split Puzzle component into separate features and hooks to simplify code
-- Customize stars and SuccessModal message based on result
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles
 - Handle NaN returns from functions
 - Add puzzle builder
-- Log attempts and sucesses
 
 ## Ideas
 
@@ -40,6 +30,7 @@ Ideally this script is run automatically by adding it to `git/hooks/pre-commit`.
 ### Utilities
 
 `npm run stats` - Logs total number of puzzles, puzzles by level, and number of buttons with each operation across all puzzles.
+`npm run solve` - Solve the problem imported in /puzzles/findSolutions.ts
 
 ### Builds
 
@@ -49,3 +40,4 @@ Ideally this script is run automatically by adding it to `git/hooks/pre-commit`.
 
 `npm run spin` - Starts backend in watch mode for development
 `npm run start` - Starts frontend in watch mode for development
+`npm run test` - Run Jest unit tests
