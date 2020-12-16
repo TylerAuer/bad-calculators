@@ -7,7 +7,7 @@ import { isModalOpen } from '../state/ui';
 import { attemptStatus } from '../state/track';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
 import ResolveModal from './ResolveModal';
-import trackAttempt from '../requests/trackAttempt';
+import trackAttempt from '../functions/trackAttempt';
 import Screen from './Screen';
 import Meta from './Meta';
 import Goals from './Goals';

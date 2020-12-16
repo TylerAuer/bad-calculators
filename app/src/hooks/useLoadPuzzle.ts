@@ -41,21 +41,21 @@ export default async function useLoadPuzzle(id: string) {
       },
     ]); // Load initial state
 
-    // Check if the user has the details in the progress
-    if (!user.progress[id]) {
-      // Generate star progress for this user
-      let initProgressCurrPuz: PuzProgress = Array<boolean>(
-        currentPuz.stars.length
-      ).fill(false);
+    // // Check if the user has the details in the progress
+    // if (!user.progress[id]) {
+    //   // Generate star progress for this user
+    //   let initProgressCurrPuz: PuzProgress = Array<boolean>(
+    //     currentPuz.stars.length
+    //   ).fill(false);
 
-      setUser((prev) => ({
-        ...prev,
-        progress: {
-          ...prev.progress,
-          [id]: initProgressCurrPuz,
-        },
-      }));
-    }
+    //   setUser((prev) => ({
+    //     ...prev,
+    //     progress: {
+    //       ...prev.progress,
+    //       [id]: initProgressCurrPuz,
+    //     },
+    //   }));
+    // }
 
     setPuzIsLoading(false);
   }

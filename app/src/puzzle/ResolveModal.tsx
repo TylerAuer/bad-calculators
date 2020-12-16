@@ -4,7 +4,6 @@ import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import { puzzle, puzzleStates, monitorPuzzle } from '../state/puzzle';
 import { Modal } from 'react-responsive-modal';
 import Goals from './Goals';
-
 import 'react-responsive-modal/styles.css';
 import './ResolveModal.scss';
 

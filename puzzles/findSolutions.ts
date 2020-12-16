@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { puzzle } from './5-1';
-import genOpBtnTextAndOp from '../app/src/utils/genOpBtnTextAndOp';
+import genOpBtnTextAndOp from '../app/src/calculatorFunctions/genOpBtnTextAndOp';
 
 interface Solution {
   values: number[];

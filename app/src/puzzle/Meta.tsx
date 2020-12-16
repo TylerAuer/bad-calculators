@@ -1,11 +1,10 @@
 import { useRecoilValue } from 'recoil';
-import { puzzle, puzzleStates } from '../state/puzzle';
+import { puzzle } from '../state/puzzle';
 
 import './Meta.scss';
 
 export default function Meta() {
   const puz = useRecoilValue(puzzle);
-  const puzStates = useRecoilValue(puzzleStates);
 
   if (!puz) return <div></div>;
 
