@@ -12,7 +12,7 @@ import Screen from './Screen';
 import Meta from './Meta';
 import Goals from './Goals';
 import CalcFunctions from './CalcFunctions';
-import Spinner from '../xSpinner';
+import Spinner from '../Spinner';
 import MoveCount from './MoveCount';
 import './index.scss';
 
