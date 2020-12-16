@@ -29,8 +29,8 @@ Ideally this script is run automatically by adding it to `git/hooks/pre-commit`.
 
 ### Utilities
 
-`npm run stats` - Logs total number of puzzles, puzzles by level, and number of buttons with each operation across all puzzles.
-`npm run solve` - Solve the problem imported in /puzzles/findSolutions.ts
+- `npm run stats` - Logs total number of puzzles, puzzles by level, and number of buttons with each operation across all puzzles.
+- `npm run solve` - Solve the problem imported in /puzzles/findSolutions.ts
 
 ### Builds
 
@@ -38,6 +38,6 @@ Ideally this script is run automatically by adding it to `git/hooks/pre-commit`.
 
 ### Live Development
 
-`npm run spin` - Starts backend in watch mode for development
-`npm run start` - Starts frontend in watch mode for development
-`npm run test` - Run Jest unit tests
+- `npm run spin` - Starts backend in watch mode for development
+- `npm run start` - Starts frontend in watch mode for development
+- `npm run test` - Run Jest unit tests
