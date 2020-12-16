@@ -124,6 +124,21 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
+    case OpType.collatz: {
+      const op = (prev: number) => {
+        if (prev % 1 !== 0) return NaN; // Only accept integers
+
+        if (prev % 2 === 0) {
+          return prev / 2;
+        } else {
+          return 3 * prev + 1;
+        }
+      };
+
+      const text = 'collatz';
+      return { text, op, limit };
+    }
+
     default:
       throw new Error(
         'Invalid symbol passed in info.symbol of puzzle definition'
