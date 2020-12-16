@@ -18,7 +18,7 @@ describe('has properties', () => {
 });
 
 describe('text formatting', () => {
-  test('text is reverse', () => {
+  test('text is collatz', () => {
     expect(collatz.text).toBe('collatz');
   });
 });
