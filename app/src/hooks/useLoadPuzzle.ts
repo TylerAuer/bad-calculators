@@ -1,15 +1,12 @@
 import { Puzzle } from '../structs/puzzle';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { PuzProgress } from '../structs/user';
 import { puzzleIsLoading } from '../state/ui';
 import { puzzle, puzzleStates } from '../state/puzzle';
-import { userInfo } from '../state/user';
 
 export default async function useLoadPuzzle(id: string) {
   const [puz, setPuz] = useRecoilState(puzzle);
   const setPuzStates = useSetRecoilState(puzzleStates);
-  const [user, setUser] = useRecoilState(userInfo);
   const [puzIsLoading, setPuzIsLoading] = useRecoilState(puzzleIsLoading);
   const history = useHistory();
 
