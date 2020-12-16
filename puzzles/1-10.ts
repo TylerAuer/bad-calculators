@@ -1,7 +1,7 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 export const puzzle: Puzzle = {
-  id: 23,
+  id: 25,
   level: 1,
   indexInLevel: 10,
   disabled: false,
