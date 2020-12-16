@@ -22,7 +22,7 @@ const logStats = () => {
   const puzzleFilenameList = fs.readdirSync(__dirname + '/');
 
   for (let filename of puzzleFilenameList) {
-    if (!filename.match(/\d*-\d.js/)) {
+    if (!filename.match(/\d+-\d+.js/)) {
       continue;
     }
 

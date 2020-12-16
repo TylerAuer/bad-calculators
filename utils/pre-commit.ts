@@ -47,9 +47,12 @@ const checkPuzzles = () => {
 
   for (let filename of puzzleFilenameList) {
     // Skip any files that aren't puzzles
-    if (!filename.match(/\d*-\d.js/)) {
+    if (!filename.match(/\d+-\d+.js/)) {
+      console.log(`SKIPPING: ${filename}`);
       continue;
     }
+
+    console.log(`CHECKING: ${filename}`);
 
     // Load puzzle
     const puzFile: PuzFile = require(__dirname + '/../puzzles/' + filename);
