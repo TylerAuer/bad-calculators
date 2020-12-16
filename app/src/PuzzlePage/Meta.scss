@@ -1,0 +1,12 @@
+@import '../variables.scss';
+
+.meta {
+  text-align: center;
+  align-items: center;
+  margin: 1rem 0;
+  font-size: 3rem;
+
+  &__block {
+    color: $accent-1;
+  }
+}

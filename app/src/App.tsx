@@ -2,11 +2,11 @@ import React from 'react';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import UserSignInMonitor from './UserSignInMonitor';
-import Header from './header';
-import PuzzlePage from './puzzle';
-import LandingPage from './landing';
-import LevelPage from './levels';
-import PrivacyPage from './privacy';
+import Header from './Header';
+import PuzzlePage from './PuzzlePage';
+import LandingPage from './LandingPage';
+import LevelPage from './LevelsPage';
+import PrivacyPage from './PrivacyPage';
 
 function App() {
   return (

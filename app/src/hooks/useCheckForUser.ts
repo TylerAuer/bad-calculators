@@ -1,13 +1,14 @@
 import { RequestStatus } from '../structs/request';
 import { SignInStatus } from '../structs/user';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { signInState, userInfo } from '../state/user';
+import { progress, signInState, userInfo } from '../state/user';
 import { requestStatus } from '../state/ui';
 
 export default async function useCheckForUser() {
   const [reqStatus, setReqStatus] = useRecoilState(requestStatus('user/data'));
   const [signIn, setSignIn] = useRecoilState(signInState);
   const setUser = useSetRecoilState(userInfo);
+  const setProg = useSetRecoilState(progress);
 
   // Don't check for user if already checking
   // or if already checked previously
@@ -25,12 +26,12 @@ export default async function useCheckForUser() {
   if (res.status === 401) {
     // User is not signed in
     setReqStatus(RequestStatus.INACTIVE);
-    setSignIn(SignInStatus.HAS_NOT_CHOSEN);
+    setSignIn(SignInStatus.SIGNED_OUT);
     return;
   } else if (res.status >= 400) {
     // Other error
     setReqStatus(RequestStatus.FAILED);
-    setSignIn(SignInStatus.HAS_NOT_CHOSEN);
+    setSignIn(SignInStatus.SIGNED_OUT);
     return;
   }
 
@@ -38,4 +39,5 @@ export default async function useCheckForUser() {
   setSignIn(SignInStatus.SIGNED_IN);
   setReqStatus(RequestStatus.INACTIVE);
   setUser(user);
+  setProg(user.progress);
 }

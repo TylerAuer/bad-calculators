@@ -6,8 +6,8 @@ import {
   useSetRecoilState,
 } from 'recoil';
 import { levelData, levelId } from '../state/level';
-import { userInfo } from '../state/user';
-import Spinner from '../spinner';
+import { progress } from '../state/user';
+import Spinner from '../Spinner';
 
 import './index.scss';
 
@@ -35,7 +35,7 @@ export default function LevelPage() {
 function Level() {
   const [lvlId, setLvlId] = useRecoilState(levelId);
   const lvl = useRecoilValue(levelData);
-  const { progress } = useRecoilValue(userInfo);
+  const prog = useRecoilValue(progress);
   const { level_id } = useParams<Params>();
   const history = useHistory();
 
@@ -53,7 +53,7 @@ function Level() {
 
   // Make stars that sit below puzzle buttons
   const puzList = lvl.puzIndexes.map(({ id, stars }, i) => {
-    const starsEarnedByUser = progress[id]?.filter((i) => i).length || 0;
+    const starsEarnedByUser = prog[id]?.filter((i) => i).length || 0;
     const starsForPuz = stars.length;
 
     const starList: JSX.Element[] = [];

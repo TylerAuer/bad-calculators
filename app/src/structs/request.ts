@@ -3,3 +3,8 @@ export enum RequestStatus {
   'INACTIVE',
   'FAILED',
 }
+
+export enum SaveStatus {
+  'INACTIVE',
+  'IN_PROGRESS',
+}

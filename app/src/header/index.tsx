@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { starCount } from '../state/user';
 import { totalStarsInAllPuzzles } from '../state/puzzle';
 
-import './Header.scss';
+import './index.scss';
 import UserAccount from './UserAccount';
 
 function TotalStars() {
@@ -11,7 +11,7 @@ function TotalStars() {
   return <span className="header__total-stars">/ {totalStars}</span>;
 }
 
-export default function Header() {
+export function UnwrappedHeader() {
   const userStars = useRecoilValue(starCount);
 
   return (
@@ -26,5 +26,13 @@ export default function Header() {
         <UserAccount />
       </div>
     </header>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense fallback={''}>
+      <UnwrappedHeader />
+    </Suspense>
   );
 }
