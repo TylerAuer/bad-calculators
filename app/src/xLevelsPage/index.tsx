@@ -7,7 +7,7 @@ import {
 } from 'recoil';
 import { levelData, levelId } from '../state/level';
 import { progress } from '../state/user';
-import Spinner from '../Spinner';
+import Spinner from '../xSpinner';
 
 import './index.scss';
 
