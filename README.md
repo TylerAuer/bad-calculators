@@ -6,13 +6,16 @@ Extremely puzzling and unhelpful devices
 
 [Bad Calculators](https://www.badcalculators.com/#/) is a collection of puzzles. Each puzzle has a start and target number which you must reach by pushing buttons on a calculator. But, these aren't normal calculators, they only have a few buttons.
 
-## Road Map
+## Roadmap
 
 - Refactor `npm run spin` script to wait until server is built before starting watch modes
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles
-- Handle NaN returns from functions
+- Handle NaN returns from functions so puzzles can use this as a feature
 - Add puzzle builder
+- Add local storage solution for account
+- Add tooltips or similar for non-arithmetic operations
+- Handle puzzles marked as "disabled"
 
 ## Ideas
 
