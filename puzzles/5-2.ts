@@ -1,9 +1,9 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 export const puzzle: Puzzle = {
-  id: 28,
-  level: 4,
-  indexInLevel: 7,
+  id: 27,
+  level: 5,
+  indexInLevel: 2,
   disabled: false,
   creator: 'Tyler',
   start: 190,
@@ -18,7 +18,7 @@ export const puzzle: Puzzle = {
       symbol: OpType.reverse,
     },
   ],
-  blocks: [2],
+  blocks: [29],
   stars: [
     {
       moves: 5,
