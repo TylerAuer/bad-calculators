@@ -2,7 +2,6 @@ import { atom, selector } from 'recoil';
 import { Puzzle } from '../structs/puzzle';
 import { MonitorModal } from '../structs/ui';
 import trackSuccess from '../functions/trackSuccess';
-import saveUserProgress from '../functions/saveUserProgress';
 
 // SHAPES //////////////////////////////////////////////////////////////////////
 
