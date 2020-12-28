@@ -30,6 +30,7 @@ Extremely puzzling and unhelpful devices
 - Add tooltips or similar for non-arithmetic operations
 - Handle puzzles marked as "disabled"
 - Custom CSS (colors) for each level
+- Make it so you can't highlight text in ResolveModal
 
 ### Bugs
 

@@ -1,6 +1,15 @@
+import { SignInStatus } from '../structs/user';
+import { useSetRecoilState } from 'recoil';
+import { signInState } from '../state/user';
 import './index.scss';
 
 export default function LandingPage() {
+  const setSignInStatus = useSetRecoilState(signInState);
+
+  const handleSkipSignIn = () => {
+    setSignInStatus(SignInStatus.OPTED_OUT);
+  };
+
   return (
     <div className="background">
       <div className="centered">
@@ -13,12 +22,12 @@ export default function LandingPage() {
             Sign in with Google
           </a>
           <div className="spacer" />
-          <a href="/puzzle/1" className="login__auth-btn">
-            Skip creating an account<span className="accent-color">*</span>
-          </a>
+          <button className="login__auth-btn" onClick={handleSkipSignIn}>
+            Skip creating an account<sup className="accent-color">*</sup>
+          </button>
           <p className="note">
             <span className="accent-color">*</span> You'll lose your progress if
-            you change devices, change browsers, or clear your cookies.
+            you change devices, switch browsers, or clear your cookies.
           </p>
         </div>
       </div>

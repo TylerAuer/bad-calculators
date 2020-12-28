@@ -26,12 +26,12 @@ export default async function useCheckForUser() {
   if (res.status === 401) {
     // User is not signed in
     setReqStatus(RequestStatus.INACTIVE);
-    setSignIn(SignInStatus.SIGNED_OUT);
+    setSignIn(SignInStatus.NO_SESSION_OR_ACCOUNT_FOUND);
     return;
   } else if (res.status >= 400) {
     // Other error
     setReqStatus(RequestStatus.FAILED);
-    setSignIn(SignInStatus.SIGNED_OUT);
+    setSignIn(SignInStatus.NO_SESSION_OR_ACCOUNT_FOUND);
     return;
   }
 

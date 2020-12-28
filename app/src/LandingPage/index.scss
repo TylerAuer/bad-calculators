@@ -23,7 +23,7 @@
 }
 
 .title {
-  font-size: 6rem;
+  font-size: 6.2rem;
   text-transform: uppercase;
   margin: 0;
   line-height: 1;
@@ -35,7 +35,7 @@
 }
 
 .subtitle {
-  font-size: 2rem;
+  font-size: 2.2rem;
 
   @media only screen and (max-width: 800px) {
     font-size: 1.8rem;
@@ -51,6 +51,7 @@
   &__auth-btn {
     display: block;
     font-size: 1.8rem;
+    font-family: inherit;
     border: 1px solid black;
     margin: 1.5rem 0;
     padding: 1rem;
@@ -63,10 +64,6 @@
     &:hover {
       color: white;
       background-color: black;
-    }
-
-    @media only screen and (max-width: 800px) {
-      width: 45rem;
     }
   }
 }
