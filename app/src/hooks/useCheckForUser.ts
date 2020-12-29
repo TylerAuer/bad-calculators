@@ -3,7 +3,6 @@ import { SignInStatus } from '../structs/user';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progress, signInState, userInfo } from '../state/user';
 import { requestStatus } from '../state/ui';
-import mergeProgress from '../functions/mergeProgress';
 import saveProgressToServer from '../functions/saveProgressToServer';
 
 export default async function useCheckForUser() {
