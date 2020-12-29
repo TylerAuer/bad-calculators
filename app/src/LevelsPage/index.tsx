@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   useRecoilState,
@@ -8,6 +9,7 @@ import {
 import { levelData, levelId } from '../state/level';
 import { progress } from '../state/user';
 import Spinner from '../Spinner';
+import GA from 'react-ga';
 
 import './index.scss';
 
@@ -38,6 +40,10 @@ function Level() {
   const prog = useRecoilValue(progress);
   const { level_id } = useParams<Params>();
   const history = useHistory();
+
+  useEffect(() => {
+    GA.pageview(`/level/${level_id}`);
+  }, [level_id]);
 
   if (lvlId !== parseInt(level_id)) {
     setLvlId(parseInt(level_id));

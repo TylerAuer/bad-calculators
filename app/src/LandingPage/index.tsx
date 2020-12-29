@@ -1,10 +1,16 @@
 import { SignInStatus } from '../structs/user';
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { signInState } from '../state/user';
 import './index.scss';
+import GA from 'react-ga';
 
 export default function LandingPage() {
   const setSignInStatus = useSetRecoilState(signInState);
+
+  useEffect(() => {
+    GA.pageview('/');
+  }, []);
 
   const handleSkipSignIn = () => {
     setSignInStatus(SignInStatus.OPTED_OUT);

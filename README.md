@@ -11,7 +11,6 @@ Extremely puzzling and unhelpful devices
 ### Maintenance + DevOps
 
 - Refactor `npm run spin` script to wait until server is built before starting watch modes
-- Add Google Analytics
 - Set up daily email summaries
 - Run tests that test solutions
 - Add pathway to use without configuring account
@@ -25,7 +24,6 @@ Extremely puzzling and unhelpful devices
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles
 - Handle NaN returns from functions so puzzles can use this as a feature
-- Add local storage solution for account
 - Add puzzle builder
 - Add tooltips or similar for non-arithmetic operations
 - Handle puzzles marked as "disabled"
