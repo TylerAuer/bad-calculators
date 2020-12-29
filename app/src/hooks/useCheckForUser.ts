@@ -4,6 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progress, signInState, userInfo } from '../state/user';
 import { requestStatus } from '../state/ui';
 import mergeProgress from '../functions/mergeProgress';
+import saveProgressToServer from '../functions/saveProgressToServer';
 
 export default async function useCheckForUser() {
   const [reqStatus, setReqStatus] = useRecoilState(requestStatus('user/data'));
@@ -67,7 +68,8 @@ export default async function useCheckForUser() {
       );
 
       if (confirm) {
-        setProg(mergeProgress(localProgress, user.progress));
+        const mergedProgFromServer = await saveProgressToServer(localProgress);
+        setProg(mergedProgFromServer);
       }
     }
 

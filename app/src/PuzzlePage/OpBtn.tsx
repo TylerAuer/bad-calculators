@@ -6,6 +6,7 @@ import CalcBtn from './CalcBtn';
 import { progress, signInState } from '../state/user';
 import { AllProgress, SignInStatus } from '../structs/user';
 import mergeProgress from '../functions/mergeProgress';
+import saveProgressToServer from '../functions/saveProgressToServer';
 
 interface Props {
   info: OpInfo;
@@ -79,27 +80,13 @@ export default function OpBtn({ info, index }: Props) {
       // Set state for updated local progress
       setProg(updatedLocalProg);
 
-      // Save progress to serverif the user is signed in
       if (signIn === SignInStatus.SIGNED_IN) {
-        // Send progress to server and gets back merged progress. This could
-        // be different if the user has the app open on different devices
-        // So update local state with the merged progress that is returned from
-        // the server.
-        const res = await fetch('user/save-progress', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/JSON',
-          },
-          body: JSON.stringify(updatedLocalProg),
-        });
-
-        if (res.status >= 400) {
-          console.error('Error saving user progress');
-          return;
-        } else {
-          const mergedProgressFromServer = await res.json();
-          setProg(mergedProgressFromServer);
-        }
+        // Save progress to server if the user is signed in
+        const mergedProgFromServer = await saveProgressToServer(
+          updatedLocalProg
+        );
+        // Update state with merged progress returned from the server
+        setProg(mergedProgFromServer);
       } else if (signIn === SignInStatus.OPTED_OUT) {
         // Save progress to localStorage if the user is not signed into an account
         const store = window.localStorage;
