@@ -12,20 +12,28 @@ export default function UserAccount() {
   const signedIn = useRecoilValue(signInState);
   const user = useRecoilValue(userInfo);
 
-  if (signedIn !== SignInStatus.SIGNED_IN) return null;
-
-  return (
-    <>
-      <Suspense fallback={''}>
-        <AccountModal />
-      </Suspense>
-      <button className="user-account" onClick={() => setModal(true)}>
-        <img
-          className="user-account__img"
-          alt={`${user.first}'s profile pic`}
-          src={user.pic}
-        />
-      </button>
-    </>
-  );
+  if (signedIn === SignInStatus.OPTED_OUT) {
+    return (
+      <a className="opted-out__btn" href="/auth/google">
+        Create Account
+      </a>
+    );
+  } else if (signedIn === SignInStatus.SIGNED_IN) {
+    return (
+      <>
+        <Suspense fallback={''}>
+          <AccountModal />
+        </Suspense>
+        <button className="signed-in__btn" onClick={() => setModal(true)}>
+          <img
+            className="signed-in__img"
+            alt={`${user.first}'s profile pic`}
+            src={user.pic}
+          />
+        </button>
+      </>
+    );
+  } else {
+    return null;
+  }
 }
