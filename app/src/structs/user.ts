@@ -2,9 +2,15 @@
 export type PuzProgress = (boolean | null)[];
 
 export enum SignInStatus {
+  // When the app initially loads and awaiting response from backend if user has
+  // session and an account
+  'CHECKING_FOR_SESSION',
+  // After checking the server, no session or account is found
+  'NO_SESSION_OR_ACCOUNT_FOUND',
+  // Found users info and signed in
   'SIGNED_IN',
-  'SIGNED_OUT',
-  'CHECKING_FOR_SESSION', // When the app initially loads
+  // Only storing progress locally
+  'OPTED_OUT',
 }
 
 export interface AllProgress {

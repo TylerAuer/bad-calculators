@@ -3,6 +3,8 @@ import { SignInStatus } from '../structs/user';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progress, signInState, userInfo } from '../state/user';
 import { requestStatus } from '../state/ui';
+import mergeProgress from '../functions/mergeProgress';
+import saveProgressToServer from '../functions/saveProgressToServer';
 
 export default async function useCheckForUser() {
   const [reqStatus, setReqStatus] = useRecoilState(requestStatus('user/data'));
@@ -19,25 +21,58 @@ export default async function useCheckForUser() {
     return;
   }
 
+  // Check server for active session and account
   setReqStatus(RequestStatus.IN_PROGRESS);
-
   const res = await fetch('/user/data');
 
-  if (res.status === 401) {
-    // User is not signed in
-    setReqStatus(RequestStatus.INACTIVE);
-    setSignIn(SignInStatus.SIGNED_OUT);
-    return;
-  } else if (res.status >= 400) {
-    // Other error
-    setReqStatus(RequestStatus.FAILED);
-    setSignIn(SignInStatus.SIGNED_OUT);
-    return;
-  }
+  if (res.status >= 400) {
+    setSignIn(SignInStatus.NO_SESSION_OR_ACCOUNT_FOUND);
 
-  const user = await res.json();
-  setSignIn(SignInStatus.SIGNED_IN);
-  setReqStatus(RequestStatus.INACTIVE);
-  setUser(user);
-  setProg(user.progress);
+    if (res.status === 401) {
+      // User is not signed in
+      setReqStatus(RequestStatus.INACTIVE);
+    } else {
+      setReqStatus(RequestStatus.FAILED);
+    }
+
+    // Load progress from local storage
+    const prog = JSON.parse(window.localStorage.getItem('progress') || '{}');
+    setProg(prog);
+  } else {
+    // User found
+    const user = await res.json();
+    setSignIn(SignInStatus.SIGNED_IN);
+    setReqStatus(RequestStatus.INACTIVE);
+    setUser(user); // Load user info into state
+    setProg(user.progress);
+
+    /**
+     * When a user has local progress when they sign in, prompt to
+     * see if they want to save their local progress to their account.
+     *
+     * This is occurs when a user solves puzzles while opting out of sign in
+     * then decides to sign in or make an account.
+     */
+    const localProgress = JSON.parse(
+      window.localStorage.getItem('progress') || '{}'
+    );
+    const localPuzzlesWithEarnedStars = Object.keys(localProgress).length;
+
+    const hasProgressInLocalStorage = localPuzzlesWithEarnedStars > 0;
+
+    if (hasProgressInLocalStorage) {
+      const confirm = window.confirm(
+        `It looks like you solved ${localPuzzlesWithEarnedStars} puzzle${
+          localPuzzlesWithEarnedStars > 1 ? 's' : '' // make plural if needed
+        } before signing in. Do you want to save that progress to your account?`
+      );
+
+      if (confirm) {
+        const mergedProgFromServer = await saveProgressToServer(localProgress);
+        setProg(mergedProgFromServer);
+      }
+    }
+
+    window.localStorage.removeItem('progress');
+  }
 }
