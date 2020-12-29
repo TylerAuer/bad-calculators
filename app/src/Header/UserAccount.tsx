@@ -15,7 +15,7 @@ export default function UserAccount() {
   if (signedIn === SignInStatus.OPTED_OUT) {
     return (
       <a className="opted-out__btn" href="/auth/google">
-        Create Account
+        Sign In
       </a>
     );
   } else if (signedIn === SignInStatus.SIGNED_IN) {
