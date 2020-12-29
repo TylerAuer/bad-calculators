@@ -19,25 +19,29 @@ export default async function useCheckForUser() {
     return;
   }
 
+  // Check server for active session and account
   setReqStatus(RequestStatus.IN_PROGRESS);
-
   const res = await fetch('/user/data');
 
-  if (res.status === 401) {
-    // User is not signed in
-    setReqStatus(RequestStatus.INACTIVE);
+  if (res.status >= 400) {
     setSignIn(SignInStatus.NO_SESSION_OR_ACCOUNT_FOUND);
-    return;
-  } else if (res.status >= 400) {
-    // Other error
-    setReqStatus(RequestStatus.FAILED);
-    setSignIn(SignInStatus.NO_SESSION_OR_ACCOUNT_FOUND);
-    return;
-  }
 
-  const user = await res.json();
-  setSignIn(SignInStatus.SIGNED_IN);
-  setReqStatus(RequestStatus.INACTIVE);
-  setUser(user);
-  setProg(user.progress);
+    if (res.status === 401) {
+      // User is not signed in
+      setReqStatus(RequestStatus.INACTIVE);
+    } else {
+      setReqStatus(RequestStatus.FAILED);
+    }
+
+    // Load progress from local storage
+    const prog = JSON.parse(window.localStorage.getItem('progress') || '{}');
+    setProg(prog);
+  } else {
+    // User found
+    const user = await res.json();
+    setSignIn(SignInStatus.SIGNED_IN);
+    setReqStatus(RequestStatus.INACTIVE);
+    setUser(user);
+    setProg(user.progress);
+  }
 }

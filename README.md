@@ -36,6 +36,7 @@ Extremely puzzling and unhelpful devices
 
 - Handle NaN
 - Improve precision of floating point arithmetic
+- Handle missing or unloaded profile pic
 
 ## Ideas
 
