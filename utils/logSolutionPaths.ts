@@ -7,6 +7,11 @@ import findSolutions from './findSolutions';
 
 startPuzzleSolutionLoggingLoopOnCommandLine();
 
+/**
+ * Prompts user for filename and depth with which to search for solutions
+ *
+ * Logs results and then prompts to rerun to allow for changes
+ */
 async function startPuzzleSolutionLoggingLoopOnCommandLine() {
   const { filename, depth } = await promptForLevelAndMoveCount();
 
@@ -15,9 +20,15 @@ async function startPuzzleSolutionLoggingLoopOnCommandLine() {
   promptToTryAgain(filename, depth);
 }
 
+/**
+ * Loads a puzzle from file and then logs the solutions
+ */
 function loadPuzzleAndLogSolutions(filename: string, depth: number) {
+  // Clear cache so any changes made to the puzzle file are reloaded
+  delete require.cache[require.resolve(`../puzzles/${filename}.ts`)];
   const { puzzle } = require(`../puzzles/${filename}.ts`);
-  printHeader(puzzle);
+
+  logPuzzleDetails(puzzle);
 
   const solutions = findSolutions(puzzle, depth);
 
@@ -56,6 +67,9 @@ async function promptForLevelAndMoveCount(): Promise<{
   return { filename, depth };
 }
 
+/**
+ * Prompt user to try again. If they opt to, rerun the solver
+ */
 async function promptToTryAgain(filename: string, depth: number) {
   const { shouldTryAgain } = await prompts({
     type: 'confirm',
@@ -72,10 +86,7 @@ async function promptToTryAgain(filename: string, depth: number) {
   }
 }
 
-/**
- * Prints a header with data about the puzzle
- */
-function printHeader(puzzle: Puzzle): void {
+function logPuzzleDetails(puzzle: Puzzle): void {
   const {
     level,
     indexInLevel,
