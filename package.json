@@ -15,7 +15,7 @@
     "build": "run-s build:* --print-label",
     "postinstall": "cd app && npm install",
     "start": "cd app && npm start",
-    "stats": "ts-node puzzles/stats.ts",
+    "stats": "ts-node utils/stats.ts",
     "test": "cd app && npm test",
     "solve": "ts-node puzzles/findSolutions.ts"
   },
