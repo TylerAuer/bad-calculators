@@ -24,7 +24,7 @@ async function promptUser() {
 
 promptUser()
   .then((filename) => {
-    const { puzzle } = require(`./${filename}.ts`);
+    const { puzzle } = require(`../puzzles/${filename}.ts`);
     printHeader(puzzle);
     findSolutions(puzzle);
   })
