@@ -53,4 +53,10 @@ export interface Puzzle {
   successCount?: number;
 }
 
+export interface Solution {
+  values: number[];
+  actions: string[];
+  opCounts: number[];
+}
+
 export const defaultPuzzle = (): Puzzle | null => null;

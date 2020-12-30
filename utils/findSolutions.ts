@@ -1,76 +1,8 @@
-import chalk from 'chalk';
-import prompts from 'prompts';
 import genOpBtnTextAndOp from '../app/src/calculatorFunctions/genOpBtnTextAndOp';
-import { Puzzle, Star } from '../app/src/structs/puzzle';
+import { Puzzle, Solution, Star } from '../app/src/structs/puzzle';
 
-interface Solution {
-  values: number[];
-  actions: string[];
-  opCounts: number[];
-}
-
-const MAX_DEPTH = 10;
-const TRIM_INEFFICIENT_PATHS = false;
-
-async function promptUser() {
-  const response = await prompts({
-    type: 'text',
-    name: 'filename',
-    message: 'What puzzle would you like to test?',
-  });
-
-  return response.filename;
-}
-
-promptUser()
-  .then((filename) => {
-    const { puzzle } = require(`../puzzles/${filename}.ts`);
-    printHeader(puzzle);
-    findSolutions(puzzle);
-  })
-  .catch((err) => {
-    logRed('Could not find file. Exiting');
-  });
-
-/**
- * Prints a header with data about the puzzle
- */
-function printHeader(puzzle: Puzzle): void {
-  const {
-    level,
-    indexInLevel,
-    start,
-    target,
-    operations,
-    blocks,
-    stars,
-  } = puzzle;
-
-  // Generate functions for performing operations
-  const ops = operations.map((f) => genOpBtnTextAndOp(f));
-
-  const goalText = (star: Star) => {
-    const goalMap = {
-      exactly: '=',
-      fewer: '≤',
-      more: '>',
-    };
-    const symbolPrefix = star.goalRelation ? goalMap[star.goalRelation] : '∞';
-    const starNumber = star.moves === Infinity ? '' : star.moves;
-
-    return symbolPrefix + starNumber;
-  };
-
-  const goals = stars.map((star) => goalText(star));
-
-  console.clear();
-  console.log(`
-${chalk.cyan.bold(`// Solving ${level}-${indexInLevel} //////////////`)}
-${chalk.magenta(`Start: ${start}`)}
-${chalk.magenta(`Target: ${target}`)}
-${chalk.magenta(`Ops: ${ops.map((o) => o.text).join(', ')}`)}
-${chalk.magenta(`Goals: ${goals.join(', ')}`)}
-${blocks.length ? chalk.magenta(`Blocks: ${blocks.join(', ')}`) : ''}`);
+interface SolutionsByLength {
+  [key: string]: Solution[];
 }
 
 /**
@@ -90,31 +22,33 @@ ${blocks.length ? chalk.magenta(`Blocks: ${blocks.join(', ')}`) : ''}`);
  * Only solution A will be "found" because B's path travels through 8 in a less
  * efficient way
  */
-function findSolutions(puzzle: Puzzle): void {
+export default function findSolutions(
+  puzzle: Puzzle,
+  requestedMoveDepth: number = 0 // Used to pass depth from CLI
+): SolutionsByLength {
+  const solutions: SolutionsByLength = {};
+
   // Destructure object for elements of puzzle
-  const { start, target, operations, blocks, maxMoves } = puzzle;
+  const { start, target, operations, blocks, stars } = puzzle;
+
+  let maxMovesToCheck = requestedMoveDepth;
+
+  /**
+   * If maxMovesToCheck = 0, that means we should look at the stars to determine
+   * the max depth to check.
+   */
+  if (maxMovesToCheck === 0) {
+    maxMovesToCheck = determineMaxMovesToCheckFromStars(stars);
+  }
 
   // Process operations into functions
   const ops = operations.map((f) => genOpBtnTextAndOp(f));
-
-  // Limit depth of search to puzzle limit or MAX_DEPTH constant
-  const max = Math.min(maxMoves || Infinity, MAX_DEPTH);
-
-  // Storage for found solutions
-  let solutionCount = 0;
 
   const initialSolution: Solution = {
     values: [start],
     actions: [],
     opCounts: Array<number>(ops.length).fill(0),
   };
-
-  // Tracks visited numbers so less-efficient redundant paths can be trimmed
-  const visited = {
-    [start]: true,
-  };
-
-  let maxDepthSeen = 1;
 
   // For breadth first search of solution tree
   const queue = [initialSolution];
@@ -123,23 +57,17 @@ function findSolutions(puzzle: Puzzle): void {
     const cur = queue.shift();
     const curVal = cur!.values[cur!.values.length - 1];
 
-    // Log new depth if needed
-    if (cur!.actions.length > maxDepthSeen) {
-      maxDepthSeen = cur!.actions.length;
-      logMagenta(
-        `// Searched all paths of length ${maxDepthSeen - 1} /////////////////`
-      );
-    }
-
     // Arrived at target
     if (curVal === target) {
-      solutionCount++;
-      logSolution(cur!, solutionCount);
-      continue;
+      // Add key to solutions object if needed
+      const moveCount = cur!.values.length - 1;
+      if (!solutions[moveCount]) solutions[moveCount] = [];
+
+      solutions[moveCount].push(cur!);
     }
 
     // Passed Max Depth
-    if (cur!.actions.length >= max) {
+    if (cur!.actions.length >= maxMovesToCheck) {
       continue;
     }
 
@@ -148,6 +76,7 @@ function findSolutions(puzzle: Puzzle): void {
       continue;
     }
 
+    // Recursively call functions
     ops.forEach((op, i) => {
       // Don't use operations that have reached their limit
       if (op.limit === cur!.opCounts[i]) {
@@ -160,10 +89,6 @@ function findSolutions(puzzle: Puzzle): void {
       const lastVal = nextSolution.values[nextSolution.values.length - 1];
       const nextVal = op.op(lastVal);
 
-      // Trim branch if revisiting a value
-      if (TRIM_INEFFICIENT_PATHS && visited[nextVal]) return;
-      else visited[nextVal] = true;
-
       nextSolution.values.push(nextVal);
 
       // Add text description to list of actions
@@ -175,20 +100,24 @@ function findSolutions(puzzle: Puzzle): void {
       queue.push(nextSolution);
     });
   }
+
+  return solutions;
 }
 
-function logSolution(solution: Solution, solutionCount: number): void {
-  const steps = solution.actions.length;
-  const path = solution.actions.join(' ');
+function determineMaxMovesToCheckFromStars(stars: Star[]) {
+  if (!stars.length) {
+    throw new Error('Stars not provided for puzzle');
+  }
 
-  // Log out the solutions in a pretty way
-  console.log(chalk.cyan(`#${solutionCount} [${steps} steps]`), path);
-}
+  let maxDepth = 0;
 
-function logMagenta(text: string): void {
-  console.log(chalk.magenta(text));
-}
+  stars.forEach((star) => {
+    if (star.goalRelation === 'exactly' || star.goalRelation === 'fewer') {
+      maxDepth = Math.max(maxDepth, star.moves);
+    } else if ((star.goalRelation = 'more')) {
+      maxDepth = Math.max(maxDepth, star.moves + 2);
+    }
+  });
 
-function logRed(text: string): void {
-  console.log(chalk.red.bold(text));
+  return maxDepth;
 }

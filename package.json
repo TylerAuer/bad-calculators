@@ -17,7 +17,7 @@
     "start": "cd app && npm start",
     "stats": "ts-node utils/stats.ts",
     "test": "cd app && npm test",
-    "solve": "ts-node utils/findSolutions.ts"
+    "solve": "ts-node utils/logSolutionPaths.ts"
   },
   "author": "",
   "license": "ISC",
