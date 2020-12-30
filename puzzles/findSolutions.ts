@@ -1,6 +1,7 @@
 import chalk from 'chalk';
-import { puzzle } from './5-2';
+import prompts from 'prompts';
 import genOpBtnTextAndOp from '../app/src/calculatorFunctions/genOpBtnTextAndOp';
+import { Puzzle, Star } from '../app/src/structs/puzzle';
 
 interface Solution {
   values: number[];
@@ -11,33 +12,64 @@ interface Solution {
 const MAX_DEPTH = 10;
 const TRIM_INEFFICIENT_PATHS = false;
 
-// Destructure values from puzzle
-const { start, target, maxMoves, operations, blocks } = puzzle;
+async function promptUser() {
+  const response = await prompts({
+    type: 'text',
+    name: 'filename',
+    message: 'What puzzle would you like to test?',
+  });
 
-// Limit depth of search to puzzle limit or MAX_DEPTH constant
-const max = Math.min(maxMoves || Infinity, MAX_DEPTH);
+  return response.filename;
+}
 
-// Storage for found solutions
-let solutionCount = 0;
-
-// Generate functions for performing operations
-const ops = operations.map((f) => genOpBtnTextAndOp(f));
-
-printHeader();
-findSolutions();
+promptUser()
+  .then((filename) => {
+    const { puzzle } = require(`./${filename}.ts`);
+    printHeader(puzzle);
+    findSolutions(puzzle);
+  })
+  .catch((err) => {
+    logRed('Could not find file. Exiting');
+  });
 
 /**
  * Prints a header with data about the puzzle
  */
-function printHeader(): void {
+function printHeader(puzzle: Puzzle): void {
+  const {
+    level,
+    indexInLevel,
+    start,
+    target,
+    operations,
+    blocks,
+    stars,
+  } = puzzle;
+
+  // Generate functions for performing operations
+  const ops = operations.map((f) => genOpBtnTextAndOp(f));
+
+  const goalText = (star: Star) => {
+    const goalMap = {
+      exactly: '=',
+      fewer: '≤',
+      more: '>',
+    };
+    const symbolPrefix = star.goalRelation ? goalMap[star.goalRelation] : '∞';
+    const starNumber = star.moves === Infinity ? '' : star.moves;
+
+    return symbolPrefix + starNumber;
+  };
+
+  const goals = stars.map((star) => goalText(star));
+
   console.clear();
   console.log(`
-${chalk.cyan.bold(
-  `// Solving ${puzzle.level}-${puzzle.indexInLevel} //////////////`
-)}
+${chalk.cyan.bold(`// Solving ${level}-${indexInLevel} //////////////`)}
 ${chalk.magenta(`Start: ${start}`)}
 ${chalk.magenta(`Target: ${target}`)}
 ${chalk.magenta(`Ops: ${ops.map((o) => o.text).join(', ')}`)}
+${chalk.magenta(`Goals: ${goals.join(', ')}`)}
 ${blocks.length ? chalk.magenta(`Blocks: ${blocks.join(', ')}`) : ''}`);
 }
 
@@ -58,11 +90,23 @@ ${blocks.length ? chalk.magenta(`Blocks: ${blocks.join(', ')}`) : ''}`);
  * Only solution A will be "found" because B's path travels through 8 in a less
  * efficient way
  */
-function findSolutions(): void {
+function findSolutions(puzzle: Puzzle): void {
+  // Destructure object for elements of puzzle
+  const { start, target, operations, blocks, maxMoves } = puzzle;
+
+  // Process operations into functions
+  const ops = operations.map((f) => genOpBtnTextAndOp(f));
+
+  // Limit depth of search to puzzle limit or MAX_DEPTH constant
+  const max = Math.min(maxMoves || Infinity, MAX_DEPTH);
+
+  // Storage for found solutions
+  let solutionCount = 0;
+
   const initialSolution: Solution = {
     values: [start],
     actions: [],
-    opCounts: Array<number>(operations.length).fill(0),
+    opCounts: Array<number>(ops.length).fill(0),
   };
 
   // Tracks visited numbers so less-efficient redundant paths can be trimmed
@@ -83,15 +127,14 @@ function findSolutions(): void {
     if (cur!.actions.length > maxDepthSeen) {
       maxDepthSeen = cur!.actions.length;
       logMagenta(
-        `// Finished searching paths ${
-          maxDepthSeen - 1
-        } actions long /////////////////`
+        `// Searched all paths of length ${maxDepthSeen - 1} /////////////////`
       );
     }
 
     // Arrived at target
     if (curVal === target) {
-      logSolution(cur!);
+      solutionCount++;
+      logSolution(cur!, solutionCount);
       continue;
     }
 
@@ -134,18 +177,18 @@ function findSolutions(): void {
   }
 }
 
-function logSolution(solution: Solution): void {
+function logSolution(solution: Solution, solutionCount: number): void {
   const steps = solution.actions.length;
   const path = solution.actions.join(' ');
 
   // Log out the solutions in a pretty way
-  console.log(chalk.cyan(`#${++solutionCount} [${steps} steps]`), path);
+  console.log(chalk.cyan(`#${solutionCount} [${steps} steps]`), path);
 }
 
 function logMagenta(text: string): void {
   console.log(chalk.magenta(text));
 }
 
-function logCyan(text: string): void {
-  console.log(chalk.cyan(text));
+function logRed(text: string): void {
+  console.log(chalk.red.bold(text));
 }

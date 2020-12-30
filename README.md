@@ -13,8 +13,7 @@ Extremely puzzling and unhelpful devices
 - Refactor `npm run spin` script to wait until server is built before starting watch modes
 - Set up daily email summaries
 - Run tests that test solutions
-- Add pathway to use without configuring account
-- Make findSolutions a script that asks for file name on command line so I can stop checking in changes to the script
+- Make findSolutions a script that asks for filename on command line so I can stop checking in changes to the script
 - Extract API paths to an interface so it only needs to be changed in one location
 - Walk through code for opportunities to simplify / refactor to make code more DRY and orthoganal
 - Add integration tests

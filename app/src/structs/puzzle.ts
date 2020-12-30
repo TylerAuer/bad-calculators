@@ -31,6 +31,12 @@ export interface OpInfo {
   limit?: number;
 }
 
+export interface ProcessedOp {
+  text: string;
+  op: (prev: number) => number;
+  limit: number;
+}
+
 export interface Puzzle {
   id: number;
   level: number;
