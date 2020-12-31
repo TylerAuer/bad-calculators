@@ -24,7 +24,8 @@ interface SolutionsByLength {
  */
 export default function findSolutions(
   puzzle: Puzzle,
-  requestedMoveDepth: number = 0 // Used to pass depth from CLI
+  requestedMoveDepth: number = 0,
+  givenSolutions: number[][] = [] // Used to pass depth from CLI
 ): SolutionsByLength {
   const solutions: SolutionsByLength = {};
 
@@ -33,16 +34,38 @@ export default function findSolutions(
 
   let maxMovesToCheck = requestedMoveDepth;
 
-  /**
-   * If maxMovesToCheck = 0, that means we should look at the stars to determine
-   * the max depth to check.
-   */
+  // If maxMovesToCheck = 0, that means we should look at the stars to determine
+  // the max depth to check.
   if (maxMovesToCheck === 0) {
-    maxMovesToCheck = determineMaxMovesToCheckFromStars(stars);
+    maxMovesToCheck = determineMaxMovesToCheckFromStars(
+      stars,
+      operations.length
+    );
   }
 
   // Process operations into functions
   const ops = operations.map((f) => genOpBtnTextAndOp(f));
+
+  // Add any given solutions to the solutions object
+  givenSolutions.forEach((solution, i) => {
+    let val = start;
+    solution.forEach((opIndex) => {
+      val = ops[opIndex].op(val);
+    });
+
+    if (val !== target) {
+      console.log(`Ended at ${val} but target is ${target}`);
+      throw new Error('Issue with givenSolution at index ${i}');
+    } else {
+      solutions[solution.length] = [
+        {
+          values: [],
+          actions: [],
+          opCounts: [],
+        },
+      ];
+    }
+  });
 
   const initialSolution: Solution = {
     values: [start],
@@ -80,7 +103,6 @@ export default function findSolutions(
     ops.forEach((op, i) => {
       // Don't use operations that have reached their limit
       if (op.limit === cur!.opCounts[i]) {
-        // console.log(`Trim branch (hit op limit)`);
         return;
       }
 
@@ -104,20 +126,24 @@ export default function findSolutions(
   return solutions;
 }
 
-function determineMaxMovesToCheckFromStars(stars: Star[]) {
+function determineMaxMovesToCheckFromStars(stars: Star[], opCount: number) {
   if (!stars.length) {
     throw new Error('Stars not provided for puzzle');
   }
 
-  let maxDepth = 0;
+  let depthLimitFromOpCount = 6;
+  if (opCount === 4) depthLimitFromOpCount = 8;
+  if (opCount === 3) depthLimitFromOpCount = 10;
+  if (opCount === 2) depthLimitFromOpCount = 14;
 
+  let depthLimitFromStarReqs = 0;
   stars.forEach((star) => {
     if (star.goalRelation === 'exactly' || star.goalRelation === 'fewer') {
-      maxDepth = Math.max(maxDepth, star.moves);
-    } else if ((star.goalRelation = 'more')) {
-      maxDepth = Math.max(maxDepth, star.moves + 2);
+      depthLimitFromStarReqs = Math.max(depthLimitFromStarReqs, star.moves);
+    } else if (star.goalRelation === 'more') {
+      depthLimitFromStarReqs = Math.max(depthLimitFromStarReqs, star.moves + 2);
     }
   });
 
-  return maxDepth;
+  return Math.min(depthLimitFromOpCount, depthLimitFromStarReqs);
 }
