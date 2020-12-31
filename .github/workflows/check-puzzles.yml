@@ -11,7 +11,7 @@ jobs:
       run: tsc
     - name: Check puzzles
       run: node public/utils/validatePuzzleSolutions.js
-  check_id:
+  check_ids:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
