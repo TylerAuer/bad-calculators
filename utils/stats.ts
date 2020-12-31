@@ -19,14 +19,16 @@ const logStats = () => {
   const levels = {}; // Counts puzzles per level
   const opCount = {}; // Counts number of each operation
 
-  const puzzleFilenameList = fs.readdirSync(__dirname + '/');
+  const pathToPuzzles = __dirname + '/../puzzles/';
+
+  const puzzleFilenameList = fs.readdirSync(pathToPuzzles);
 
   for (let filename of puzzleFilenameList) {
     if (!filename.match(/\d+-\d+.ts/)) {
       continue;
     }
 
-    const puzFile: PuzFile = require(__dirname + '/' + filename);
+    const puzFile: PuzFile = require(pathToPuzzles + filename);
     const { puzzle } = puzFile;
 
     // INCREMENT COUNTERS //////////////////////////////////////////////////////
@@ -58,10 +60,10 @@ const logStats = () => {
 
   // OP COUNT //////////////////////////////////////////////////////////////////
   console.log(' ');
-  console.log(`Operation       | Count`);
-  console.log(`----------------|------------`);
+  console.log(`Operation                 | Count`);
+  console.log(`--------------------------|------------`);
   Object.entries(opCount).forEach(([op, count]) => {
-    const spaces = 15 - op.length;
+    const spaces = 25 - op.length;
 
     console.log(`${op}${' '.repeat(spaces)} | ${count}`);
   });

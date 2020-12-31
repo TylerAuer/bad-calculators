@@ -34,3 +34,5 @@ export const puzzle: Puzzle = {
     },
   ],
 };
+
+export const givenSolutions = [[0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1]];

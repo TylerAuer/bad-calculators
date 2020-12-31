@@ -31,6 +31,12 @@ export interface OpInfo {
   limit?: number;
 }
 
+export interface ProcessedOp {
+  text: string;
+  op: (prev: number) => number;
+  limit: number;
+}
+
 export interface Puzzle {
   id: number;
   level: number;
@@ -45,6 +51,12 @@ export interface Puzzle {
   stars: Star[];
   attemptCount?: number;
   successCount?: number;
+}
+
+export interface Solution {
+  values: number[];
+  actions: string[];
+  opCounts: number[];
 }
 
 export const defaultPuzzle = (): Puzzle | null => null;

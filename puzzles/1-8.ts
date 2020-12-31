@@ -51,3 +51,8 @@ export const puzzle: Puzzle = {
     },
   ],
 };
+
+export const givenSolutions = [
+  [0, 0, 2, 0, 2, 0, 1, 0, 2],
+  [2, 3, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+];

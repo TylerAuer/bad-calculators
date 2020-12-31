@@ -15,9 +15,9 @@
     "build": "run-s build:* --print-label",
     "postinstall": "cd app && npm install",
     "start": "cd app && npm start",
-    "stats": "ts-node puzzles/stats.ts",
+    "stats": "ts-node utils/stats.ts",
     "test": "cd app && npm test",
-    "solve": "ts-node puzzles/findSolutions.ts"
+    "solve": "ts-node utils/logSolutionPaths.ts"
   },
   "author": "",
   "license": "ISC",
@@ -34,11 +34,13 @@
     "passport-google-oauth": "^2.0.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "prompts": "^2.4.0",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/node": "^14.14.9",
+    "@types/prompts": "^2.0.9",
     "npm-run-all": "^4.1.5",
     "typescript": "^4.1.2"
   }

@@ -1,10 +1,4 @@
-import { OpType, OpInfo } from '../structs/puzzle';
-
-interface Output {
-  text: string;
-  op: (prev: number) => number;
-  limit: number;
-}
+import { OpType, OpInfo, ProcessedOp } from '../structs/puzzle';
 
 /**
  * Generates unary operations which are used to update the calculators screen
@@ -15,7 +9,7 @@ export default function genOpBtnTextAndOp({
   // So assign default values to avoid annoying type checking in all others
   value = 0,
   limit = Infinity,
-}: OpInfo): Output {
+}: OpInfo): ProcessedOp {
   // Used to determine when to wrap in parentheses for readability
   const isValNegative = value && value < 0;
 
