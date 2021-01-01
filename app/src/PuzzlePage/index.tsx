@@ -6,7 +6,7 @@ import { puzzle, puzzleStates } from '../state/puzzle';
 import { isModalOpen } from '../state/ui';
 import { attemptStatus } from '../state/track';
 import useLoadPuzzle from '../hooks/useLoadPuzzle';
-import GA from 'react-ga';
+import logGAPageView from '../functions/logGAPageView';
 import ResolveModal from './ResolveModal';
 import trackAttempt from '../functions/trackAttempt';
 import Screen from './Screen';
@@ -29,7 +29,7 @@ export default function PuzzlePage() {
   const { puz_id } = useParams<Params>();
 
   useEffect(() => {
-    GA.pageview(`/puz/${puz_id}`);
+    logGAPageView(`Puzzle ${puz_id}`, `/puzzle/${puz_id}`);
   }, [puz_id]);
 
   // Close modal if it is open when the component first mounts

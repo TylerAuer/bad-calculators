@@ -7,13 +7,6 @@ import PuzzlePage from './PuzzlePage';
 import LandingPage from './LandingPage';
 import LevelPage from './LevelsPage';
 import PrivacyPage from './PrivacyPage';
-import GA from 'react-ga';
-import disableGADuringDev from './functions/disableGADuringDev';
-
-const googleAnalyticsID = 'UA-186238574-1';
-GA.initialize(googleAnalyticsID);
-
-disableGADuringDev(googleAnalyticsID);
 
 function App() {
   return (
