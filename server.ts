@@ -1,6 +1,7 @@
 import connectToDb from './server/init/connectToDb';
 import syncPuzzles from './server/init/syncPuzzles';
 import configureServer from './server/init/configureServer';
+import startCronJobs from './server/init/startCronJobs';
 
 startServer();
 
@@ -20,4 +21,7 @@ async function startServer() {
   app.listen(port, () => {
     console.log(`Server open to connections @ http://localhost:${port}`);
   });
+
+  // Runs a chron job that emails a daily summary for the site
+  startCronJobs();
 }

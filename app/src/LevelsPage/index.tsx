@@ -8,9 +8,8 @@ import {
 } from 'recoil';
 import { levelData, levelId } from '../state/level';
 import { progress } from '../state/user';
+import logGAPageView from '../functions/logGAPageView';
 import Spinner from '../Spinner';
-import GA from 'react-ga';
-
 import './index.scss';
 
 interface Params {
@@ -42,7 +41,7 @@ function Level() {
   const history = useHistory();
 
   useEffect(() => {
-    GA.pageview(`/level/${level_id}`);
+    logGAPageView(`Level ${level_id}`, `/level/${level_id}`);
   }, [level_id]);
 
   if (lvlId !== parseInt(level_id)) {
