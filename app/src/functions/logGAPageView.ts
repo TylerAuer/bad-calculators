@@ -1,8 +1,8 @@
 export default function logGAPageView(title: string, path: string): void {
   // Don't log page view if in development
-  // if (window.location.hostname === 'localhost') {
-  //   return
-  // }
+  if (window.location.hostname === 'localhost') {
+    return;
+  }
 
   window.gtag('event', 'page_view', {
     page_title: title,
