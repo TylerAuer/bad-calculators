@@ -47,9 +47,10 @@ export default async function emailSiteSummary() {
   `;
 
   const date = format(Date.now(), 'M/d/yy');
-  // sendEmail(
-  //   process.env.MONITOR_RECIPIENT_EMAILS!,
-  //   `Bad Calculators Stats (${date})`,
-  //   emailBody
-  // ).catch(console.error);
+
+  sendEmail(
+    process.env.MONITOR_RECIPIENT_EMAILS!,
+    `Bad Calculators Stats (${date})`,
+    emailBody
+  ).catch(console.error);
 }

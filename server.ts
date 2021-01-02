@@ -1,7 +1,7 @@
 import connectToDb from './server/init/connectToDb';
 import syncPuzzles from './server/init/syncPuzzles';
 import configureServer from './server/init/configureServer';
-import initDailyMonitor from './server/init/initDailyMonitor';
+import startCronJobs from './server/init/startCronJobs';
 
 startServer();
 
@@ -23,5 +23,5 @@ async function startServer() {
   });
 
   // Runs a chron job that emails a daily summary for the site
-  initDailyMonitor();
+  startCronJobs();
 }
