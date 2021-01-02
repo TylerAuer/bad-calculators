@@ -6,8 +6,14 @@ export default async function generateAudienceData(): Promise<string> {
   const data = await queryGoogleAnalytics();
 
   const totalAudienceData = generateTotalAudienceDataTable(data);
-  const yesterdayPuzzleData = generatePuzzleVisitData(data.yesterday, "Puzzle Data Yesterday");
-  const lastWeekPuzzleData = generatePuzzleVisitData(data.lastWeek "Puzzle Data Last Week");
+  const yesterdayPuzzleData = generatePuzzleVisitData(
+    data.yesterday,
+    'Puzzle Data Yesterday'
+  );
+  const lastWeekPuzzleData = generatePuzzleVisitData(
+    data.lastWeek,
+    'Puzzle Data Last Week'
+  );
 
   return `
     ${totalAudienceData}
@@ -48,7 +54,7 @@ function generateTotalAudienceDataTable(data: GAData): string {
 
 function generatePuzzleVisitData(
   metricsForDateRange: GAData['yesterday'] | GAData['lastWeek'],
-  tableTitle: string,
+  tableTitle: string
 ): string {
   const puzzleData: { [key: string]: GAMetrics } = {};
   Object.entries(metricsForDateRange).forEach(([path, metrics]) => {
@@ -65,8 +71,6 @@ function generatePuzzleVisitData(
       else return 0;
     }
   });
-
-  console.log(sortedPuzzleData);
 
   const rows = sortedPuzzleData.map(
     (d) => `

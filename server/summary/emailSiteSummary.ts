@@ -1,5 +1,5 @@
 import db from '../orm/models';
-import { formatDistance } from 'date-fns';
+import { formatDistance, format } from 'date-fns';
 import sendEmail from './sendEmail';
 import generateOverallSiteSummary from './generateOverallSiteSummary';
 import addNewSummaryToMonitorTable from './addNewSummaryToMonitorTable';
@@ -24,13 +24,6 @@ export default async function emailSiteSummary() {
 
   const nextUpdate = await addNewSummaryToMonitorTable();
 
-  /**
-   * - Daily info from Google Analytics
-   * - - Number of users
-   * - - Number of new users
-   * - - Sources
-   */
-
   const timeSinceLastUpdate = formatDistance(
     nextUpdate.createdAt,
     prevUpdate.createdAt
@@ -41,21 +34,22 @@ export default async function emailSiteSummary() {
     nextUpdate
   );
 
-  const visitorSummary = await generateAudienceData();
+  const audienceData = await generateAudienceData();
 
   const emailBody = `
-  <html>
-    <body ${EmailStyles.Body}>
-      <p>A summary of activity on Bad Calculators over the prior ${timeSinceLastUpdate}.</p>
-      ${overallSummary}
-      ${visitorSummary}
-    </body>
-  </html>
+    <html>
+      <body ${EmailStyles.Body}>
+        <p>A summary of activity on Bad Calculators over the prior ${timeSinceLastUpdate}.</p>
+        ${overallSummary}
+        ${audienceData}
+      </body>
+    </html>
   `;
 
+  const date = format(Date.now(), 'M/d/yy');
   // sendEmail(
   //   process.env.MONITOR_RECIPIENT_EMAILS!,
-  //   'Daily Update',
+  //   `Bad Calculators Stats (${date})`,
   //   emailBody
   // ).catch(console.error);
 }
