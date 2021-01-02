@@ -3,4 +3,4 @@
 
 .env
 app/.eslintcache
-google_analytics_key.json
+google-credentials.json

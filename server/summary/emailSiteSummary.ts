@@ -4,6 +4,7 @@ import sendEmail from './sendEmail';
 import generateOverallSiteSummary from './generateOverallSiteSummary';
 import addNewSummaryToMonitorTable from './addNewSummaryToMonitorTable';
 import { EmailStyles } from './emailStyles';
+import generateAudienceData from './generateAudienceData';
 
 export default async function emailSiteSummary() {
   const prevUpdate = await db.BC_Monitor.findOne({
@@ -40,11 +41,14 @@ export default async function emailSiteSummary() {
     nextUpdate
   );
 
+  const visitorSummary = await generateAudienceData();
+
   const emailBody = `
   <html>
     <body ${EmailStyles.Body}>
       <p>A summary of activity on Bad Calculators over the prior ${timeSinceLastUpdate}.</p>
       ${overallSummary}
+      ${visitorSummary}
     </body>
   </html>
   `;

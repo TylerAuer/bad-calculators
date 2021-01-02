@@ -22,3 +22,21 @@ export interface Update {
   userCountAtTimeOfLog: number;
   puzzleDataAtTimeOfLog: UpdatePuzzle[];
 }
+
+export type GAMetrics = {
+  activeUsers: number;
+  engagedSessions: number;
+  engagementRate: number;
+  screenPageViews: number;
+  totalUsers: number;
+  userEngagementDuration: number;
+};
+
+export type GAData = {
+  yesterday: {
+    [key: string]: GAMetrics;
+  };
+  lastWeek: {
+    [key: string]: GAMetrics;
+  };
+};

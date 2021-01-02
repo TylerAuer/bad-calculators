@@ -1,4 +1,3 @@
-import db from '../orm/models';
 import { EmailStyles } from './emailStyles';
 import { Update } from '../../app/src/structs/update';
 
