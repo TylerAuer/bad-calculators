@@ -11,18 +11,15 @@ Extremely puzzling and unhelpful devices
 ### Maintenance + DevOps
 
 - Refactor `npm run spin` script to wait until server is built before starting watch modes
-- Set up daily email summaries
-- Run tests that test solutions
-- Make findSolutions a script that asks for filename on command line so I can stop checking in changes to the script
 - Extract API paths to an interface so it only needs to be changed in one location
 - Walk through code for opportunities to simplify / refactor to make code more DRY and orthoganal
 - Add integration tests
 
 ### UI + Puzzles
 
+- Add custom error messages for invalid inputs or outputs (ex: -1!)
 - Animate stars for success modal
 - Stats page with overall difficulty of puzzles
-- Handle NaN returns from functions so puzzles can use this as a feature
 - Add puzzle builder
 - Add tooltips or similar for non-arithmetic operations
 - Handle puzzles marked as "disabled"
@@ -31,7 +28,6 @@ Extremely puzzling and unhelpful devices
 
 ### Bugs
 
-- Handle NaN
 - Improve precision of floating point arithmetic
 - Handle missing or unloaded profile pic
 
@@ -39,6 +35,7 @@ Extremely puzzling and unhelpful devices
 
 - Buttons with hidden functions. So users have to deduce what the function is. Will be most fun if you play with this where start value is 2 and the output of any of the buttons is 4 because 2 + 2 = 4, 2 * 2 = 4 and 2 ^ 2 = 4.
 - Buttons that change value over time. So, the first time you push the button it is +1 then +2 then +3...
+- Buttons with multiple functions +3 *2
 
 ## Development
 
