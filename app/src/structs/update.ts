@@ -26,10 +26,10 @@ export interface Update {
 export type GAMetrics = {
   activeUsers: number;
   engagedSessions: number;
-  engagementRate: number;
+  engagementRate?: number;
   screenPageViews: number;
   totalUsers: number;
-  userEngagementDuration: number;
+  userEngagementDuration?: number;
 };
 
 export type GAData = {

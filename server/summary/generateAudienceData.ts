@@ -24,7 +24,7 @@ export default async function generateAudienceData(): Promise<string> {
 
 function generateTotalAudienceDataTable(data: GAData): string {
   const yesterdayData = Object.entries(data.yesterday.total);
-  const lastWeekData = Object.entries(data.yesterday.total);
+  const lastWeekData = Object.entries(data.lastWeek.total);
   const rows: string[] = [];
 
   for (let i = 0; i < yesterdayData.length; i++) {
@@ -63,11 +63,11 @@ function generatePuzzleVisitData(
   });
 
   const sortedPuzzleData = Object.entries(puzzleData).sort((a, b) => {
-    if (a[1].screenPageViews > b[1].screenPageViews) return 1;
-    else if (a[1].screenPageViews < b[1].screenPageViews) return -1;
+    if (a[1].screenPageViews > b[1].screenPageViews) return -1;
+    else if (a[1].screenPageViews < b[1].screenPageViews) return 1;
     else {
-      if (a[1].activeUsers > b[1].activeUsers) return 1;
-      else if (a[1].activeUsers < b[1].activeUsers) return -1;
+      if (a[1].activeUsers > b[1].activeUsers) return -1;
+      else if (a[1].activeUsers < b[1].activeUsers) return 1;
       else return 0;
     }
   });
@@ -156,6 +156,7 @@ async function queryGoogleAnalytics(): Promise<GAData> {
     });
 
     const { rows } = response;
+    console.log(JSON.stringify(rows, null, 2));
 
     const data: GAData = {
       yesterday: {},
@@ -164,12 +165,9 @@ async function queryGoogleAnalytics(): Promise<GAData> {
 
     rows!.forEach((row) => {
       const date = row.dimensionValues![1].value as 'yesterday' | 'lastWeek';
-      let path = row.dimensionValues![0].value!;
+      const path = row.dimensionValues![0].value!;
 
-      // /location? holds the data for all paths/locations (the totals) so
-      // rename it for simplicity
-      if (path === '/location?') path = 'total';
-
+      // Sort data into object
       const labeledRow = {
         activeUsers: parseInt(row.metricValues![0].value!),
         engagedSessions: parseInt(row.metricValues![1].value!),
@@ -178,8 +176,22 @@ async function queryGoogleAnalytics(): Promise<GAData> {
         totalUsers: parseInt(row.metricValues![4].value!),
         userEngagementDuration: parseInt(row.metricValues![5].value!),
       };
-
       data[date][path!] = labeledRow;
+
+      // Update the totals
+      if (!data[date].total) {
+        data[date].total = {
+          activeUsers: 0,
+          engagedSessions: 0,
+          screenPageViews: 0,
+          totalUsers: 0,
+        };
+      }
+
+      data[date].total.activeUsers += parseInt(row.metricValues![0].value!);
+      data[date].total.engagedSessions += parseInt(row.metricValues![1].value!);
+      data[date].total.screenPageViews += parseInt(row.metricValues![3].value!);
+      data[date].total.totalUsers += parseInt(row.metricValues![4].value!);
     });
 
     return data;
