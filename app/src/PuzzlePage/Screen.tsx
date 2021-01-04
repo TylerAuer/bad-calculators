@@ -9,9 +9,11 @@ export default function Screen() {
   const current = puzStates[puzStates.length - 1];
   const { val, historyString } = current;
 
+  const screenDisplay = typeof val === 'number' ? val : 'Error';
+
   return (
     <div className="screen">
-      <div className="screen__value">{val}</div>
+      <div className="screen__value">{screenDisplay}</div>
       <div className="screen__history">{historyString}</div>
     </div>
   );

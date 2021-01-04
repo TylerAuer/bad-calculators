@@ -48,9 +48,14 @@ export default function findSolutions(
 
   // Add any given solutions to the solutions object
   givenSolutions.forEach((solution, i) => {
-    let val = start;
+    let val: number = start;
+
     solution.forEach((opIndex) => {
-      val = ops[opIndex].op(val);
+      if (typeof opIndex === 'string') {
+        throw new Error('Error message reached in given solution');
+      }
+
+      val = ops[opIndex].op(val) as number;
     });
 
     if (val !== target) {
@@ -93,6 +98,9 @@ export default function findSolutions(
     if (cur!.actions.length >= maxMovesToCheck) {
       continue;
     }
+
+    // Current value is an error message so can't be a solution
+    if (typeof curVal === 'string') continue;
 
     // Hit Block
     if (blocks.includes(curVal)) {

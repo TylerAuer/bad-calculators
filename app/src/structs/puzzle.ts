@@ -31,9 +31,14 @@ export interface OpInfo {
   limit?: number;
 }
 
+export enum OpError {
+  'BASE_INVALID_DIGIT' = 'Invalid Digit: Converting bases resulted in a digit that was a letter instead of a character.',
+  'BASE_NON_INTEGERS' = 'Invalid Input: This calculator does not support converting non-integers between bases.',
+}
+
 export interface ProcessedOp {
   text: string;
-  op: (prev: number) => number;
+  op: (prev: number) => number | OpError;
   limit: number;
 }
 
@@ -54,7 +59,7 @@ export interface Puzzle {
 }
 
 export interface Solution {
-  values: number[];
+  values: (number | string)[];
   actions: string[];
   opCounts: number[];
 }

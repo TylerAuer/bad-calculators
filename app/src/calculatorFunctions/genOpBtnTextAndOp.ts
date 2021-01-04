@@ -1,4 +1,4 @@
-import { OpType, OpInfo, ProcessedOp } from '../structs/puzzle';
+import { OpType, OpInfo, ProcessedOp, OpError } from '../structs/puzzle';
 
 /**
  * Generates unary operations which are used to update the calculators screen
@@ -133,6 +133,32 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
+    case OpType.base: {
+      if (value <= 0 || value % 1 !== 0) {
+        throw new Error(`Bases must be whole numbers. You tried ${value}`);
+      }
+
+      if (value > 36) {
+        throw new Error(`JS can't handle bases > 36. You tried ${value}`);
+      }
+
+      const op = (prev: number) => {
+        if (prev % 1 !== 0) return OpError.BASE_NON_INTEGERS;
+
+        const strInNewBase = prev.toString(value);
+
+        // Check if result includes a letter as a digit (from a base > 10)
+        if (strInNewBase.match(/[a-zA-Z]/)) {
+          return OpError.BASE_INVALID_DIGIT;
+        }
+
+        return parseInt(strInNewBase);
+      };
+
+      const text = `base ${value}`;
+      return { text, op, limit };
+    }
+
     default:
       throw new Error(
         'Invalid symbol passed in info.symbol of puzzle definition'
@@ -140,7 +166,7 @@ export default function genOpBtnTextAndOp({
   }
 }
 
-// Rounds numbers for the purposes of
+// Rounds numbers for precision
 function handleFloats(n: number) {
   return parseFloat(n.toPrecision(8));
 }

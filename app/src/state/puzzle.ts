@@ -6,7 +6,7 @@ import trackSuccess from '../functions/trackSuccess';
 // SHAPES //////////////////////////////////////////////////////////////////////
 
 interface State {
-  val: number;
+  val: number | string;
   counts: number[];
   historyString: string;
 }
@@ -71,7 +71,16 @@ export const monitorPuzzle = selector({
     const currVal = currState.val;
     const { target, blocks } = puz;
 
-    if (blocks.indexOf(currVal) !== -1) {
+    if (typeof currVal !== 'number') {
+      // Handle error messages
+      const [title, msg] = currVal.split(':');
+      return {
+        open: true,
+        title: title,
+        message: msg,
+        history: currState.historyString,
+      };
+    } else if (blocks.indexOf(currVal as number) !== -1) {
       // Handle case where user reaches a block
       return {
         open: true,

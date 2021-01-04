@@ -24,7 +24,11 @@ export default function OpBtn({ info, index }: Props) {
 
   // Add state to puzStates Stack
   const handleClick = async () => {
-    const nextVal = op(puzStates[puzStates.length - 1].val);
+    // Don't allow user to click operation buttons if the current state is
+    // a string. Because if it is a string, it is an error msg
+    if (typeof puzStates[puzStates.length - 1].val !== 'number') return;
+
+    const nextVal = op(puzStates[puzStates.length - 1].val as number);
 
     setPuzStates((prev) => {
       const next = {
