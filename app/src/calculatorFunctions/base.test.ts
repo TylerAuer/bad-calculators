@@ -2,11 +2,10 @@ import { OpError, OpType } from '../structs/puzzle';
 import genOp from './genOpBtnTextAndOp';
 
 const two = genOp({ symbol: OpType.base, value: 2 });
-const three = genOp({ symbol: OpType.base, value: 3 });
 const five = genOp({ symbol: OpType.base, value: 5 });
 const twenty = genOp({ symbol: OpType.base, value: 20 });
 
-describe('invalid values', () => {
+describe('invalid settings in puzzle', () => {
   test('throw error for decimal fixed value', () => {
     expect(() => {
       genOp({ symbol: OpType.base, value: 1.4 });

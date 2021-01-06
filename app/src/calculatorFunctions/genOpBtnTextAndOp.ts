@@ -159,6 +159,19 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
+    case OpType.expo_power: {
+      if (value % 1 !== 0) {
+        throw new Error(`Exponent must be an integer. You tried ${value}`);
+      }
+
+      const op = (prev: number) => {
+        return handleFloats(prev ** value);
+      };
+
+      const text = `n^${value}`;
+      return { text, op, limit };
+    }
+
     default:
       throw new Error(
         'Invalid symbol passed in info.symbol of puzzle definition'

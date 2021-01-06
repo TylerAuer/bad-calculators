@@ -25,11 +25,20 @@ Extremely puzzling and unhelpful devices
 - Handle puzzles marked as "disabled"
 - Custom CSS (colors) for each level
 - Make it so you can't highlight text in ResolveModal
+- Add operations and tips page
+  - Work backwards
+  - Use pencil/pen and paper
+  - Draw a graph
+  - Be systematic so you can learn from your fails
+- Make privacy page accessible
+- Calculate puzzle stats (maybe show on puzzle)
+- Overall stats page (difficulty, whether a person has solved it)
 
 ### Bugs
 
 - Improve precision of floating point arithmetic
 - Handle missing or unloaded profile pic
+- Count overall data correctly for email
 
 ## Ideas
 
