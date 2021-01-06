@@ -168,7 +168,7 @@ export default function genOpBtnTextAndOp({
         return handleFloats(prev ** value);
       };
 
-      const text = `n<sup>${value}</sup>`;
+      const text = `n^${value}`;
       return { text, op, limit };
     }
 

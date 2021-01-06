@@ -19,7 +19,7 @@ describe('has properties', () => {
 
 describe('text formatting', () => {
   test('button text', () => {
-    expect(powerOf2.text).toBe('n<sup>2</sup>');
+    expect(powerOf2.text).toBe('n^2');
   });
 });
 
