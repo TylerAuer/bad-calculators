@@ -16,8 +16,8 @@ console.clear();
 
 const logStats = () => {
   let puzCount = 0; // Counts total puzzles
-  const levels = {}; // Counts puzzles per level
-  const opCount = {}; // Counts number of each operation
+  const levels: { [key: number]: number } = {}; // Counts puzzles per level
+  const opCount: { [key: string]: number } = {}; // Counts number of each operation
 
   const pathToPuzzles = __dirname + '/../puzzles/';
 
@@ -60,10 +60,11 @@ const logStats = () => {
 
   // OP COUNT //////////////////////////////////////////////////////////////////
   console.log(' ');
-  console.log(`Operation                 | Count`);
-  console.log(`--------------------------|------------`);
+  console.log(`Operation                                | Count`);
+  console.log(`-----------------------------------------|------------`);
+
   Object.entries(opCount).forEach(([op, count]) => {
-    const spaces = 25 - op.length;
+    const spaces = 40 - op.length;
 
     console.log(`${op}${' '.repeat(spaces)} | ${count}`);
   });
