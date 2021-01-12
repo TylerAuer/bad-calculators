@@ -20,7 +20,7 @@
   line-height: 1;
 
   @media only screen and (max-width: 800px) {
-    font-size: 3rem;
+    font-size: $font-lg;
   }
 }
 
@@ -30,6 +30,10 @@
   margin: 1px;
   text-align: center;
   color: $grey-light;
+
+  @media only screen and (max-width: 500px) {
+    font-size: $font-md;
+  }
 }
 
 .star-success {

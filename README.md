@@ -8,7 +8,6 @@ Extremely puzzling and unhelpful devices
 
 ## To Do
 
-- Fix button color on homepage
 - Stop users from being able to select text on calculator
 - Add overview of buttons below calculator
 
