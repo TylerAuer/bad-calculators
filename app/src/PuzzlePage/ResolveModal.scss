@@ -3,6 +3,10 @@
 .success-modal {
   padding: 3rem;
 
+  @media only screen and (max-width: 500px) {
+    padding: 1rem;
+  }
+
   &__container {
     border-radius: 5px;
   }
@@ -20,6 +24,11 @@
     font-weight: bold;
     text-align: center;
     margin: 2rem 0;
+
+    @media only screen and (max-width: 500px) {
+      font-size: 3.5rem;
+      margin: 0;
+    }
   }
 
   &__body {
@@ -27,18 +36,29 @@
     font-size: 1.8rem;
   }
 
-  &__msg {
+  &__msg-hist-container {
     margin: 3rem 0;
+
+    & > div {
+      margin: 1rem 0;
+    }
+  }
+
+  &__msg {
   }
 
   &__hist {
     color: $grey-dark;
     font-size: 2.4rem;
-    padding: 1rem 0;
+
+    @media only screen and (max-width: 500px) {
+      font-size: 2.2rem;
+    }
   }
 
   &__goals {
     justify-content: center;
+    margin: 2rem 0;
   }
 
   &__btn {
@@ -56,6 +76,12 @@
     &:focus-visible {
       color: white;
       background-color: black;
+    }
+
+    @media only screen and (max-width: 500px) {
+      font-size: 1.8rem;
+      margin: 1rem;
+      border-width: 1px;
     }
   }
 }

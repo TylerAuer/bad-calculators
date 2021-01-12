@@ -36,8 +36,8 @@ export default function ResolveModal() {
       <div className="success-modal">
         <div className="success-modal__title">{monitor.title}</div>
         <div className="success-modal__body">
-          <div className="success-modal__msg">
-            <div>{monitor.message}</div>
+          <div className="success-modal__msg-hist-container">
+            <div className="success-modal__msg">{monitor.message}</div>
             <div className="success-modal__hist">{monitor.history}</div>
           </div>
           <div className="success-modal__goals">
