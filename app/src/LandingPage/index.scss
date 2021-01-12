@@ -47,6 +47,7 @@
   flex-direction: column;
   justify-content: center;
   font-size: 1.8rem;
+  padding: 0 1rem;
 
   &__auth-btn {
     display: block;
@@ -60,11 +61,19 @@
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
+    background-color: transparent;
 
     &:hover {
       color: white;
       background-color: black;
     }
+  }
+
+  &__icon {
+    height: 3rem;
+    width: auto;
+    vertical-align: bottom;
+    margin-right: 2rem;
   }
 }
 

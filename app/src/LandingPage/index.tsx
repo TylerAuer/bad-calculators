@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { signInState } from '../state/user';
 import logGAPageView from '../functions/logGAPageView';
+import GoogleIcon from '../icons/google-g-transparent.png';
 import './index.scss';
 
 export default function LandingPage() {
@@ -25,6 +26,7 @@ export default function LandingPage() {
         </div>
         <div className="login">
           <a href="/auth/google" className="login__auth-btn">
+            <img className="login__icon" src={GoogleIcon} alt="Google G Icon" />
             Sign in with Google
           </a>
           <div className="spacer" />
