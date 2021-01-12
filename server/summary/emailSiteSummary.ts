@@ -34,7 +34,9 @@ export default async function emailSiteSummary() {
     nextUpdate
   );
 
-  const audienceData = await generateAudienceData();
+  const audienceData = await generateAudienceData(
+    nextUpdate.puzzleDataAtTimeOfLog
+  );
 
   const emailBody = `
     <html>

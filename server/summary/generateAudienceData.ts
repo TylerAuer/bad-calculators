@@ -1,110 +1,167 @@
-import { GAData, GAMetrics } from '../../app/src/structs/update';
 import { EmailStyles } from './emailStyles';
 import { AlphaAnalyticsDataClient } from '@google-analytics/data';
 
-export default async function generateAudienceData(): Promise<string> {
-  const data = await queryGoogleAnalytics();
+const propertyId = '257338238';
 
-  const totalAudienceData = generateTotalAudienceDataTable(data);
-  const yesterdayPuzzleData = generatePuzzleVisitData(
-    data.yesterday,
-    'Puzzle Data Yesterday'
-  );
-  const lastWeekPuzzleData = generatePuzzleVisitData(
-    data.lastWeek,
-    'Puzzle Data Last Week'
-  );
+type DBPuzData = {
+  id: number;
+  level: number;
+  indexInLevel: number;
+  attempts: number;
+  successes: number;
+  successPercent: number;
+};
 
-  return `
-    ${totalAudienceData}
-    ${yesterdayPuzzleData}
-    ${lastWeekPuzzleData}
-  `;
-}
+export default async function generateAudienceData(
+  puzDataFromDB
+): Promise<string> {
+  const siteData = await queryGAForSiteLevelStats();
+  const puzData = await queryGAForPuzzleStats();
 
-function generateTotalAudienceDataTable(data: GAData): string {
-  const yesterdayData = Object.entries(data.yesterday.total);
-  const lastWeekData = Object.entries(data.lastWeek.total);
-  const rows: string[] = [];
-
-  for (let i = 0; i < yesterdayData.length; i++) {
-    rows.push(`  
-      <tr>
-        <td ${EmailStyles.TableCell}>${yesterdayData[i][0]}</td>
-        <td ${EmailStyles.TableCell}>${yesterdayData[i][1]}</td>
-        <td ${EmailStyles.TableCell}>${lastWeekData[i][1]}</td>
-      </tr>
-    `);
-  }
-
-  return `
-    <div ${EmailStyles.MajorHeading}>
-      Audience Data
-    </div>
+  const siteDataTable = `
+    <div ${EmailStyles.MajorHeading}>Site Visitor Data</div>
     <table ${EmailStyles.Table}>
       <tr>
-        <th></th>
+        <th ${EmailStyles.TableCell}></th>
         <th ${EmailStyles.TableCell}>Yesterday</th>
         <th ${EmailStyles.TableCell}>Last Week</th>
+        <th ${EmailStyles.TableCell}>Last Month</th>
       </tr>
-      ${rows.join('')}
+      <tr>
+        <td ${EmailStyles.TableCell}>Users</td>
+        <td ${EmailStyles.TableCell}>
+          ${siteData.yesterday.totalUsers.toLocaleString()}
+        </td>
+        <td ${EmailStyles.TableCell}>
+          ${siteData.lastWeek.totalUsers.toLocaleString()}
+        </td>
+        <td ${EmailStyles.TableCell}>
+          ${siteData.lastMonth.totalUsers.toLocaleString()}
+        </td>
+      </tr>
+      <tr>
+        <td ${EmailStyles.TableCell}>Page Views</td>
+        <td ${EmailStyles.TableCell}>
+          ${siteData.yesterday.screenPageViews.toLocaleString()}
+        </td>
+        <td ${EmailStyles.TableCell}>
+          ${siteData.lastWeek.screenPageViews.toLocaleString()}
+        </td>
+        <td ${EmailStyles.TableCell}>
+          ${siteData.lastMonth.screenPageViews.toLocaleString()}
+        </td>
+      </tr>
     </table>
   `;
-}
 
-function generatePuzzleVisitData(
-  metricsForDateRange: GAData['yesterday'] | GAData['lastWeek'],
-  tableTitle: string
-): string {
-  const puzzleData: { [key: string]: GAMetrics } = {};
-  Object.entries(metricsForDateRange).forEach(([path, metrics]) => {
-    if (!path.includes('puzzle')) return;
-    puzzleData[path] = metrics;
+  const sortedPuzData = sortPuzzleData(puzData);
+  const puzzleStats: { [id: string]: DBPuzData } = {};
+
+  puzDataFromDB.forEach((puz) => {
+    const successPercent =
+      100 * (puz.BC_Tracking.totalSuccesses / puz.BC_Tracking.totalAttempts);
+
+    puzzleStats[puz.id] = {
+      id: puz.id,
+      level: puz.level,
+      indexInLevel: puz.indexInLevel,
+      attempts: puz.BC_Tracking.totalAttempts,
+      successes: puz.BC_Tracking.totalSuccesses,
+      successPercent: successPercent,
+    };
   });
 
-  const sortedPuzzleData = Object.entries(puzzleData).sort((a, b) => {
-    if (a[1].screenPageViews > b[1].screenPageViews) return -1;
-    else if (a[1].screenPageViews < b[1].screenPageViews) return 1;
-    else {
-      if (a[1].activeUsers > b[1].activeUsers) return -1;
-      else if (a[1].activeUsers < b[1].activeUsers) return 1;
-      else return 0;
-    }
-  });
+  const puzRows = sortedPuzData
+    .map((d) => {
+      const path = d[0];
+      const url = 'http://badcalculators.com' + path;
+      const puzId = path.match(/\/#\/puzzle\/(\d*)/)![1];
+      const lvlAndIndex = `${puzzleStats[puzId].level}-${puzzleStats[puzId].indexInLevel}`;
 
-  const rows = sortedPuzzleData.map(
-    (d) => `
-    <tr>
-      <td ${EmailStyles.TableCell}>${d[0]}</td>
-      <td ${EmailStyles.TableCell}>${d[1].screenPageViews}</td>
-      <td ${EmailStyles.TableCell}>${d[1].activeUsers}</td>
-      <td ${EmailStyles.TableCell}>${d[1].engagementRate}</td>
-    </tr>
-    `
-  );
+      const lastMonthUsers = d[1].lastMonth.totalUsers.toLocaleString();
+      const lastWeekUsers = d[1].lastWeek.totalUsers.toLocaleString();
+      const yesterdayUsers = d[1].yesterday.totalUsers.toLocaleString();
 
-  return `
-    <div ${EmailStyles.MajorHeading}>
-      ${tableTitle}
-    </div>
+      const lastMonthPageViews = d[1].lastMonth.screenPageViews.toLocaleString();
+      const lastWeekPageViews = d[1].lastWeek.screenPageViews.toLocaleString();
+      const yesterdayPageViews = d[1].yesterday.screenPageViews.toLocaleString();
+
+      return `
+        <tr>
+          <td ${EmailStyles.TableCell}>
+            <a href='${url}'>${lvlAndIndex}</a>
+          </td>
+          <td ${EmailStyles.TableCell}>
+            ${lastMonthUsers} / ${lastMonthPageViews}
+          </td>
+          <td ${EmailStyles.TableCell}>
+            ${lastWeekUsers} / ${lastWeekPageViews}
+          </td>
+          <td ${EmailStyles.TableCell}>
+            ${yesterdayUsers} / ${yesterdayPageViews}
+          </td>
+          <td ${EmailStyles.TableCell}>
+            ${puzzleStats[puzId].successPercent.toPrecision(3)}%
+          </td>
+        </tr>
+    `;
+    })
+    .join('');
+
+  const puzTable = `
+  <div ${EmailStyles.MajorHeading}>Puzzle Data</div>
     <table ${EmailStyles.Table}>
       <tr>
-        <th></th>
-        <th ${EmailStyles.TableCell}>Page Views</th>
-        <th ${EmailStyles.TableCell}>Active Users</th>
-        <th ${EmailStyles.TableCell}>Engagement Rate</th>
+        <th ${EmailStyles.TableCell}>Puzzle</th>
+        <th ${EmailStyles.TableCell}>Last Month<br>(users / views)</th>
+        <th ${EmailStyles.TableCell}>Last Week<br>(users / views)</th>
+        <th ${EmailStyles.TableCell}>Yesterday<br>(users / views)</th>
+        <th ${EmailStyles.TableCell}>Success %</th>
       </tr>
-      ${rows.join('')}
+      ${puzRows}
     </table>
+  `;
+
+  return `
+    ${siteDataTable}
+    ${puzTable}
   `;
 }
 
-async function queryGoogleAnalytics(): Promise<GAData> {
+function sortPuzzleData(
+  data: GAPuzzleStatsByURL
+): [string, GAPuzzleDataRanges][] {
+  const sortedPuzzleData = Object.entries(data).sort((a, b) => {
+    const lastMonth = b[1].lastMonth.totalUsers - a[1].lastMonth.totalUsers;
+    const lastWeek = b[1].lastWeek.totalUsers - a[1].lastWeek.totalUsers;
+    const yesterday = b[1].yesterday.totalUsers - a[1].yesterday.totalUsers;
+
+    // Sort by month, then week, then yesterday
+    if (lastMonth === 0) {
+      if (lastWeek === 0) {
+        return yesterday;
+      } else return lastWeek;
+    } else return lastMonth;
+  });
+
+  return sortedPuzzleData;
+}
+
+type GASiteStat = {
+  totalUsers: number;
+  screenPageViews: number;
+};
+
+type GASiteData = {
+  lastMonth: GASiteStat;
+  lastWeek: GASiteStat;
+  yesterday: GASiteStat;
+};
+
+async function queryGAForSiteLevelStats(): Promise<GASiteData> {
   // SCHEMA
   // https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
   // https://googleapis.dev/nodejs/analytics-data/latest/index.html
-
-  const propertyId = '257338238';
 
   // Creates a client
   const client = new AlphaAnalyticsDataClient();
@@ -117,6 +174,102 @@ async function queryGoogleAnalytics(): Promise<GAData> {
         propertyId: propertyId,
       },
       dateRanges: [
+        {
+          startDate: '30daysAgo',
+          endDate: '1daysAgo',
+          name: 'lastMonth',
+        },
+        {
+          startDate: '7daysAgo',
+          endDate: '1daysAgo',
+          name: 'lastWeek',
+        },
+        {
+          startDate: '1daysAgo',
+          endDate: '1daysAgo',
+          name: 'yesterday',
+        },
+      ],
+      dimensions: [
+        {
+          name: 'platform',
+        },
+      ],
+      metrics: [
+        {
+          name: 'totalUsers',
+        },
+        {
+          name: 'screenPageViews',
+        },
+      ],
+    });
+
+    const { rows } = response;
+
+    const gaSiteData: GASiteData = {
+      lastMonth: {
+        totalUsers: 0,
+        screenPageViews: 0,
+      },
+      lastWeek: {
+        totalUsers: 0,
+        screenPageViews: 0,
+      },
+      yesterday: {
+        totalUsers: 0,
+        screenPageViews: 0,
+      },
+    };
+
+    rows!.forEach((row) => {
+      const dateRange = row.dimensionValues![1].value as string;
+
+      gaSiteData[dateRange].totalUsers = parseInt(row.metricValues![0].value!);
+      gaSiteData[dateRange].screenPageViews = parseInt(
+        row.metricValues![1].value!
+      );
+    });
+
+    return gaSiteData;
+  }
+
+  return runReport();
+}
+
+type GAPuzzleMetrics = { totalUsers: number; screenPageViews: number };
+
+type GAPuzzleDataRanges = {
+  lastMonth: GAPuzzleMetrics;
+  lastWeek: GAPuzzleMetrics;
+  yesterday: GAPuzzleMetrics;
+};
+
+type GAPuzzleStatsByURL = {
+  [pathFromUrl: string]: GAPuzzleDataRanges;
+};
+
+async function queryGAForPuzzleStats(): Promise<GAPuzzleStatsByURL> {
+  // SCHEMA
+  // https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
+  // https://googleapis.dev/nodejs/analytics-data/latest/index.html
+
+  // Creates a client
+  const client = new AlphaAnalyticsDataClient();
+
+  // Runs a simple report.
+  async function runReport() {
+    const [response] = await client.runReport({
+      limit: 10000,
+      entity: {
+        propertyId: propertyId,
+      },
+      dateRanges: [
+        {
+          startDate: '30daysAgo',
+          endDate: '1daysAgo',
+          name: 'lastMonth',
+        },
         {
           startDate: '7daysAgo',
           endDate: '1daysAgo',
@@ -135,66 +288,42 @@ async function queryGoogleAnalytics(): Promise<GAData> {
       ],
       metrics: [
         {
-          name: 'activeUsers',
-        },
-        {
-          name: 'engagedSessions',
-        },
-        {
-          name: 'engagementRate',
-        },
-        {
-          name: 'screenPageViews',
-        },
-        {
           name: 'totalUsers',
         },
         {
-          name: 'userEngagementDuration',
+          name: 'screenPageViews',
         },
       ],
     });
 
     const { rows } = response;
-    console.log(JSON.stringify(rows, null, 2));
 
-    const data: GAData = {
-      yesterday: {},
-      lastWeek: {},
-    };
+    const gaPuzData: GAPuzzleStatsByURL = {};
 
     rows!.forEach((row) => {
-      const date = row.dimensionValues![1].value as 'yesterday' | 'lastWeek';
-      const path = row.dimensionValues![0].value!;
+      const url = row.dimensionValues![0].value as string;
+      const dateRange = row.dimensionValues![1].value as string;
 
-      // Sort data into object
-      const labeledRow = {
-        activeUsers: parseInt(row.metricValues![0].value!),
-        engagedSessions: parseInt(row.metricValues![1].value!),
-        engagementRate: parseFloat(row.metricValues![2].value!),
-        screenPageViews: parseInt(row.metricValues![3].value!),
-        totalUsers: parseInt(row.metricValues![4].value!),
-        userEngagementDuration: parseInt(row.metricValues![5].value!),
-      };
-      data[date][path!] = labeledRow;
+      // Only include puzzle URLs
+      if (!url.includes('/#/puzzle/')) return;
 
-      // Update the totals
-      if (!data[date].total) {
-        data[date].total = {
-          activeUsers: 0,
-          engagedSessions: 0,
-          screenPageViews: 0,
-          totalUsers: 0,
+      if (!gaPuzData[url]) {
+        gaPuzData[url] = {
+          lastMonth: { totalUsers: 0, screenPageViews: 0 },
+          lastWeek: { totalUsers: 0, screenPageViews: 0 },
+          yesterday: { totalUsers: 0, screenPageViews: 0 },
         };
       }
 
-      data[date].total.activeUsers += parseInt(row.metricValues![0].value!);
-      data[date].total.engagedSessions += parseInt(row.metricValues![1].value!);
-      data[date].total.screenPageViews += parseInt(row.metricValues![3].value!);
-      data[date].total.totalUsers += parseInt(row.metricValues![4].value!);
+      gaPuzData[url][dateRange].totalUsers = parseInt(
+        row.metricValues![0].value!
+      );
+      gaPuzData[url][dateRange].screenPageViews = parseInt(
+        row.metricValues![1].value!
+      );
     });
 
-    return data;
+    return gaPuzData;
   }
 
   return runReport();
