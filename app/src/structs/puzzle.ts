@@ -32,7 +32,7 @@ export interface OpInfo {
 }
 
 export enum OpError {
-  'BASE_INVALID_DIGIT' = 'Invalid Digit: Converting bases resulted in a digit that was a letter instead of a character.',
+  'BASE_INVALID_DIGIT' = 'Invalid Digit: Converting bases resulted in a digit that was a letter instead of a number.',
   'BASE_NON_INTEGERS' = 'Invalid Input: This calculator does not support converting non-integers between bases.',
 }
 
