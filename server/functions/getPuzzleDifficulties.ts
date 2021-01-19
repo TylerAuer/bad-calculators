@@ -1,7 +1,7 @@
 import db from '../orm/models';
 import cache from '../init/initCache';
 
-const NUMBER_OF_DIFFICULTY_GROUPS = 5;
+const NUMBER_OF_DIFFICULTY_GROUPS = 7;
 
 type PuzzleDataRaw = {
   id: number;
@@ -23,10 +23,10 @@ type PuzzleDataRaw = {
 
 interface PuzzleDifficulties {
   [key: number]: {
-    id: number;
     ordinal: number;
     raw: number;
     discrete: number;
+    countOfPuzzles: number;
   };
 }
 
@@ -100,10 +100,10 @@ async function computePuzzleDifficulties() {
     const diffGroupSize = puzCount / NUMBER_OF_DIFFICULTY_GROUPS;
 
     puzzleDifficulties[puz.id] = {
-      id: puz.id,
       ordinal: puzCount - i,
       raw: puz.goalsPerAttempt,
       discrete: Math.floor(1 + i / diffGroupSize),
+      countOfPuzzles: puzCount,
     };
   }
 

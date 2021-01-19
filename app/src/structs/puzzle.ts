@@ -56,6 +56,12 @@ export interface Puzzle {
   stars: Star[];
   attemptCount?: number;
   successCount?: number;
+  difficulty?: {
+    discrete: number;
+    ordinal: number;
+    raw: number;
+    countOfPuzzles: number;
+  };
 }
 
 export interface Solution {
