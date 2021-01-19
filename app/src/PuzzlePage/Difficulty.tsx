@@ -7,7 +7,7 @@ export default function Difficulty() {
   const puz = useRecoilValue(puzzle);
 
   if (!puz || !puz.difficulty) {
-    return <div className="difficulty">Difficulty: more data needed 🤷‍♂️ </div>;
+    return <div className="difficulty">More data needed 🤷‍♂️ </div>;
   }
 
   const emojiForLevel: { [key: number]: string } = {
