@@ -21,6 +21,7 @@
   &__below {
     justify-content: space-between;
     font-size: $font-xs;
+    align-items: flex-start;
   }
 
   &__body {

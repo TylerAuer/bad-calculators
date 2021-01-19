@@ -15,6 +15,7 @@ import Goals from './Goals';
 import CalcFunctions from './CalcFunctions';
 import Spinner from '../Spinner';
 import MoveCount from './MoveCount';
+import Difficulty from './Difficulty';
 import './index.scss';
 
 interface Params {
@@ -72,7 +73,7 @@ export default function PuzzlePage() {
       <div className="calc__below">
         <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
         <div>
-          Puzzle {puz.level}-{puz.indexInLevel} by {puz.creator}
+          <Difficulty />
         </div>
       </div>
     </div>
