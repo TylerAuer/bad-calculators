@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import getPuzzleDifficulties from '../functions/getPuzzleDifficulties';
 import db from '../orm/models';
 
 /**
@@ -11,7 +12,16 @@ export default async function (
 ) {
   const { id } = req.params;
 
-  const puz = await db.BC_Puzzle.findByPk(id);
+  // Run requests in parallel
+  const [puz, difficulty] = await Promise.all([
+    db.BC_Puzzle.findByPk(id),
+    getPuzzleDifficulties(),
+  ]);
 
-  puz ? res.send(puz) : res.status(404).send(`Puzzle ${id} does not exist`);
+  if (!puz) res.status(404).send(`Puzzle ${id} does not exist`);
+  if (!difficulty) res.status(404).send(`Error getting puzzle difficulty`);
+
+  puz.dataValues.difficulty = difficulty[id];
+
+  res.send(puz);
 }
