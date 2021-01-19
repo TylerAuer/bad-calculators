@@ -26,8 +26,7 @@ interface PuzzleDifficulties {
     ordinal: number;
     raw: number;
     discrete: number;
-    countOfPuzzles: number;
-  };
+  } | null;
 }
 
 export default async function getPuzzleDifficulties(): Promise<PuzzleDifficulties> {
@@ -72,11 +71,15 @@ async function computePuzzleDifficulties() {
   let minDifficulty = Infinity;
   let maxDifficulty = -Infinity;
   let sumOfAllDifficulties = 0;
+  const puzzlesWithoutDifficulty: number[] = [];
 
   puzzleDataFlat.forEach((puz) => {
     const puzStats = calculatePuzDifficultyStats(puz);
 
-    if (puzStats.enoughDataToUse) {
+    if (!puzStats) {
+      puzzlesWithoutDifficulty.push(puz.id);
+      return;
+    } else {
       // Update general stats
       minDifficulty = Math.min(minDifficulty, puzStats.goalsPerAttempt);
       maxDifficulty = Math.max(maxDifficulty, puzStats.goalsPerAttempt);
@@ -86,14 +89,16 @@ async function computePuzzleDifficulties() {
     listOfPuzzleStats.push(puzStats);
   });
 
-  const meanDifficulty = sumOfAllDifficulties / puzzleDataFlat.length;
-  const rangeOfDifficulty = maxDifficulty - minDifficulty;
+  // const meanDifficulty = sumOfAllDifficulties / puzzleDataFlat.length;
+  // const rangeOfDifficulty = maxDifficulty - minDifficulty;
 
   // Sort with easiest puzzles first
   listOfPuzzleStats.sort((a, b) => b.goalsPerAttempt - a.goalsPerAttempt);
 
+  // Holder of difficulty map to return
   const puzzleDifficulties: PuzzleDifficulties = {};
 
+  // Add puzzles with difficulty to map
   for (let i = 0; i < listOfPuzzleStats.length; i++) {
     const puz = listOfPuzzleStats[i];
     const puzCount = listOfPuzzleStats.length;
@@ -103,22 +108,25 @@ async function computePuzzleDifficulties() {
       ordinal: puzCount - i,
       raw: puz.goalsPerAttempt,
       discrete: Math.floor(1 + i / diffGroupSize),
-      countOfPuzzles: puzCount,
     };
   }
+
+  // Add puzzles without difficulty to the map
+  puzzlesWithoutDifficulty.forEach((id) => (puzzleDifficulties[id] = null));
 
   return puzzleDifficulties;
 }
 
-function calculatePuzDifficultyStats(puz) {
+interface PuzzleStats {
+  id: number;
+  goalsPerAttempt: number;
+}
+
+function calculatePuzDifficultyStats(puz): PuzzleStats | null {
   // Handle puzzle that has not been solved or attempted
   // Will occur right after a puzzle is added to the DB
-  if (puz.totalAttempts === 0 || puz.totalSuccesses === 0) {
-    return {
-      id: puz.id,
-      goalsPerAttempt: 8, // Set to 8 because that's the max goals / attempt
-      enoughDataToUse: false,
-    };
+  if (puz.totalAttempts < 300 || puz.totalSuccesses < 100) {
+    return null;
   }
 
   const goalCounts = [
@@ -132,11 +140,14 @@ function calculatePuzDifficultyStats(puz) {
     puz.goal7EarnedCount,
   ].filter((count) => count !== 0);
 
+  if (!goalCounts.length) {
+    return null;
+  }
+
   const totalGoalCount = goalCounts.reduce((prev, curr) => prev + curr);
 
   return {
     id: puz.id,
     goalsPerAttempt: totalGoalCount / puz.totalAttempts,
-    enoughDataToUse: true,
   };
 }

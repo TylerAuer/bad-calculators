@@ -7,7 +7,7 @@ export default function Difficulty() {
   const puz = useRecoilValue(puzzle);
 
   if (!puz || !puz.difficulty) {
-    return <div></div>;
+    return <div className="difficulty">Difficulty: more data needed 🤷‍♂️ </div>;
   }
 
   const emojiForLevel: { [key: number]: string } = {
@@ -24,12 +24,9 @@ export default function Difficulty() {
 
   return (
     <div className="difficulty">
+      <div>{puz.difficulty.raw.toFixed(2)} stars / attempt</div>
       <div>
-        {ordinal(puz.difficulty.ordinal)} hardest of{' '}
-        {puz.difficulty.countOfPuzzles} puzzles
-      </div>
-      <div>
-        {puz.difficulty.raw.toFixed(2)} stars / attempt {emoji}
+        {ordinal(puz.difficulty.ordinal)} hardest {emoji}
       </div>
     </div>
   );
