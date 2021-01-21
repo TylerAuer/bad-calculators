@@ -13,7 +13,6 @@ Extremely puzzling and unhelpful devices
 
 ### Maintenance + DevOps
 
-- Refactor `npm run spin` script to wait until server is built before starting watch modes
 - Extract API paths to an interface so it only needs to be changed in one location
 - Walk through code for opportunities to simplify / refactor to make code more DRY and orthoganal
 - Add integration tests
@@ -22,26 +21,22 @@ Extremely puzzling and unhelpful devices
 
 - Add custom error messages for invalid inputs or outputs (ex: -1!)
 - Animate stars for success modal
-- Stats page with overall difficulty of puzzles
 - Add puzzle builder
 - Add tooltips or similar for non-arithmetic operations
 - Handle puzzles marked as "disabled"
 - Custom CSS (colors) for each level
-- Make it so you can't highlight text in ResolveModal
 - Add operations and tips page
   - Work backwards
   - Use pencil/pen and paper
   - Draw a graph
   - Be systematic so you can learn from your fails
 - Make privacy page accessible
-- Calculate puzzle stats (maybe show on puzzle)
 - Overall stats page (difficulty, whether a person has solved it)
 
 ### Bugs
 
 - Improve precision of floating point arithmetic
 - Handle missing or unloaded profile pic
-- Count overall data correctly for email
 
 ## Ideas
 

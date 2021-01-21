@@ -1,7 +1,7 @@
 import { TrackAttemptStatus } from '../structs/track';
 import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { puzzle, puzzleStates } from '../state/puzzle';
 import { isModalOpen } from '../state/ui';
 import { attemptStatus } from '../state/track';
@@ -17,6 +17,7 @@ import Spinner from '../Spinner';
 import MoveCount from './MoveCount';
 import Difficulty from './Difficulty';
 import './index.scss';
+import LevelAndPuzzle from './LevelAndPuzzle';
 
 interface Params {
   puz_id: string;
@@ -71,10 +72,8 @@ export default function PuzzlePage() {
         <CalcFunctions />
       </div>
       <div className="calc__below">
-        <Link to={`/level/${puz.level}`}>Level {puz.level}</Link>
-        <div>
-          <Difficulty />
-        </div>
+        <LevelAndPuzzle />
+        <Difficulty />
       </div>
     </div>
   );
