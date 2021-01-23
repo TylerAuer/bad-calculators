@@ -1,5 +1,6 @@
 import { EmailStyles } from './emailStyles';
 import { AlphaAnalyticsDataClient } from '@google-analytics/data';
+import getPuzzleDifficulties from '../functions/getPuzzleDifficulties';
 
 const propertyId = '257338238';
 
@@ -56,6 +57,7 @@ export default async function generateAudienceData(
 
   const sortedPuzData = sortPuzzleData(puzData);
   const puzzleStats: { [id: string]: DBPuzData } = {};
+  const puzDifficultyStats = await getPuzzleDifficulties();
 
   puzDataFromDB.forEach((puz) => {
     const successPercent =
@@ -85,6 +87,7 @@ export default async function generateAudienceData(
        * crashes. This check prevents that.
        */
       if (!puzzleStats[puzId]) return '';
+      if (!puzDifficultyStats[puzId]) return '';
 
       const lvlAndIndex = `${puzzleStats[puzId].level}-${puzzleStats[puzId].indexInLevel}`;
 
@@ -95,6 +98,7 @@ export default async function generateAudienceData(
       const lastMonthPageViews = d[1].lastMonth.screenPageViews.toLocaleString();
       const lastWeekPageViews = d[1].lastWeek.screenPageViews.toLocaleString();
       const yesterdayPageViews = d[1].yesterday.screenPageViews.toLocaleString();
+      const difficulty = puzDifficultyStats[puzId];
 
       return `
         <tr>
@@ -111,9 +115,12 @@ export default async function generateAudienceData(
             ${yesterdayUsers} / ${yesterdayPageViews}
           </td>
           <td ${EmailStyles.TableCell}>
-            ${puzzleStats[puzId].successPercent.toPrecision(3)}%
+            ${difficulty ? difficulty.ordinal : 'Not enough data'}
           </td>
-        </tr>
+          <td ${EmailStyles.TableCell}>
+            ${difficulty ? difficulty.raw.toFixed(2) : 'Not enough data'}
+          </td>
+          </tr>
     `;
     })
     .join('');
@@ -126,7 +133,8 @@ export default async function generateAudienceData(
         <th ${EmailStyles.TableCell}>Last Month<br>(users / views)</th>
         <th ${EmailStyles.TableCell}>Last Week<br>(users / views)</th>
         <th ${EmailStyles.TableCell}>Yesterday<br>(users / views)</th>
-        <th ${EmailStyles.TableCell}>Success %</th>
+        <th ${EmailStyles.TableCell}>Difficulty Rank</th>
+        <th ${EmailStyles.TableCell}>Stars / Attempt</th>
       </tr>
       ${puzRows}
     </table>
