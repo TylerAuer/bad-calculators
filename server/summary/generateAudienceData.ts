@@ -76,6 +76,16 @@ export default async function generateAudienceData(
       const path = d[0];
       const url = 'http://badcalculators.com' + path;
       const puzId = path.match(/\/#\/puzzle\/(\d*)/)![1];
+
+      /**
+       * If a user tries to visit a puzzle id that isn't an actual puzzle, the
+       * site redirects to /#/puzzle/0 but Google Analytics still logs the page
+       * view as, for example, /#/puzzle/4500. So, when this function tries to
+       * look up the stats for puzzle 4500 it is undefined and this function
+       * crashes. This check prevents that.
+       */
+      if (!puzzleStats[puzId]) return '';
+
       const lvlAndIndex = `${puzzleStats[puzId].level}-${puzzleStats[puzId].indexInLevel}`;
 
       const lastMonthUsers = d[1].lastMonth.totalUsers.toLocaleString();
