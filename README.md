@@ -40,9 +40,9 @@ Extremely puzzling and unhelpful devices
 
 ## Ideas
 
-- Buttons with hidden functions. So users have to deduce what the function is. Will be most fun if you play with this where start value is 2 and the output of any of the buttons is 4 because 2 + 2 = 4, 2 * 2 = 4 and 2 ^ 2 = 4.
+- Buttons with hidden functions. So users have to deduce what the function is. Will be most fun if you play with this where start value is 2 and the output of any of the buttons is 4 because 2 + 2 = 4, 2 \* 2 = 4 and 2 ^ 2 = 4.
 - Buttons that change value over time. So, the first time you push the button it is +1 then +2 then +3...
-- Buttons with multiple functions +3 *2
+- Buttons with multiple functions +3 \*2
 
 ## Development
 

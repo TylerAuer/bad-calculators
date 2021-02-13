@@ -4,8 +4,8 @@ jobs:
   jest_unit_tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: npm i
-    - name: Run Jest tests
-      run: npm test
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm i
+      - name: Run Jest tests
+        run: npm test
