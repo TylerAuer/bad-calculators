@@ -4,20 +4,20 @@ jobs:
   validate_solutions:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: npm i
-    - name: Convert ts --> js
-      run: tsc
-    - name: Check puzzles
-      run: node public/utils/validatePuzzleSolutions.js
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm i
+      - name: Convert ts --> js
+        run: tsc
+      - name: Check puzzles
+        run: node public/utils/validatePuzzleSolutions.js
   check_ids:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install modules
-      run: npm i
-    - name: Convert ts --> js
-      run: tsc
-    - name: Check puzzles
-      run: node public/utils/pre-commit.js
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm i
+      - name: Convert ts --> js
+        run: tsc
+      - name: Check puzzles
+        run: node public/utils/pre-commit.js
