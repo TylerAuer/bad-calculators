@@ -4,4 +4,6 @@
 .env
 app/.eslintcache
 google-credentials.json
-cypress/integration/examples
+cypress_examples/
+cypress/videos
+cypress/screenshots

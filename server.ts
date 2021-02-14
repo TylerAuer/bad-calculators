@@ -2,7 +2,6 @@ import connectToDb from './server/init/connectToDb';
 import syncPuzzles from './server/init/syncPuzzles';
 import configureServer from './server/init/configureServer';
 import startCronJobs from './server/init/startCronJobs';
-import calcLevelDifficulties from './server/functions/getPuzzleDifficulties';
 
 startServer();
 
