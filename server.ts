@@ -3,6 +3,10 @@ import syncPuzzles from './server/init/syncPuzzles';
 import configureServer from './server/init/configureServer';
 import startCronJobs from './server/init/startCronJobs';
 
+console.log('ENVIRONMENT VARIABLES');
+console.log(process.env.GOOGLE_CLIENT_ID);
+console.log(process.env.GOOGLE_CLIENT_SECRET);
+
 startServer();
 
 async function startServer() {
