@@ -35,3 +35,7 @@ export const puzzle: Puzzle = {
     },
   ],
 };
+
+export const givenSolutions = [
+  [...new Array(36).fill(0), 1, ...new Array(8).fill(0), 1],
+];
