@@ -172,6 +172,39 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
+    case OpType.look_and_say: {
+      const op = (prev: number) => {
+        if (prev % 1 !== 0) return OpError.LOOK_AND_SAY_DECIMAL;
+
+        const isNegative = prev < 0; // Note if number is negative
+        const arr = Math.abs(prev).toString().split(''); //Split by digit
+
+        // Group by repeated digits ( ex: 112223 -> ['111', '222', '3'] )
+        const a: string[] = [];
+        let prevDigit = '!!!!!!'; // Placeholder to ensure no matches
+        for (let i = 0; i < arr.length; i++) {
+          const currDigit = arr[i];
+
+          currDigit === prevDigit
+            ? (a[a.length - 1] += currDigit)
+            : a.push(currDigit);
+
+          prevDigit = currDigit;
+        }
+
+        // Condense group into 2-digits (count)(digit)
+        const result = parseInt(
+          a.map((group) => `${group.length}${group[0]}`).join(''),
+          10
+        );
+
+        return isNegative ? -1 * result : result;
+      };
+
+      const text = 'Look & Say';
+      return { text, op, limit };
+    }
+
     default:
       throw new Error(
         'Invalid symbol passed in info.symbol of puzzle definition'
