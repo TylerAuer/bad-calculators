@@ -180,8 +180,8 @@ export default function genOpBtnTextAndOp({
         const arr = Math.abs(prev).toString().split(''); //Split by digit
 
         // Group by repeated digits ( ex: 112223 -> ['111', '222', '3'] )
-        const a = [];
-        let prevDigit = null;
+        const a: string[] = [];
+        let prevDigit = '!!!!!!'; // Placeholder to ensure no matches
         for (let i = 0; i < arr.length; i++) {
           const currDigit = arr[i];
 
