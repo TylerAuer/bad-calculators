@@ -92,6 +92,7 @@ export default function findSolutions(
       if (!solutions[moveCount]) solutions[moveCount] = [];
 
       solutions[moveCount].push(cur!);
+      continue;
     }
 
     // Passed Max Depth
