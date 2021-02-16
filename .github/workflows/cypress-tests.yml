@@ -12,7 +12,8 @@ jobs:
           build: npm run build
           start: node public/server.js
           wait-on: 'http://localhost:4000'
+          env: true
         env: 
-          COOKIE_SESSIONS_SECRET: ${{ secrets.COOKIE_SESSIONS_SECRET }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          COOKIE_SESSIONS_SECRET: ${{secrets.COOKIE_SESSIONS_SECRET}}
+          GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+          GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
