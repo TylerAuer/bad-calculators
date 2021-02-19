@@ -23,6 +23,7 @@ export enum OpType {
   'concat_end' = 'concatenate to end',
   'reverse' = 'reverse the digits',
   'tet' = 'tetration',
+  'look_and_say' = 'look and say',
 }
 
 export interface OpInfo {
@@ -34,6 +35,7 @@ export interface OpInfo {
 export enum OpError {
   'BASE_INVALID_DIGIT' = 'Invalid Digit: Converting bases resulted in a digit that was a letter instead of a number.',
   'BASE_NON_INTEGERS' = 'Invalid Input: This calculator does not support converting non-integers between bases.',
+  'LOOK_AND_SAY_DECIMAL' = 'Invalid Input: Look and Say can only work with integers.',
 }
 
 export interface ProcessedOp {
