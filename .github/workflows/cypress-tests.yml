@@ -1,9 +1,9 @@
 name: Cypress tests
 on: [push]
 jobs:
-  start-postgres:
-    runs-on: ubuntu-latest
-
+  cypress-run:
+    runs-on: ubuntu-16.04
+    
     services:
       postgres:
         image: postgres:10.11
@@ -17,9 +17,6 @@ jobs:
         options:
           --health-cmd pg_isready --health-interval 10s --health-timeout 5s
           --health-retries 5
-
-  cypress-run:
-    runs-on: ubuntu-16.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
