@@ -16,12 +16,9 @@ jobs:
 
       - name: Compile TS --> JS then Build React App
         run: npm run build
-      
-      - name: Echo env vars
-        run: echo env
 
       - name: Spin up server
-        run: node public/server.js
+        run: GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} node public/server.js
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
