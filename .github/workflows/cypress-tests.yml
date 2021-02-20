@@ -2,28 +2,19 @@ name: Cypress tests
 on: [pull_request]
 jobs:
   cypress-run:
-    runs-on: ubuntu-16.04
-    env: 
-      COOKIE_SESSIONS_SECRET: ${{ secrets.COOKIE_SESSIONS_SECRET }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Install dependencies
-        run: npm install
+        uses: actions/checkout@v1
 
-      - name: Compile TS --> JS then Build React App
-        run: npm run build
-
-      - name: Spin up server
-        run: GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} node public/server.js
-
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      - name: Cypress.io
+        uses: cypress-io/github-action@v1.16.1
         with:
-          install: false
-          wait-on: 'http://localhost:4000/'
-          record: true
-          parallel: true
+          build: npm run build
+          start: npm start
+          wait-on: http://localhost:3000
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          COOKIE_SESSIONS_SECRET: ${{ secrets.COOKIE_SESSIONS_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}

@@ -1,4 +1,4 @@
-name: Check Puzzles
+name: Validate Puzzle Solutions and IDs
 on: [pull_request]
 jobs:
   validate_solutions:
