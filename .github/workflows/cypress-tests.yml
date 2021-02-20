@@ -4,9 +4,9 @@ jobs:
   cypress-run:
     runs-on: ubuntu-16.04
     env: 
-      COOKIE_SESSIONS_SECRET: ${{secrets.COOKIE_SESSIONS_SECRET}}
-      GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
-      GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+      COOKIE_SESSIONS_SECRET: ${{ secrets.COOKIE_SESSIONS_SECRET }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,6 +16,9 @@ jobs:
 
       - name: Compile TS --> JS then Build React App
         run: npm run build
+      
+      - name: Echo env vars
+        run: echo env
 
       - name: Spin up server
         run: node public/server.js

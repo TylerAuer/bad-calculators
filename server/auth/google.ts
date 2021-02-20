@@ -3,12 +3,11 @@ import passport from 'passport';
 import handleSignIn from './handleSignIn';
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-console.log('env. var. PORT from server.ts', process.env.PORT);
-console.log('!!!!!!!!!!!!!!!!!');
-console.log('!!!!!!!!!!!!!!!!!');
+console.log('env. var. PORT from server.ts is:', process.env.PORT, '.');
 console.log(
   'GOOGLE_CLIENT_ID TRIMMED',
-  process.env.GOOGLE_CLIENT_ID?.substring(0, 3)
+  process.env.GOOGLE_CLIENT_ID?.substring(0, 3),
+  '.'
 );
 
 passport.use(
