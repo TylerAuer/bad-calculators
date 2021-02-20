@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
       - name: Compile TypeScript and Build App
         run: npm run build
       - name: Start server
@@ -16,12 +18,8 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        # with:
-        #   build: npm run build
-        #   start: node public/server.js
-        #   wait-on: 'http://localhost:4000'
-        #   env: true
-        # env: 
-        #   COOKIE_SESSIONS_SECRET: ${{secrets.COOKIE_SESSIONS_SECRET}}
-        #   GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
-        #   GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+        with:
+          install: false
+          wait-on: 'http://localhost:4000/'
+          record: true
+          parallel: true
