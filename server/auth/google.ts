@@ -8,7 +8,7 @@ console.log('!!!!!!!!!!!!!!!!!');
 console.log('!!!!!!!!!!!!!!!!!');
 console.log(
   'GOOGLE_CLIENT_ID TRIMMED',
-  process.env.GOOGLE_CLIENT_ID?.substring(0, 10)
+  process.env.GOOGLE_CLIENT_ID?.substring(0, 3)
 );
 
 passport.use(

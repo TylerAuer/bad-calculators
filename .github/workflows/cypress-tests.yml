@@ -15,7 +15,8 @@ jobs:
         env: 
           COOKIE_SESSIONS_SECRET: ${{secrets.COOKIE_SESSIONS_SECRET}}
           GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
-          GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+          # GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+          GOOGLE_CLIENT_SECRET: FAKE_TO_TEST
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
