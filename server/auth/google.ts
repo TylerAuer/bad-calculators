@@ -5,11 +5,10 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 console.log('!!!!!!!!!!!!!!!!!');
 console.log('!!!!!!!!!!!!!!!!!');
-console.log('!!!!!!!!!!!!!!!!!');
-console.log('!!!!!!!!!!!!!!!!!');
-console.log('!!!!!!!!!!!!!!!!!');
-console.log(!!process.env.GOOGLE_CLIENT_ID);
-console.log(process.env.GOOGLE_CLIENT_ID?.substring(0, 10));
+console.log(
+  'GOOGLE_CLIENT_ID TRIMMED',
+  process.env.GOOGLE_CLIENT_ID?.substring(0, 10)
+);
 
 passport.use(
   new GoogleStrategy(

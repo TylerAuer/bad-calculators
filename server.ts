@@ -8,6 +8,8 @@ startServer();
 async function startServer() {
   const port = process.env.PORT || 4000;
 
+  console.log('env. var. PORT from server.ts', process.env.PORT);
+
   // Connect to DB and create a table for sessions which then needs to
   // be passed to the server's configuration
   const sessionStore = await connectToDb();
