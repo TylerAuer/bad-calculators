@@ -3,6 +3,7 @@ import passport from 'passport';
 import handleSignIn from './handleSignIn';
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
+console.log('env. var. PORT from server.ts', process.env.PORT);
 console.log('!!!!!!!!!!!!!!!!!');
 console.log('!!!!!!!!!!!!!!!!!');
 console.log(
