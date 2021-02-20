@@ -18,7 +18,7 @@ describe('has properties', () => {
 });
 
 describe('text formatting', () => {
-  test('text is las', () => {
+  test('text is "Look & Say"', () => {
     expect(las.text).toBe('Look & Say');
   });
 });
