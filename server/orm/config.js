@@ -7,6 +7,13 @@ module.exports = {
     dialect: 'postgres',
     logging: false,
   },
+  CI: {
+    username: 'postgres',
+    password: 'postgres',
+    database: 'postgres',
+    port: 5432,
+    dialect: 'postgres',
+  },
   production: {
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
