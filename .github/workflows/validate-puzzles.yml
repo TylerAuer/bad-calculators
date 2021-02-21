@@ -1,5 +1,5 @@
 name: Validate Puzzle Solutions and IDs
-on: [pull_request]
+on: [push]
 jobs:
   validate_solutions:
     runs-on: ubuntu-latest

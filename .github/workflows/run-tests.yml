@@ -1,5 +1,5 @@
 name: Run tests
-on: [pull_request]
+on: [push]
 jobs:
   jest_unit_tests:
     runs-on: ubuntu-latest
