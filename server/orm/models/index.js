@@ -4,13 +4,14 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require('../config')[env];
 const db = {};
 
 let sequelize;
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config')[env];
+
 // checks if env is Heroku, if so, sets sequelize to utilize the database hosted on heroku
-if (process.env.DATABASE_URL) {
+if (env === 'production') {
   // the application is executed on Heroku ... use the postgres database
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
