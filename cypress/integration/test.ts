@@ -1,3 +1,0 @@
-it('Working', () => {
-  cy.visit('/');
-});
