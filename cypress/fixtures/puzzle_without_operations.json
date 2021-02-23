@@ -1,0 +1,16 @@
+{
+  "id": 0,
+  "level": 1,
+  "indexInLevel": 1,
+  "disabled": false,
+  "creator": "Tyler",
+  "maxMoves": null,
+  "stars": [
+    {
+      "moves": null
+    }
+  ],
+  "blocks": [],
+  "createdAt": "2020-12-12T21: 32: 21.698Z",
+  "updatedAt": "2021-02-23T02: 41: 02.745Z"
+}
