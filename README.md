@@ -6,32 +6,30 @@ Extremely puzzling and unhelpful devices
 
 [Bad Calculators](https://www.badcalculators.com/#/) is a collection of puzzles. Each puzzle has a start and target number which you must reach by pushing buttons on a calculator. But, these aren't normal calculators, they only have a few buttons.
 
-## To Do
+## ROADMAP
 
-- Stop users from being able to select text on calculator
-- Add overview of buttons below calculator
-
-### Maintenance + DevOps
-
-- Extract API paths to an interface so it only needs to be changed in one location
-- Walk through code for opportunities to simplify / refactor to make code more DRY and orthoganal
-- Add integration tests
-
-### UI + Puzzles
-
-- Add custom error messages for invalid inputs or outputs (ex: -1!)
-- Animate stars for success modal
-- Add puzzle builder
-- Add tooltips or similar for non-arithmetic operations
-- Handle puzzles marked as "disabled"
-- Custom CSS (colors) for each level
-- Add operations and tips page
+- Build out unit, integration, and e2e testing
+- Finish implementing all operations
+- Add helper info to puzzles and operations
+- Handle landing page redirects more elegently
+- Handle missing or unloaded profile pic
+- Change from levels to a single page of puzzles, sortable by traits
+- Add Privacy Page
+- Add Strategy and tips page
   - Work backwards
   - Use pencil/pen and paper
   - Draw a graph
   - Be systematic so you can learn from your fails
-- Make privacy page accessible
-- Overall stats page (difficulty, whether a person has solved it)
+- Improve styling for operations (radicals and exponets)
+- Add animations
+- Add ability to disable puzzles
+- Add lesson plan suggestions for teachers
+- Add puzzle builder page
+
+## To Do
+
+- Stop users from being able to select text on calculator
+- Add overview of buttons below calculator
 
 ### Bugs
 
