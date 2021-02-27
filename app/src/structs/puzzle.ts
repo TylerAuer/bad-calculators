@@ -36,6 +36,7 @@ export enum OpError {
   'BASE_INVALID_DIGIT' = 'Invalid Digit: Converting bases resulted in a digit that was a letter instead of a number.',
   'BASE_NON_INTEGERS' = 'Invalid Input: This calculator does not support converting non-integers between bases.',
   'LOOK_AND_SAY_DECIMAL' = 'Invalid Input: Look and Say can only work with integers.',
+  'DIVIDE_BY_ZERO' = 'Undefined: Dividing by zero is undefined and cannot be processed by this Bad Calculator',
 }
 
 export interface ProcessedOp {
