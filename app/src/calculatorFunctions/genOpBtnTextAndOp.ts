@@ -172,6 +172,19 @@ export default function genOpBtnTextAndOp({
       return { text, op, limit };
     }
 
+    case OpType.expo_base: {
+      const op = (prev: number) => {
+        if (value === 0 && prev < 0) {
+          return OpError.DIVIDE_BY_ZERO;
+        }
+
+        return handleFloats(value ** prev);
+      };
+
+      const text = `${value}^n`;
+      return { text, op, limit };
+    }
+
     case OpType.look_and_say: {
       const op = (prev: number) => {
         if (prev % 1 !== 0) return OpError.LOOK_AND_SAY_DECIMAL;
