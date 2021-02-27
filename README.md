@@ -6,43 +6,25 @@ Extremely puzzling and unhelpful devices
 
 [Bad Calculators](https://www.badcalculators.com/#/) is a collection of puzzles. Each puzzle has a start and target number which you must reach by pushing buttons on a calculator. But, these aren't normal calculators, they only have a few buttons.
 
-## To Do
+## ROADMAP
 
-- Stop users from being able to select text on calculator
-- Add overview of buttons below calculator
-
-### Maintenance + DevOps
-
-- Extract API paths to an interface so it only needs to be changed in one location
-- Walk through code for opportunities to simplify / refactor to make code more DRY and orthoganal
-- Add integration tests
-
-### UI + Puzzles
-
-- Add custom error messages for invalid inputs or outputs (ex: -1!)
-- Animate stars for success modal
-- Add puzzle builder
-- Add tooltips or similar for non-arithmetic operations
-- Handle puzzles marked as "disabled"
-- Custom CSS (colors) for each level
-- Add operations and tips page
+- Build out unit, integration, and e2e testing
+- Finish implementing all operations
+- Add helper info to puzzles and operations
+- Handle landing page redirects more elegently
+- Handle missing or unloaded profile pic
+- Change from levels to a single page of puzzles, sortable by traits
+- Add Privacy Page
+- Add Strategy and tips page
   - Work backwards
   - Use pencil/pen and paper
   - Draw a graph
   - Be systematic so you can learn from your fails
-- Make privacy page accessible
-- Overall stats page (difficulty, whether a person has solved it)
-
-### Bugs
-
-- Improve precision of floating point arithmetic
-- Handle missing or unloaded profile pic
-
-## Ideas
-
-- Buttons with hidden functions. So users have to deduce what the function is. Will be most fun if you play with this where start value is 2 and the output of any of the buttons is 4 because 2 + 2 = 4, 2 \* 2 = 4 and 2 ^ 2 = 4.
-- Buttons that change value over time. So, the first time you push the button it is +1 then +2 then +3...
-- Buttons with multiple functions +3 \*2
+- Improve styling for operations (radicals and exponets)
+- Add animations
+- Add ability to disable puzzles
+- Add lesson plan suggestions for teachers
+- Add puzzle builder page
 
 ## Development
 
@@ -55,7 +37,7 @@ Ideally this script is run automatically by adding it to `git/hooks/pre-commit`.
 ### Utilities
 
 - `npm run stats` - Logs total number of puzzles, puzzles by level, and number of buttons with each operation across all puzzles.
-- `npm run solve` - Solve the problem imported in /puzzles/findSolutions.ts
+- `npm run solve` - Pass in a filename from the puzzle directory and the script will solve it (up to the number of moves you specify). Can be rerun after changing the files but without needing to reenter information.
 
 ### Builds
 
@@ -66,3 +48,4 @@ Ideally this script is run automatically by adding it to `git/hooks/pre-commit`.
 - `npm run spin` - Starts backend in watch mode for development
 - `npm run start` - Starts frontend in watch mode for development
 - `npm run test` - Run Jest unit tests
+- `npx cypress open` - Open Cypress test manager

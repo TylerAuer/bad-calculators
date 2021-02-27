@@ -1,0 +1,29 @@
+{
+  "id": 0,
+  "level": 1,
+  "indexInLevel": 1,
+  "disabled": false,
+  "creator": "Tyler",
+  "start": 1,
+  "target": 10,
+  "maxMoves": null,
+  "operations": [
+    {
+      "symbol": "addition",
+      "value": 1
+    }
+  ],
+  "stars": [
+    {
+      "moves": null
+    }
+  ],
+  "blocks": [],
+  "createdAt": "2020-12-12T21: 32: 21.698Z",
+  "updatedAt": "2021-02-23T02: 41: 02.745Z",
+  "difficulty": {
+    "ordinal": 33,
+    "raw": 1.6184549356223177,
+    "discrete": 1
+  }
+}
