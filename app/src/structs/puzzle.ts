@@ -12,17 +12,17 @@ export enum OpType {
   'expo_base' = 'exponentiation with fixed base',
   'mod' = 'modulo',
   'fact' = 'factorial',
-  'root' = 'root',
-  'floor' = 'floor',
-  'ceil' = 'ceiling',
+  'root' = 'root', // Not yet built
+  'floor' = 'floor', // Not yet built
+  'ceil' = 'ceiling', // Not yet built
   'base' = 'base conversion',
   'collatz' = 'collatz',
-  'recip' = 'reciprocal',
+  'recip' = 'reciprocal', // Not yet built
   'abs' = 'absolute value',
-  'concat_front' = 'concatenate to front',
-  'concat_end' = 'concatenate to end',
+  'concat_front' = 'concatenate to front', // Not yet built
+  'concat_end' = 'concatenate to end', // Not yet built
   'reverse' = 'reverse the digits',
-  'tet' = 'tetration',
+  'tet' = 'tetration', // Not yet built
   'look_and_say' = 'look and say',
 }
 
