@@ -1,7 +1,7 @@
 import { OpType, Puzzle } from '../app/src/structs/puzzle';
 
 export const puzzle: Puzzle = {
-  id: 33,
+  id: 34,
   level: 4,
   indexInLevel: 8,
   disabled: false,
@@ -21,6 +21,7 @@ export const puzzle: Puzzle = {
     {
       symbol: OpType.expo_base,
       value: 10,
+      limit: 3,
     },
   ],
   blocks: [],
@@ -30,7 +31,11 @@ export const puzzle: Puzzle = {
       goalRelation: 'exactly',
     },
     {
-      moves: 3,
+      moves: 4,
+      goalRelation: 'exactly',
+    },
+    {
+      moves: 5,
       goalRelation: 'exactly',
     },
   ],
