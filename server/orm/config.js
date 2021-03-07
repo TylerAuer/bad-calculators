@@ -24,5 +24,11 @@ module.exports = {
     operatorsAliases: 0,
     logging: false,
     ssl: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
 };
