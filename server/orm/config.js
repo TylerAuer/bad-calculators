@@ -23,5 +23,6 @@ module.exports = {
     dialect: 'postgres',
     operatorsAliases: 0,
     logging: false,
+    ssl: true,
   },
 };
