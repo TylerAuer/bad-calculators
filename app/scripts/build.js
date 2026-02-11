@@ -158,9 +158,17 @@ function build(previousFileSizes) {
           warnings: [],
         });
       } else {
-        messages = formatWebpackMessages(
-          stats.toJson({ all: false, warnings: true, errors: true })
-        );
+        // webpack 5 returns errors/warnings as objects; normalize to strings
+        // for react-dev-utils v11 compatibility.
+        const rawMessages = stats.toJson({ all: false, warnings: true, errors: true });
+        messages = formatWebpackMessages({
+          errors: rawMessages.errors.map((e) =>
+            typeof e === 'string' ? e : e.message
+          ),
+          warnings: rawMessages.warnings.map((w) =>
+            typeof w === 'string' ? w : w.message
+          ),
+        });
       }
       if (messages.errors.length) {
         // Only keep the first error. Others are often indicative
